@@ -1,5 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
-
+import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 //import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -35,11 +36,11 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAG
 
-package com.qualcomm.ftcrobotcontroller.opmodes;
+//package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
+//import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+//import com.qualcomm.robotcore.hardware.DcMotor;
+//import com.qualcomm.robotcore.hardware.DcMotorController;
 
 /*
  * An example linear op mode where the pushbot
@@ -47,31 +48,23 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
  * and a for loop.
  */
 public class thing extends LinearOpMode {
-    DcMotor leftMotor;
-    DcMotor rightMotor;
-
+    //DcMotor leftMotor;
+    //DcMotor rightMotor;
+    boolean testgyro = true;
+    GyroSensor gyro;
+    DeviceInterfaceModule cdim;
     @Override
     public void runOpMode() throws InterruptedException {
-        leftMotor = hardwareMap.dcMotor.get("motor_1");
-        rightMotor = hardwareMap.dcMotor.get("motor_2");
-        rightMotor.setDirection(DcMotor.Direction.REVERSE);
-
-
+        hardwareMap.logDevices();
+        cdim = hardwareMap.deviceInterfaceModule.get("dim");
+        //leftMotor = hardwareMap.dcMotor.get("motor_1");
+        //rightMotor = hardwareMap.dcMotor.get("motor_2");
+        //rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        gyro = hardwareMap.gyroSensor.get("gyro");
         waitForStart();
-
-            leftMotor.setPower(1.0);
-            rightMotor.setPower(1.0);
-
-        sleep(1000);
-
-            leftMotor.setPower(-1.0);
-            rightMotor.setPower(-1.0);
-
-        sleep(1000);
-
-            leftMotor.setPower(0);
-            rightMotor.setPower(0);
-
-
+        while(testgyro) {
+            System.out.println(Double.toString(gyro.getRotation()));
+            sleep(100);
+        }
     }
 }
