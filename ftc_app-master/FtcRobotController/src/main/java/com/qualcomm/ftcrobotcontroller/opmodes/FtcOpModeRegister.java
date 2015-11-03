@@ -62,6 +62,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register ("PushBotManual", PushBotManual.class);
     manager.register ("K9TankDrive", K9TankDrive.class);
     manager.register ("thing", thing.class);
+    manager.register ("ColorSensorDriver", ColorSensorDriver.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */

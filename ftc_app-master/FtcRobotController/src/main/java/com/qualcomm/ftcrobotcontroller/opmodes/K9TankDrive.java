@@ -51,8 +51,8 @@ public class K9TankDrive extends OpMode {
     // TETRIX VALUES.
     final static double ARM_MIN_RANGE  = 0.20;
     final static double ARM_MAX_RANGE  = 0.90;
-    final static double CLAW_MIN_RANGE  = 0.20;
-    final static double CLAW_MAX_RANGE  = 0.7;
+//    final static double CLAW_MIN_RANGE  = 0.20;
+//    final static double CLAW_MAX_RANGE  = 0.7;
 
 	// position of the arm servo.
 	double armPosition;
@@ -61,14 +61,14 @@ public class K9TankDrive extends OpMode {
 	double armDelta = 0.1;
 
 	// position of the claw servo
-	double clawPosition;
+	//double clawPosition;
 
 	// amount to change the claw servo position by
-	double clawDelta = 0.1;
+	//double clawDelta = 0.1;
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
-	Servo claw;
+	//Servo claw;
 	Servo arm;
 
 	/**
@@ -110,7 +110,7 @@ public class K9TankDrive extends OpMode {
 
 		// assign the starting position of the wrist and claw
 		armPosition = 0.2;
-		clawPosition = 0.2;
+		//clawPosition = 0.2;
 	}
 
 	/*
@@ -160,30 +160,30 @@ public class K9TankDrive extends OpMode {
 		}
 
         // update the position of the claw
-        if (gamepad1.left_bumper) {
-            clawPosition += clawDelta;
-        }
-
-        if (gamepad1.left_trigger > 0.25) {
-            clawPosition -= clawDelta;
-        }
-
-        if (gamepad1.b) {
-            clawPosition -= clawDelta;
-        }
-
-		// update the position of the claw
-		if (gamepad1.x) {
-			clawPosition += clawDelta;
-		}
-
-		if (gamepad1.b) {
-			clawPosition -= clawDelta;
-		}
+//        if (gamepad1.left_bumper) {
+//            clawPosition += clawDelta;
+//        }
+//
+//        if (gamepad1.left_trigger > 0.25) {
+//            clawPosition -= clawDelta;
+//        }
+//
+//        if (gamepad1.b) {
+//            clawPosition -= clawDelta;
+//        }
+//
+//		// update the position of the claw
+//		if (gamepad1.x) {
+//			clawPosition += clawDelta;
+//		}
+//
+//		if (gamepad1.b) {
+//			clawPosition -= clawDelta;
+//		}
 
 		// clip the position values so that they never exceed their allowed range.
 		armPosition = Range.clip(armPosition, ARM_MIN_RANGE, ARM_MAX_RANGE);
-		clawPosition = Range.clip(clawPosition, CLAW_MIN_RANGE, CLAW_MAX_RANGE);
+		//clawPosition = Range.clip(clawPosition, CLAW_MIN_RANGE, CLAW_MAX_RANGE);
 
 		// write position values to the wrist and claw servo
 		arm.setPosition(armPosition);
