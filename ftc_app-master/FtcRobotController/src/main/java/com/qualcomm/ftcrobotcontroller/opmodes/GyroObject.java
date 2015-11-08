@@ -6,10 +6,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 
 
+
 /**
  * Created by Amber on 11/6/2015.
  */
-public class GyroObject {
+public class GyroObject extends LinearOpMode {
+    @Override
+    public void runOpMode() throws InterruptedException {
+
+    }
+
     DcMotor leftMotor;
     DcMotor rightMotor;
     GyroSensor DegreesTurned;

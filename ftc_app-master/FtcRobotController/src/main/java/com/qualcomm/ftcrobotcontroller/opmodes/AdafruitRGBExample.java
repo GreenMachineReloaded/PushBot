@@ -91,7 +91,7 @@ public class AdafruitRGBExample extends LinearOpMode {
     // It's an I2C sensor and it's also an LED that can be turned on or off.
     cdim.setDigitalChannelMode(LED_CHANNEL, DigitalChannelController.Mode.OUTPUT);
 
-    // get a reference to our ColorSensor object.
+    // get a reference to our ColorSensorGMR object.
     sensorRGB = hardwareMap.colorSensor.get("color");
 
     // bEnabled represents the state of the LED.
