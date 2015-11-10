@@ -35,6 +35,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
+import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+//import com.qualcomm.robotcore.hardware.DcMotorController;
 
 /**
  * TeleOp Mode
@@ -58,7 +63,7 @@ public class K9TankDriveServoTest extends OpMode {
 	double armPosition;
 
 	// amount to change the arm servo position.
-	double armDelta = 0.1;
+	double armDelta = 0.01;
 
 	// position of the claw servo
 	//double clawPosition;
@@ -147,17 +152,19 @@ public class K9TankDriveServoTest extends OpMode {
 		motorLeft.setPower(left);
 
 		// update the position of the arm.
-		if (gamepad1.a) {
-			// if the A button is pushed on gamepad1, increment the position of
-			// the arm servo.
-			armPosition += armDelta;
-		}
+//		if (gamepad1.a) {
+//			// if the A button is pushed on gamepad1, increment the position of
+//			// the arm servo.
+//			armPosition += armDelta;
+//		}
+//
+//		if (gamepad1.y) {
+//			// if the Y button is pushed on gamepad1, decrease the position of
+//			// the arm servo.
+//			armPosition -= armDelta;
+//		}
 
-		if (gamepad1.y) {
-			// if the Y button is pushed on gamepad1, decrease the position of
-			// the arm servo.
-			armPosition -= armDelta;
-		}
+
 
         // update the position of the claw
 //        if (gamepad1.left_bumper) {
@@ -186,7 +193,13 @@ public class K9TankDriveServoTest extends OpMode {
 		//clawPosition = Range.clip(clawPosition, CLAW_MIN_RANGE, CLAW_MAX_RANGE);
 
 		// write position values to the wrist and claw servo
-		arm.setPosition(armPosition);
+		arm.setPosition(0.9);
+		try {
+			sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		arm.setPosition(0.2);
 //		claw.setPosition(clawPosition);
 
 		/*
@@ -201,6 +214,7 @@ public class K9TankDriveServoTest extends OpMode {
 //      telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
 		telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
+		telemetry.addData("Servo position", arm.getPosition());
 	}
 
 	/*
@@ -246,5 +260,7 @@ public class K9TankDriveServoTest extends OpMode {
 		// return scaled value.
 		return dScale;
 	}
-
+	public void sleep(long milliseconds) throws InterruptedException {
+		Thread.sleep(milliseconds);
+	}
 }
