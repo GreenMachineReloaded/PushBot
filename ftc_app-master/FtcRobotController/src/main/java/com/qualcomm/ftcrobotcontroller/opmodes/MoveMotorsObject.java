@@ -12,23 +12,21 @@ public class MoveMotorsObject extends LinearOpMode{
 
     }
     public void MoveMotorsObject () throws InterruptedException {
-        TurnLeft();
+        TurnLeft(leftMotor = hardwareMap.dcMotor.get("left_drive"); , rightMotor = hardwareMap.dcMotor.get("right_drive"););
         //turns left
-        TurnRight();
+        TurnRight(leftMotor = hardwareMap.dcMotor.get("left_drive"); , rightMotor = hardwareMap.dcMotor.get("right_drive"););
         //turns right
-        MoveBackward();
+        MoveBackward(leftMotor = hardwareMap.dcMotor.get("left_drive"); , rightMotor = hardwareMap.dcMotor.get("right_drive"););
         //moves backwards
-        MoveForward();
+        MoveForward(leftMotor = hardwareMap.dcMotor.get("left_drive"); , rightMotor = hardwareMap.dcMotor.get("right_drive"););
         //moves forwards
-        StopMotors();
+        StopMotors(leftMotor = hardwareMap.dcMotor.get("left_drive"); , rightMotor = hardwareMap.dcMotor.get("right_drive"););
         //stops, but only when motors are already in use
     }
     DcMotor leftMotor;
     DcMotor rightMotor;
     // names of the motors
     public void TurnLeft() throws InterruptedException {
-        leftMotor = hardwareMap.dcMotor.get("left_drive");
-        rightMotor = hardwareMap.dcMotor.get("right_drive");
         //finds the motors
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         //reverses one of the motors
@@ -44,8 +42,6 @@ public class MoveMotorsObject extends LinearOpMode{
 
             }
     public void TurnRight() throws InterruptedException {
-        leftMotor = hardwareMap.dcMotor.get("left_drive");
-        rightMotor = hardwareMap.dcMotor.get("right_drive");
         //finds the motors
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         //reverses one of the motors
@@ -59,9 +55,6 @@ public class MoveMotorsObject extends LinearOpMode{
         //stops the motors
     }
     public void MoveForward() throws InterruptedException{
-        leftMotor = hardwareMap.dcMotor.get("left_drive");
-        rightMotor = hardwareMap.dcMotor.get("right_drive");
-        //finds the motors
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         //reverses one of the motors
         leftMotor.setPower(1.0);
@@ -74,8 +67,6 @@ public class MoveMotorsObject extends LinearOpMode{
         //stops the motors
     }
     public void MoveBackward() throws InterruptedException {
-        leftMotor = hardwareMap.dcMotor.get("left_drive");
-        rightMotor = hardwareMap.dcMotor.get("right_drive");
         //finds the motors
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         //reverses one of the motors
@@ -89,8 +80,6 @@ public class MoveMotorsObject extends LinearOpMode{
         //stops the motors
     }
     public void StopMotors() {
-        leftMotor = hardwareMap.dcMotor.get("left_drive");
-        rightMotor = hardwareMap.dcMotor.get("right_drive");
         //finds the motors and because it dosent matter which way it is going I do not need to reverse the code
         leftMotor.setPower(0);
         rightMotor.setPower(0);
