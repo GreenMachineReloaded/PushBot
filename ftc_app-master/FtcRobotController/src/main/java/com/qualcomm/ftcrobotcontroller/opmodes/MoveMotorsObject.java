@@ -7,27 +7,35 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by Amber on 11/10/2015.
  */
 public class MoveMotorsObject extends LinearOpMode{
+    DcMotor leftMotor;
+    DcMotor rightMotor;
+    leftMotor = hardwareMap.dcMotor.get("left_drive");
+    rightMotor = hardwareMap.dcMotor.get("right_drive");
+
+    //     Agein I believe this is right but I am not sure, I know there are error above sorry about that, I don't know how to fix them.
+
+
+
     @Override
     public void runOpMode () {
 
     }
     public void MoveMotorsObject () throws InterruptedException {
-        TurnLeft(leftMotor = hardwareMap.dcMotor.get("left_drive"); , rightMotor = hardwareMap.dcMotor.get("right_drive"););
+        TurnLeft();
         //turns left
-        TurnRight(leftMotor = hardwareMap.dcMotor.get("left_drive"); , rightMotor = hardwareMap.dcMotor.get("right_drive"););
+        TurnRight();
         //turns right
-        MoveBackward(leftMotor = hardwareMap.dcMotor.get("left_drive"); , rightMotor = hardwareMap.dcMotor.get("right_drive"););
+        MoveBackward();
         //moves backwards
-        MoveForward(leftMotor = hardwareMap.dcMotor.get("left_drive"); , rightMotor = hardwareMap.dcMotor.get("right_drive"););
+        MoveForward();
         //moves forwards
-        StopMotors(leftMotor = hardwareMap.dcMotor.get("left_drive"); , rightMotor = hardwareMap.dcMotor.get("right_drive"););
+        StopMotors();
         //stops, but only when motors are already in use
     }
-    DcMotor leftMotor;
-    DcMotor rightMotor;
+
     // names of the motors
     public void TurnLeft() throws InterruptedException {
-        //finds the motors
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         //reverses one of the motors
         leftMotor.setPower(-1.0);
@@ -42,11 +50,10 @@ public class MoveMotorsObject extends LinearOpMode{
 
             }
     public void TurnRight() throws InterruptedException {
-        //finds the motors
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        //reverses one of the motors
         leftMotor.setPower(1.0);
-        rightMotor.setPower(-1.0);
+        rightMotor.setPower(1.0);
         //turns the robot right
         sleep(1000);
         //waits while the motors move
@@ -55,8 +62,8 @@ public class MoveMotorsObject extends LinearOpMode{
         //stops the motors
     }
     public void MoveForward() throws InterruptedException{
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        //reverses one of the motors
         leftMotor.setPower(1.0);
         rightMotor.setPower(1.0);
         //makes the robot move forward
@@ -67,7 +74,7 @@ public class MoveMotorsObject extends LinearOpMode{
         //stops the motors
     }
     public void MoveBackward() throws InterruptedException {
-        //finds the motors
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         //reverses one of the motors
         leftMotor.setPower(-1.0);
@@ -80,7 +87,8 @@ public class MoveMotorsObject extends LinearOpMode{
         //stops the motors
     }
     public void StopMotors() {
-        //finds the motors and because it dosent matter which way it is going I do not need to reverse the code
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         //stops the motors if the motors are still being used
