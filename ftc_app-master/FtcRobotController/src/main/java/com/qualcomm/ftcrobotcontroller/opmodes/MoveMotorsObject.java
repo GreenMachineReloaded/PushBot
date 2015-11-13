@@ -9,8 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class MoveMotorsObject extends LinearOpMode{
     DcMotor leftMotor;
     DcMotor rightMotor;
-    leftMotor = hardwareMap.dcMotor.get("left_drive");
-    rightMotor = hardwareMap.dcMotor.get("right_drive");
+
 
     //     Agein I believe this is right but I am not sure, I know there are error above sorry about that, I don't know how to fix them.
 
@@ -21,20 +20,12 @@ public class MoveMotorsObject extends LinearOpMode{
 
     }
     public void MoveMotorsObject () throws InterruptedException {
-        TurnLeft();
-        //turns left
-        TurnRight();
-        //turns right
-        MoveBackward();
-        //moves backwards
-        MoveForward();
-        //moves forwards
-        StopMotors();
-        //stops, but only when motors are already in use
+        leftMotor = hardwareMap.dcMotor.get("left_drive");
+        rightMotor = hardwareMap.dcMotor.get("right_drive");
     }
 
     // names of the motors
-    public void TurnLeft() throws InterruptedException {
+    public void turnLeft() throws InterruptedException {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         //reverses one of the motors
@@ -49,7 +40,7 @@ public class MoveMotorsObject extends LinearOpMode{
 
 
             }
-    public void TurnRight() throws InterruptedException {
+    public void turnRight() throws InterruptedException {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setPower(1.0);
@@ -61,7 +52,7 @@ public class MoveMotorsObject extends LinearOpMode{
         rightMotor.setPower(0);
         //stops the motors
     }
-    public void MoveForward() throws InterruptedException{
+    public void moveForward() throws InterruptedException{
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setPower(1.0);
@@ -73,7 +64,7 @@ public class MoveMotorsObject extends LinearOpMode{
         rightMotor.setPower(0);
         //stops the motors
     }
-    public void MoveBackward() throws InterruptedException {
+    public void moveBackward() throws InterruptedException {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         //reverses one of the motors
@@ -86,7 +77,7 @@ public class MoveMotorsObject extends LinearOpMode{
         rightMotor.setPower(0);
         //stops the motors
     }
-    public void StopMotors() {
+    public void stopMotors() {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setPower(0);
