@@ -62,7 +62,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("K9Line", K9Line.class);
     manager.register ("PushBotAuto", PushBotAuto.class);
     manager.register ("PushBotManual", PushBotManual.class);
-    manager.register ("Test MoveMotorsObject", TestMoveMotorsObject.class);
+    manager.register ("Test MoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
     manager.register ("k9 tank drive", K9TankDrive.class);
 
     /*
@@ -73,7 +73,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register ("K9TankDriveServoTest", K9TankDriveServoTest.class);
 
     manager.register("MoveMotorsObject", MoveMotorsObject.class);
-    manager.register("TestMoveMotorsObject", TestMoveMotorsObject.class);
+    manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
     manager.register("GyroTest", TestingTheGyroSensors.class);
     manager.register("ServoTest", ServoTest.class);
 
