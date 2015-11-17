@@ -1,21 +1,25 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class TestMoveMotorsObjectSleepArg extends LinearOpMode {
+    DcMotor leftMotor;
+    DcMotor rightMotor;
     @Override
     public void runOpMode() throws InterruptedException {
-
-        MoveMotorsObjectSleepArg move = new MoveMotorsObjectSleepArg();
+        leftMotor = hardwareMap.dcMotor.get("left_drive");
+        rightMotor = hardwareMap.dcMotor.get("right_drive");
+        MoveMotorsObject move = new MoveMotorsObject(leftMotor, rightMotor);
 
         waitForStart();
 
-        move.moveForward(1000);
+        move.moveForward();
 
-        move.turnRight(2000);
+        move.turnRight();
 
-        move.turnLeft(2000);
+        move.turnLeft();
 
-        move.moveBackward(1000);
+        move.moveBackward();
     }
 }

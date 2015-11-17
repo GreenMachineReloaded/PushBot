@@ -1,21 +1,20 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
 public class MoveMotorsObjectSleepArg extends LinearOpMode{
-    DcMotor leftMotor1;
-    DcMotor rightMotor1;
+    DcMotor leftMotor;
+    DcMotor rightMotor;
     @Override
     public void runOpMode () {
     }
     public void MoveMotorsObjectSleepArg (int sleep) throws InterruptedException {
-        HardwareMap hardwareMap = new HardwareMap();
-
-        turnLeft(sleep);
-        turnRight(sleep);
-        moveBackward(sleep);
-        moveForward(sleep);
+        int sleepSecond = sleep / 1000;
+        leftMotor = hardwareMap.dcMotor.get("left_drive");
+        rightMotor = hardwareMap.dcMotor.get("right_drive");
+        turnLeft(sleepSecond);
+        turnRight(sleepSecond);
+        moveBackward(sleepSecond);
+        moveForward(sleepSecond);
     }
     public void turnLeft(int sleep) throws InterruptedException {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);

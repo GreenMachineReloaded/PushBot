@@ -1,17 +1,17 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.robocol.Telemetry;
 import static android.os.SystemClock.sleep;
 
 public class MoveMotorsObject {
     DcMotor leftMotor;
     DcMotor rightMotor;
-    HardwareMap hardwareMap = new HardwareMap();
-    public void MoveMotorsObject () {
-        leftMotor = hardwareMap.dcMotor.get("left_drive");
-        rightMotor = hardwareMap.dcMotor.get("right_drive");
+
+
+
+    public MoveMotorsObject (DcMotor leftMotorA, DcMotor rightMotorA) {
+        leftMotor = leftMotorA;
+        rightMotor = rightMotorA;
     }
     public void turnLeft() {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
