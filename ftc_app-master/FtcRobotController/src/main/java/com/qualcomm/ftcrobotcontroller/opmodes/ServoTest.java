@@ -13,21 +13,13 @@ public class ServoTest extends OpMode {
     GMRServo servo;
 
     Servo servo1;
-
-    double armPosition;
-
-    double armDelta = 0.1;
-
-    double armDelta2 = 0.9;
-
+    
     @Override
     public void init() {
 
         servo1 = hardwareMap.servo.get("servo_1");
 
         servo = new GMRServo(servo1);
-
-        armPosition = 0.2;
 
         //servo.moveServo(0.1);
 
@@ -55,11 +47,11 @@ public class ServoTest extends OpMode {
 //       }
 
        if (gamepad1.a) {
-           armPosition = armDelta;
+           servo.moveServo(0.1);
        }
 
        if (gamepad1.y) {
-           armPosition = armDelta2;
+           servo.moveServo(0.9);
        }
 
 }}
