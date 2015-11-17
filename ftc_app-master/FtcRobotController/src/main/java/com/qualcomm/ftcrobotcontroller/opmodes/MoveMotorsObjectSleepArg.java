@@ -2,52 +2,55 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.robocol.Telemetry;
-import static android.os.SystemClock.sleep;
 
-public class MoveMotorsObject {
-    DcMotor leftMotor;
-    DcMotor rightMotor;
-    HardwareMap hardwareMap = new HardwareMap();
-    public void MoveMotorsObject () {
-        leftMotor = hardwareMap.dcMotor.get("left_drive");
-        rightMotor = hardwareMap.dcMotor.get("right_drive");
+public class MoveMotorsObjectSleepArg extends LinearOpMode{
+    DcMotor leftMotor1;
+    DcMotor rightMotor1;
+    @Override
+    public void runOpMode () {
     }
-    public void turnLeft() {
+    public void MoveMotorsObjectSleepArg (int sleep) throws InterruptedException {
+        HardwareMap hardwareMap = new HardwareMap();
+
+        turnLeft(sleep);
+        turnRight(sleep);
+        moveBackward(sleep);
+        moveForward(sleep);
+    }
+    public void turnLeft(int sleep) throws InterruptedException {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setPower(-1.0);
         rightMotor.setPower(1.0);
-        sleep(1000);
-        leftMotor.setPower(0);
-        rightMotor.setPower(0);
-        }
-    public void turnRight() {
-        leftMotor.setDirection(DcMotor.Direction.FORWARD);
-        rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setPower(1.0);
-        rightMotor.setPower(-1.0);
-        sleep(1000);
+        sleep(sleep);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
-    public void moveForward() {
+    public void turnRight(int sleep) throws InterruptedException {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setPower(1.0);
         rightMotor.setPower(1.0);
-        sleep(1000);
+        sleep(sleep);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
-    public void moveBackward() {
+    public void moveForward(int sleep) throws InterruptedException{
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftMotor.setPower(1.0);
+        rightMotor.setPower(1.0);
+        sleep(sleep);
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+    }
+    public void moveBackward(int sleep) throws InterruptedException {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setPower(-1.0);
         rightMotor.setPower(-1.0);
-        sleep(1000);
+        sleep(sleep);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
-
     }
 }
