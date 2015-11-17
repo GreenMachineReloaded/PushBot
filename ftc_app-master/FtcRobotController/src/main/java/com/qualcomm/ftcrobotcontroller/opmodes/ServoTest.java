@@ -13,7 +13,7 @@ public class ServoTest extends OpMode {
     GMRServo servo;
 
     Servo servo1;
-
+    
     @Override
     public void init() {
 
@@ -28,22 +28,30 @@ public class ServoTest extends OpMode {
    @Override
      public void loop() {
 
-        servo.moveServo(0.1);
+//        servo.moveServo(0.1);
+//
+//        try {
+//            sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        servo.moveServo(0.9);
+//
+//        try {
+//            sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//       }
 
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        servo.moveServo(0.9);
-
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+       if (gamepad1.a) {
+           servo.moveServo(0.1);
        }
 
-}
+       if (gamepad1.y) {
+           servo.moveServo(0.9);
+       }
+
+}}
