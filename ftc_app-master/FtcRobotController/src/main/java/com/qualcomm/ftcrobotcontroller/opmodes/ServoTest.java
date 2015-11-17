@@ -14,12 +14,20 @@ public class ServoTest extends OpMode {
 
     Servo servo1;
 
+    double armPosition;
+
+    double armDelta = 0.1;
+
+    double armDelta2 = 0.9;
+
     @Override
     public void init() {
 
         servo1 = hardwareMap.servo.get("servo_1");
 
         servo = new GMRServo(servo1);
+
+        armPosition = 0.2;
 
         //servo.moveServo(0.1);
 
@@ -28,22 +36,30 @@ public class ServoTest extends OpMode {
    @Override
      public void loop() {
 
-        servo.moveServo(0.1);
+//        servo.moveServo(0.1);
+//
+//        try {
+//            sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        servo.moveServo(0.9);
+//
+//        try {
+//            sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//       }
 
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        servo.moveServo(0.9);
-
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+       if (gamepad1.a) {
+           armPosition = armDelta;
        }
 
-}
+       if (gamepad1.y) {
+           armPosition = armDelta2;
+       }
+
+}}
