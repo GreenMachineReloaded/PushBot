@@ -13,7 +13,7 @@ public class MoveRobotSquareMoveServo extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         leftMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightMotor = hardwareMap.dcMotor.get("rightDriveMotor");
-        servo = hardwareMap.servo.get("WheelBar");
+        servo = hardwareMap.servo.get("wheelBarServo");
         MoveMotorsObject move = new MoveMotorsObject(leftMotor, rightMotor);
         GMRServo servoObject = new GMRServo(servo);
         Sleeper s = new Sleeper();
