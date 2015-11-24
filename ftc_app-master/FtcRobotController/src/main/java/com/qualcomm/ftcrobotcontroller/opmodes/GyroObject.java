@@ -10,21 +10,19 @@ public class GyroObject extends LinearOpMode {
     DcMotor leftMotor;
     DcMotor rightMotor;
     GyroSensor gyro;
-    public void GryoObject(double d)
+    public void GryoObject(DcMotor leftMotorArg, DcMotor rightMotorArg, GyroSensor gyroArg)
     {
-        gyro = hardwareMap.gyroSensor.get("gyro");
-        leftMotor = hardwareMap.dcMotor.get("left_drive");
-        rightMotor = hardwareMap.dcMotor.get("right_drive");
-        setGyroObject(d);
-
+        gyro = gyroArg;
+        leftMotor = leftMotorArg;
+        rightMotor = rightMotorArg;
     }
 
-    public void setGyroObject(double degrees) {
+    public void turnGyro(double degrees) {
         int x, z;
         x = gyro.rawX();
         z = gyro.rawZ();
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        rightMotor.setDirection(DcMotor.Direction.FORWARD);
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
         if (degrees > 0) {
             //moves the motors
             leftMotor.setPower(1);
