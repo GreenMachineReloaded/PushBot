@@ -11,22 +11,22 @@ public class TestingGyroObject extends LinearOpMode {
         gyro.calibrate();
         sleep(1000);
         GyroObject degrees = new GyroObject();
-        degrees.setGyroObject(90);
+        degrees.turnGyro(90);
         sleep(1000);
-        degrees.setGyroObject(90);
+        degrees.turnGyro(90);
         sleep(1000);
-        degrees.setGyroObject(90);
+        degrees.turnGyro(90);
         sleep(1000);
-        degrees.setGyroObject(90);
+        degrees.turnGyro(90);
         sleep(1000);
 
-        degrees.setGyroObject(-90);
+        degrees.turnGyro(-90);
         sleep(1000);
-        degrees.setGyroObject(-90);
+        degrees.turnGyro(-90);
         sleep(1000);
-        degrees.setGyroObject(-90);
+        degrees.turnGyro(-90);
         sleep(1000);
-        degrees.setGyroObject(-90);
+        degrees.turnGyro(-90);
         sleep(1000);
     }
 }
