@@ -49,11 +49,11 @@ public class CadwynTeleOp extends OpMode {
         telemetry.addData("arm", "gamepadright:  " + String.format("%.2f", moveRight));
 
         if (gamepad1.a) {
-            wheelBarServo.moveServo(0.1);
+            wheelBarServo.moveServo(0);
         }
 
         if (gamepad1.y) {
-            wheelBarServo.moveServo(0.9);
+            wheelBarServo.moveServo(1);
         }
 
     }
