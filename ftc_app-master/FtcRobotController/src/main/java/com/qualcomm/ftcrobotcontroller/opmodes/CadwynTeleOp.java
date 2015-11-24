@@ -16,9 +16,9 @@ public class CadwynTeleOp extends OpMode {
     DcMotor flipBarMotor;
     DcMotor liftMotor;
 
-    //GMRServo wheelBarServo;
+    GMRServo wheelBarServo;
 
-    //Servo servo1;
+    Servo servo1;
 
     @Override
     public void init() {
@@ -30,8 +30,8 @@ public class CadwynTeleOp extends OpMode {
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         leftDriveMotor.setDirection(DcMotor.Direction.REVERSE);
 
-        //servo1 = hardwareMap.servo.get("wheelBarServo");
-        //wheelBarServo = new GMRServo(servo1);
+        servo1 = hardwareMap.servo.get("wheelBarServo");
+        wheelBarServo = new GMRServo(servo1);
 
     }
 
@@ -47,6 +47,14 @@ public class CadwynTeleOp extends OpMode {
         telemetry.addData("Text", "*** Robot Data***");
         telemetry.addData("arm", "gamepadleft:  " + String.format("%.2f", moveLeft));
         telemetry.addData("arm", "gamepadright:  " + String.format("%.2f", moveRight));
+
+        if (gamepad1.a) {
+            wheelBarServo.moveServo(0.1);
+        }
+
+        if (gamepad1.y) {
+            wheelBarServo.moveServo(0.9);
+        }
 
     }
 }
