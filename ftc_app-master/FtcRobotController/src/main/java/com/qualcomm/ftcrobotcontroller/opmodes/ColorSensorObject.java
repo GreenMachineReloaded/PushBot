@@ -3,7 +3,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
-
 import com.qualcomm.ftcrobotcontroller.R;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
