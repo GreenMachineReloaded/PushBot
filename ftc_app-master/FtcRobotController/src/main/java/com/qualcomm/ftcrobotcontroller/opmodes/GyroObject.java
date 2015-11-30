@@ -6,6 +6,7 @@ public class GyroObject {
     DcMotor leftMotor;
     DcMotor rightMotor;
     GyroSensor gyro;
+    Sleeper s;
 
     public GyroObject(DcMotor leftMotorArg, DcMotor rightMotorArg, GyroSensor gyroArg) {
         gyro = gyroArg;
@@ -13,9 +14,9 @@ public class GyroObject {
         rightMotor = rightMotorArg;
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        s = new Sleeper();
         gyro.calibrate();
-        Sleeper sleep = new Sleeper();
-        sleep.Sleep(1000);
+        s.Sleep(1000);
     }
     public void turnGyro(int degrees) {
         int forward;
@@ -32,7 +33,7 @@ public class GyroObject {
                     rightMotor.setPower(-1);
                 } else {
                 }
-            } while (degrees == forward);
+            } while (degrees != forward);
             //stops the motors
             leftMotor.setPower(0);
             rightMotor.setPower(0);
@@ -54,11 +55,13 @@ public class GyroObject {
                     rightMotor.setPower(1);
                 } else {
                 }
-            } while (degrees == forward);
+            } while (degrees != forward);
             //stops the motors
             leftMotor.setPower(0);
             rightMotor.setPower(0);
         } else {
+            leftMotor.setPower(0);
+            rightMotor.setPower(0);
         }
     }
 }

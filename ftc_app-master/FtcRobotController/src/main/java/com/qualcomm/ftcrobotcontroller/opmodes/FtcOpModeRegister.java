@@ -77,6 +77,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("UpRampDeadReckoning", UpRampDeadReckoning.class);
     manager.register("MoveRobotSquareMoveServo", MoveRobotSquareMoveServo.class);
     manager.register("TestGyroObject", TestingGyroObject.class);
+    manager.register("BeaconPress", BeaconPress.class);
+
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
 
