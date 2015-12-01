@@ -19,50 +19,29 @@ public class GyroObject {
         s.Sleep(1000);
     }
     public void turnGyro(int degrees) {
-        int forward;
+        gyro.resetZAxisIntegrator();
         if (degrees > 0) {
             //moves the motors
-            do {
-                //in here there needs to be an updater for the number of degrees the robot has turned.
-                forward = gyro.rawY();
-                if (degrees > forward) {
-                    leftMotor.setPower(-1);
-                    rightMotor.setPower(1);
-                } else if (degrees < forward) {
-                    leftMotor.setPower(1);
-                    rightMotor.setPower(-1);
-                } else {
-                }
-            } while (degrees != forward);
-            //stops the motors
-            leftMotor.setPower(0);
-            rightMotor.setPower(0);
+
+            while (degrees <= gyro.getHeading()) {
+                leftMotor.setPower(-1);
+                rightMotor.setPower(1);
+            }
         }
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        else if (degrees < 0) {
-            do {
+        else {
+            while (degrees >= gyro.getHeading()) {
                 //in here there needs to be an updater for the number of degrees the robot has turned.
-                forward = gyro.rawY();
-                if (degrees > forward) {
-                    leftMotor.setPower(1);
-                    rightMotor.setPower(-1);
-                } else if (degrees < forward) {
-                    leftMotor.setPower(-1);
-                    rightMotor.setPower(1);
-                } else {
-                }
-            } while (degrees != forward);
-            //stops the motors
-            leftMotor.setPower(0);
-            rightMotor.setPower(0);
-        } else {
-            leftMotor.setPower(0);
-            rightMotor.setPower(0);
+                leftMotor.setPower(1);
+                rightMotor.setPower(-1);
+            }
         }
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
     }
 }
 
