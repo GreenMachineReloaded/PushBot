@@ -23,7 +23,7 @@ public class GyroObject {
         if (degrees > 0) {
             //moves the motors
 
-            while (degrees <= gyro.getHeading()) {
+            while (degrees >= gyro.getHeading()) {
                 leftMotor.setPower(-1);
                 rightMotor.setPower(1);
             }
@@ -34,7 +34,7 @@ public class GyroObject {
 
 
         else {
-            while (degrees >= gyro.getHeading()) {
+            while (degrees <= gyro.getHeading()) {
                 //in here there needs to be an updater for the number of degrees the robot has turned.
                 leftMotor.setPower(1);
                 rightMotor.setPower(-1);
