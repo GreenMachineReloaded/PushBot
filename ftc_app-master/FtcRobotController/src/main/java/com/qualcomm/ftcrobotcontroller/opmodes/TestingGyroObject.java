@@ -15,7 +15,7 @@ public class TestingGyroObject extends LinearOpMode {
         telemetry.addData("name stuff", "");
         s = new Sleeper();
         GyroObject degrees = new GyroObject(leftDriveMotorArg, rightDriveMotorArg, gyroArg);
-        telemetry.addData("before start", "");
+        telemetry.addData("before start", degrees);
         waitForStart();
         degrees.turnGyro(90);
 
