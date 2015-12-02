@@ -18,7 +18,10 @@ public class GyroObject {
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         s = new Sleeper();
         gyro.calibrate();
-        s.Sleep(1000);
+        //if(gyro.isCalibrating() == ture) {
+
+        //}
+
     }
     public void turnGyro(int degrees, Telemetry t) {
         t.addData("przei", gyro.getHeading());

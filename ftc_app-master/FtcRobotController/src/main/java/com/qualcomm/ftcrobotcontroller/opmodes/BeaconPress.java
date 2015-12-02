@@ -22,9 +22,10 @@ public class BeaconPress extends LinearOpMode {
         gyroArg = hardwareMap.gyroSensor.get("gyro");
         s = new Sleeper();
         MoveMotorsObject move = new MoveMotorsObject(leftMotorArg, rightMotorArg);
-        GyroObject gyro = new GyroObject(leftMotorArg, rightMotorArg, gyroArg);
         waitForStart();
-        move.moveForward(4000);
-        gyro.turnGyro(45);
+        move.moveForward(3500);
+        move.turnRight(500);
+        move.moveForward(500);
+
     }
 }
