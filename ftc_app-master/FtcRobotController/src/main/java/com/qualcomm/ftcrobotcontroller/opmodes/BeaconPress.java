@@ -13,13 +13,11 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 public class BeaconPress extends LinearOpMode {
     DcMotor leftMotorArg;
     DcMotor rightMotorArg;
-    GyroSensor gyroArg;
     Sleeper s;
     @Override
     public void runOpMode() throws InterruptedException {
         leftMotorArg = hardwareMap.dcMotor.get("leftDriveMotor");
         rightMotorArg = hardwareMap.dcMotor.get("rightDriveMotor");
-        gyroArg = hardwareMap.gyroSensor.get("gyro");
         s = new Sleeper();
         MoveMotorsObject move = new MoveMotorsObject(leftMotorArg, rightMotorArg);
         waitForStart();
