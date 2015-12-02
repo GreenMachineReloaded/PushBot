@@ -19,7 +19,7 @@ public class GyroObject {
         s.Sleep(1000);
     }
     public void turnGyro(int degrees) {
-        //gyro.resetZAxisIntegrator();
+        gyro.resetZAxisIntegrator();
         if (degrees > 0) {
             //moves the motors
 
