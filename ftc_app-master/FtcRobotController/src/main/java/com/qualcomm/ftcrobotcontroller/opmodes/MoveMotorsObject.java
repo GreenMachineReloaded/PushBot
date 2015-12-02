@@ -18,7 +18,7 @@ public class MoveMotorsObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //move motors section
 
-    public void turnLeft(int sleep){
+    public void turnRight(int sleep){
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setPower(-1.0);
@@ -27,7 +27,7 @@ public class MoveMotorsObject {
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
-    public void turnRight(int sleep) {
+    public void turnLeft(int sleep) {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setPower(1.0);
