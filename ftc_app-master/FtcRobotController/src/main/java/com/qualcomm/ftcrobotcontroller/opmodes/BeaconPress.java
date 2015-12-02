@@ -23,7 +23,7 @@ public class BeaconPress extends LinearOpMode {
         waitForStart();
         move.moveForward(3600);
         move.turnRight(500);
-        move.moveForward(1500);
+        move.moveForward(1300);
 
     }
 }
