@@ -1,32 +1,23 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
+        import com.qualcomm.robotcore.hardware.DcMotor;
         import com.qualcomm.robotcore.hardware.GyroSensor;
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class TestingGyroObject extends LinearOpMode {
-    GyroSensor gyro;
-    int x, y, z;
+    Sleeper s;
+    DcMotor leftDriveMotorArg;
+    DcMotor rightDriveMotorArg;
+    GyroSensor gyroArg;
     @Override
     public void runOpMode() throws InterruptedException {
-        gyro = hardwareMap.gyroSensor.get("gyro");
+        leftDriveMotorArg = hardwareMap.dcMotor.get("leftDriveMotor");
+        rightDriveMotorArg = hardwareMap.dcMotor.get("rightDriveMotor");
+        gyroArg = hardwareMap.gyroSensor.get("gyro");
+        telemetry.addData("name stuff", "");
+        s = new Sleeper();
         waitForStart();
-        gyro.calibrate();
-        sleep(1000);
-        GyroObject degrees = new GyroObject();
-        degrees.setGyroObject(90);
-        sleep(1000);
-        degrees.setGyroObject(90);
-        sleep(1000);
-        degrees.setGyroObject(90);
-        sleep(1000);
-        degrees.setGyroObject(90);
-        sleep(1000);
+        GyroObject degrees = new GyroObject(leftDriveMotorArg, rightDriveMotorArg, gyroArg);
+        telemetry.addData("before start", gyroArg.getHeading());
+        degrees.turnGyro(90, telemetry);
 
-        degrees.setGyroObject(-90);
-        sleep(1000);
-        degrees.setGyroObject(-90);
-        sleep(1000);
-        degrees.setGyroObject(-90);
-        sleep(1000);
-        degrees.setGyroObject(-90);
-        sleep(1000);
     }
 }

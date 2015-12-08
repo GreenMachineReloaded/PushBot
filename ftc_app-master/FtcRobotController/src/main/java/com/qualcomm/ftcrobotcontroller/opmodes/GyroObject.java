@@ -1,68 +1,57 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-public class GyroObject extends LinearOpMode {
-    @Override
-    public void runOpMode() throws InterruptedException {
-    }
+import com.qualcomm.robotcore.robocol.Telemetry;
+
+public class GyroObject {
 
     DcMotor leftMotor;
     DcMotor rightMotor;
     GyroSensor gyro;
-    public void GryoObject(double d)
-    {
-        gyro = hardwareMap.gyroSensor.get("gyro");
-        leftMotor = hardwareMap.dcMotor.get("left_drive");
-        rightMotor = hardwareMap.dcMotor.get("right_drive");
-        setGyroObject(d);
+    Sleeper s;
+
+    public GyroObject(DcMotor leftMotorArg, DcMotor rightMotorArg, GyroSensor gyroArg) {
+        gyro = gyroArg;
+        leftMotor = leftMotorArg;
+        rightMotor = rightMotorArg;
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        s = new Sleeper();
+        gyro.calibrate();
+        //if(gyro.isCalibrating() == ture) {
+
+        //}
 
     }
-
-    public void setGyroObject(double degrees) {
-        int x, z;
-        x = gyro.rawX();
-        z = gyro.rawZ();
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        rightMotor.setDirection(DcMotor.Direction.FORWARD);
+    public void turnGyro(int degrees, Telemetry t) {
+        t.addData("przei", gyro.getHeading());
+        gyro.resetZAxisIntegrator();
+        t.addData("pozei", gyro.getHeading());
         if (degrees > 0) {
             //moves the motors
-            leftMotor.setPower(1);
-            rightMotor.setPower(-1);
-            do{
-                //in here there needs to be an updater for the number of degrees the robot has turned.
-                x = gyro.rawX();
-                z = gyro.rawZ();
-            }while (degrees == 0);
-            //stops the motors
-            leftMotor.setPower(0);
-            rightMotor.setPower(0);
-        } else if (degrees < 0) {
-            //moves the motors
-            leftMotor.setPower(-1);
-            rightMotor.setPower(1);
-            do {
-                //in here there needs to be an updater for the number of degrees the robot has turned.
-                x = gyro.rawX();
-                z = gyro.rawZ();
-            }while (degrees == 0);
-            //stops the motors
-            leftMotor.setPower(0);
-            rightMotor.setPower(0);
-        } else {
-            //the code here should auto correct itself.
-            leftMotor.setPower(1);
-            rightMotor.setPower(1);
-            x = gyro.rawX();
-            z = gyro.rawZ();
-            if (z < 0) {
-                leftMotor.setPower(1);
-                rightMotor.setPower(.5);
-            }
-            if (z > 0) {
-                leftMotor.setPower(.5);
+
+            while (degrees >= gyro.getHeading()) {
+                leftMotor.setPower(-1);
                 rightMotor.setPower(1);
+                t.addData("+h", gyro.getHeading());
             }
         }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        else {
+            while (degrees <= gyro.getHeading()) {
+                //in here there needs to be an updater for the number of degrees the robot has turned.
+                leftMotor.setPower(1);
+                rightMotor.setPower(-1);
+                t.addData("-h", gyro.getHeading());
+            }
+        }
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+        t.addData("end", gyro.getHeading());
     }
 }
+
