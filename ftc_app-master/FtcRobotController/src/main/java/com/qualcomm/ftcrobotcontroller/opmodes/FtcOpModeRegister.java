@@ -55,7 +55,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
 
-    manager.register("NullOp", NullOp.class);
+    //manager.register("NullOp", NullOp.class);
 
     //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
     //manager.register("K9TeleOp", K9TeleOp.class);
@@ -68,15 +68,22 @@ public class FtcOpModeRegister implements OpModeRegister {
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
-    manager.register("MR Gyro Test", MRGyroTest.class);
+    //manager.register("MR Gyro Test", MRGyroTest.class);
 
     //manager.register ("K9TankDriveServoTest", K9TankDriveServoTest.class);
 
     //manager.register("MoveMotorsObject", MoveMotorsObject.class);
+<<<<<<< HEAD
     manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
     manager.register("GyroTest", TestingTheGyroSensors.class);
     manager.register("ServoTest", ServoTest.class);
     manager.register("Cadwyn", CadwynTeleOp.class);
+=======
+    //manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
+    manager.register("GyroTest", TestingTheGyroSensors.class);
+    manager.register("ServoTest", ServoTest.class);
+    manager.register("CadwynTeleOp", CadwynTeleOp.class);
+>>>>>>> 55ed353b16cf72d492a4cc3abc58a97a8f09130b
 
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
