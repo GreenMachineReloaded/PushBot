@@ -21,9 +21,9 @@ public class BeaconPress extends LinearOpMode {
         s = new Sleeper();
         MoveMotorsObject move = new MoveMotorsObject(leftMotorArg, rightMotorArg);
         waitForStart();
-        move.moveForward(3600);
-        move.turnRight(500);
-        move.moveForward(1300);
+        move.moveForward(3600, 100);
+        move.turnRight(400, 100);
+        move.moveForward(1100, 100);
 
     }
 }
