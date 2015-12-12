@@ -3,7 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class UpRampDeadReckoning extends LinearOpMode {
+public class RedUpRampDeadReckoning extends LinearOpMode {
     DcMotor leftMotor;
     DcMotor rightMotor;
     @Override
@@ -14,9 +14,9 @@ public class UpRampDeadReckoning extends LinearOpMode {
 
         waitForStart();
 
-        move.moveForward(2000, 100);
+        move.moveForward(1800, 100);
 
-        move.turnRight(850, 100);
+        move.turnLeft(850, 100);
 
         move.moveForward(9500, 45);
     }

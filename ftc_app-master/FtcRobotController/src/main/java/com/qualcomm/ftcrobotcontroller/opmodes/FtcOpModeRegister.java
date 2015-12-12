@@ -78,7 +78,10 @@ public class FtcOpModeRegister implements OpModeRegister {
 
 
     manager.register("CadwynTeleOp", CadwynTeleOp.class);
-    manager.register("UpRampDeadReckoning", UpRampDeadReckoning.class);
+    manager.register("BlueUpRampDeadReckoning", BlueUpRampDeadReckoning.class);
+    manager.register("BlueCloserUpRampDeadReckining", BlueCloserUpRampDeadReckoning.class);
+    manager.register("RedUpRampDeadReckoning", RedUpRampDeadReckoning.class);
+    manager.register("RedCloserUpRampDeadReckining", RedCloserUpRampDeadReckoning.class);
     manager.register("BeaconPress", BeaconPress.class);
 
 

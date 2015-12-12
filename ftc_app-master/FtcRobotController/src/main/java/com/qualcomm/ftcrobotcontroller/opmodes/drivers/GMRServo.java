@@ -14,8 +14,8 @@ public class GMRServo {
 
     }
     public void moveServo(double pos) {
-        double posC = pos / 360;
-        this.servoHandle.setPosition(posC);
+
+        this.servoHandle.setPosition(pos);
 
     }
 
