@@ -14,11 +14,13 @@ public class BlueCloserUpRampDeadReckoning extends LinearOpMode {
 
         waitForStart();
 
-        move.moveBackward(2100, 40);
+        sleep(10000);
 
-        move.turnLeft(1400, 25);
+        move.moveBackward(1400, 40);
 
-        move.moveForward(8000, 50);
+        move.turnLeft(900, 35);
+
+        move.moveForward(8000, 60);
     }
 
 }

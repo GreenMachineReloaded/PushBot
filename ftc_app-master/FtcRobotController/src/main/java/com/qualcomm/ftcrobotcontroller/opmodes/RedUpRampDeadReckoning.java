@@ -14,7 +14,9 @@ public class RedUpRampDeadReckoning extends LinearOpMode {
 
         waitForStart();
 
-        move.moveForward(1800, 100);
+        sleep(5000);
+
+        move.moveForward(2200, 70);
 
         move.turnLeft(850, 100);
 

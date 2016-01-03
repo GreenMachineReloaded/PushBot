@@ -14,9 +14,11 @@ public class BlueUpRampDeadReckoning extends LinearOpMode {
 
         waitForStart();
 
-        move.moveForward(1800, 100);
+        sleep(5000);
 
-        move.turnRight(850, 100);
+        move.moveForward(1750, 100);
+
+        move.turnRight(750, 100);
 
         move.moveForward(9500, 45);
     }

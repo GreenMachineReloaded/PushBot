@@ -24,7 +24,7 @@ import com.qualcomm.robotcore.util.Range;
  * Servo Controller:
  * wheelBarServo
  * flappperRight
- * flapperLeft
+ * flapperRed
  *
  *
  *
@@ -44,8 +44,8 @@ public class CadwynTeleOp extends OpMode {
 
     //GMRServo wheelBarServo;
 
-    GMRServo flapperRight;
-    GMRServo flapperLeft;
+    GMRServo flapperBlue;
+    GMRServo flapperRed;
     GMRServo dumpClimbersServo;
     GMRServo winchServo;
     GMRServo liftAimservo;
@@ -58,8 +58,8 @@ public class CadwynTeleOp extends OpMode {
 
     //float wheelBarPosition;
 
-    float flapperRightPosition;
-    float flapperLeftPosition;
+    float flapperBluePosition;
+    float flapperRedPosition;
     float dumpClimbersServoPosition;
     float winchServoPosition;
     float liftAimPosition;
@@ -76,15 +76,16 @@ public class CadwynTeleOp extends OpMode {
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
 
         leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
 
         winchMotor = hardwareMap.dcMotor.get("winchMotor");
 
 
         servo1 = hardwareMap.servo.get("flapperLeft");
-        flapperRight = new GMRServo(servo1);
+        flapperBlue = new GMRServo(servo1);
 
         servo2 = hardwareMap.servo.get("flapperRight");
-        flapperLeft = new GMRServo(servo2);
+        flapperRed = new GMRServo(servo2);
 
         servo3 = hardwareMap.servo.get("dumpClimbersServo");
         dumpClimbersServo = new GMRServo(servo3);
@@ -98,10 +99,10 @@ public class CadwynTeleOp extends OpMode {
 
 
 
-        flapperRightPosition = (float) 0.8;
-        flapperLeftPosition = (float) 0.8;
-        dumpClimbersServoPosition = (float) 0.7;
-        winchServoPosition = (float) 0.8;
+        flapperBluePosition = (float) 0;
+        flapperRedPosition = (float) 0.8;
+        dumpClimbersServoPosition = (float) 0.96;
+        winchServoPosition = (float) 0.5;
         liftAimPosition = (float) 1;
 
         multiplier = 1;
@@ -115,7 +116,7 @@ public class CadwynTeleOp extends OpMode {
         float moveRight = gamepad1.right_stick_y;
 
         leftDriveMotor.setPower(moveLeft);
-        rightDriveMotor.setPower(-moveRight);
+        rightDriveMotor.setPower(moveRight);
 
 
 
@@ -138,19 +139,19 @@ public class CadwynTeleOp extends OpMode {
 
 
         if (gamepad2.left_stick_y > 0) {
-            flapperRightPosition += 0.01;
+            flapperBluePosition += 0.01;
         }
 
         if (gamepad2.left_stick_y < 0) {
-            flapperRightPosition -= 0.01;
+            flapperBluePosition -= 0.01;
         }
 
         if (gamepad2.right_stick_y > 0) {
-            flapperLeftPosition -= 0.01;
+            flapperRedPosition -= 0.01;
         }
 
         if (gamepad2.right_stick_y < 0) {
-            flapperLeftPosition += 0.01;
+            flapperRedPosition += 0.01;
         }
 
 
@@ -176,7 +177,7 @@ public class CadwynTeleOp extends OpMode {
 
         if (gamepad1.a) {
             leftDriveMotor.setPower(-0.5);
-            rightDriveMotor.setPower(0.5);
+            rightDriveMotor.setPower(-0.5);
         }
 //        if (gamepad1.b) {
 //            leftDriveMotor.setPower(0.5);
@@ -192,22 +193,22 @@ public class CadwynTeleOp extends OpMode {
         }
 
 
-        flapperLeftPosition = (float) Range.clip(flapperLeftPosition, 0.25, 0.8);
-        flapperLeft.moveServo(flapperLeftPosition);
+        flapperRedPosition = (float) Range.clip(flapperRedPosition, 0.25, 0.8);
+        flapperRed.moveServo(flapperRedPosition);
 
-        flapperRightPosition = (float) Range.clip(flapperRightPosition, 0, 1);
-        flapperRight.moveServo(flapperRightPosition);
+        flapperBluePosition = (float) Range.clip(flapperBluePosition, 0, 1);
+        flapperBlue.moveServo(flapperBluePosition);
 
         dumpClimbersServoPosition = (float) Range.clip(dumpClimbersServoPosition, 0.3, 0.96);
         dumpClimbersServo.moveServo(dumpClimbersServoPosition);
 
-        winchServoPosition = Range.clip(winchServoPosition, 0, 1);
+        winchServoPosition = (float) Range.clip(winchServoPosition, 0.14, 0.28);
         winchServo.moveServo(winchServoPosition);
 
         liftAimPosition = (float) Range.clip(liftAimPosition, 0, 0.2);
         liftAimservo.moveServo(liftAimPosition);
 
-        String servoPositions = String.format("%.2f",winchServoPosition);
+        String servoPositions = String.format("%.2f",liftAimPosition);
         telemetry.addData("", "Winch Position:  " + servoPositions);
 
     }
