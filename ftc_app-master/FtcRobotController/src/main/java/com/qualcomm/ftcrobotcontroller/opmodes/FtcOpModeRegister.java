@@ -58,49 +58,51 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("NullOp", NullOp.class);
 
     //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-    manager.register("K9TeleOp", K9TeleOp.class);
-    manager.register("K9Line", K9Line.class);
-    manager.register ("PushBotAuto", PushBotAuto.class);
-    manager.register ("PushBotManual", PushBotManual.class);
-    manager.register ("Test MoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
-    manager.register ("k9 tank drive", K9TankDrive.class);
+    //manager.register("K9TeleOp", K9TeleOp.class);
+//    manager.register("K9Line", K9Line.class);
+//    manager.register ("PushBotAuto", PushBotAuto.class);
+//    manager.register ("PushBotManual", PushBotManual.class);
+//    manager.register ("Test MoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
+//    manager.register ("k9 tank drive", K9TankDrive.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
-    manager.register("MR Gyro Test", MRGyroTest.class);
+//    manager.register("MR Gyro Test", MRGyroTest.class);
+//
+//    manager.register ("K9TankDriveServoTest", K9TankDriveServoTest.class);
+//    manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
+//    manager.register("GyroTest", TestingTheGyroSensors.class);
+//    manager.register("ServoTest", ServoTest.class);
+//    manager.register("UpRampDeadReckoning", UpRampDeadReckoning.class);
+//    manager.register("MoveRobotSquareMoveServo", MoveRobotSquareMoveServo.class);
+//    manager.register("TestGyroObject", TestingGyroObject.class);
+    //manager.register("DriveParkingZoneBlue", DriveParkingZoneBlue.class);
+    //manager.register("DriveParkingZoneRed", DriveParkingZoneRed.class);
+    //manager.register("MoveDropPeopleServo", MoveDropPeopleServo.class);
 
-    manager.register ("K9TankDriveServoTest", K9TankDriveServoTest.class);
-    manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
-    manager.register("GyroTest", TestingTheGyroSensors.class);
-    manager.register("ServoTest", ServoTest.class);
-    manager.register("UpRampDeadReckoning", UpRampDeadReckoning.class);
-    manager.register("MoveRobotSquareMoveServo", MoveRobotSquareMoveServo.class);
-    manager.register("TestGyroObject", TestingGyroObject.class);
-    manager.register("BeaconPress", BeaconPress.class);
+    manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
+    manager.register("ColorSensorDriver", ColorSensorDriver.class);
 
-    //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
-    //manager.register("ColorSensorDriver", ColorSensorDriver.class);
-
-    //manager.register("IrSeekerOp", IrSeekerOp.class);
-    //manager.register("CompassCalibration", CompassCalibration.class);
-    //manager.register("I2cAddressChangeExample", LinearI2cAddressChange.class);
-
-
-    //manager.register("NxtTeleOp", NxtTeleOp.class);
-
-    //manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
-    //manager.register("LinearIrExample", LinearIrExample.class);
+    manager.register("IrSeekerOp", IrSeekerOp.class);
+    manager.register("CompassCalibration", CompassCalibration.class);
+    manager.register("I2cAddressChangeExample", LinearI2cAddressChange.class);
 
 
-    //manager.register ("PushBotManual1", PushBotManual1.class);
-    //manager.register ("PushBotAutoSensors", PushBotAutoSensors.class);
-    //manager.register ("PushBotIrEvent", PushBotIrEvent.class);
+    manager.register("NxtTeleOp", NxtTeleOp.class);
 
-    //manager.register ("PushBotManualSensors", PushBotManualSensors.class);
-    //manager.register ("PushBotOdsDetectEvent", PushBotOdsDetectEvent.class);
-    //manager.register ("PushBotOdsFollowEvent", PushBotOdsFollowEvent.class);
-    //manager.register ("PushBotTouchEvent", PushBotTouchEvent.class);
+    manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
+    manager.register("LinearIrExample", LinearIrExample.class);
+
+
+    manager.register ("PushBotManual1", PushBotManual1.class);
+    manager.register ("PushBotAutoSensors", PushBotAutoSensors.class);
+    manager.register ("PushBotIrEvent", PushBotIrEvent.class);
+
+    manager.register ("PushBotManualSensors", PushBotManualSensors.class);
+    manager.register ("PushBotOdsDetectEvent", PushBotOdsDetectEvent.class);
+    manager.register ("PushBotOdsFollowEvent", PushBotOdsFollowEvent.class);
+    manager.register ("PushBotTouchEvent", PushBotTouchEvent.class);
 
     //manager.register("PushBotDriveTouch", PushBotDriveTouch.java);
     //manager.register("PushBotIrSeek", PushBotIrSeek.java);
