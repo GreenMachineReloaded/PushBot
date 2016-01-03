@@ -19,23 +19,23 @@ public class MoveRobotSquareMoveServo extends LinearOpMode {
         Sleeper s = new Sleeper();
         waitForStart();
 
-        move.moveForward(250);
+        move.moveForward(250, 100);
         servoObject.moveServo(270);
         s.Sleep(1000);
         servoObject.moveServo(90);
         s.Sleep(1000);
-        move.turnRight(250);
-        move.moveForward(250);
+        move.turnRight(250, 100);
+        move.moveForward(250, 100);
         servoObject.moveServo(270);
         s.Sleep(1000);
         servoObject.moveServo(90);
         s.Sleep(1000);
-        move.turnRight(250);
-        move.moveForward(250);
+        move.turnRight(250, 100);
+        move.moveForward(250, 100);
         servoObject.moveServo(270);
         s.Sleep(1000);
         servoObject.moveServo(90);
         s.Sleep(1000);
-        move.turnRight(250);
+        move.turnRight(250, 100);
     }
 }

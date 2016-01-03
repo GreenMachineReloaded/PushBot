@@ -3,17 +3,17 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.ftcrobotcontroller.opmodes.drivers.GMRServo;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Servo;
-import static java.lang.Thread.sleep;
+//import static java.lang.Thread.sleep;
 
 /**
- * Created by Payton on 11/15/2015.
+ * Created by Payton on 11/15/2015
  */
 public class ServoTest extends OpMode {
 
     GMRServo servo;
 
     Servo servo1;
-    
+
     @Override
     public void init() {
 

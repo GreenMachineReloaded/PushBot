@@ -1,6 +1,4 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
-
-import com.qualcomm.ftcrobotcontroller.opmodes.drivers.GMRServo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,17 +9,12 @@ public class UpRampDeadReckoning extends LinearOpMode {
     Servo servo;
     @Override
     public void runOpMode() throws InterruptedException {
-        leftMotor = hardwareMap.dcMotor.get("leftdriveMotor");
-        rightMotor = hardwareMap.dcMotor.get("rightdriveMotor");
-        servo = hardwareMap.servo.get("servo");
+        leftMotor = hardwareMap.dcMotor.get("leftDriveMotor");
+        rightMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         MoveMotorsObject move = new MoveMotorsObject(leftMotor, rightMotor);
-        GMRServo Servo = new GMRServo(servo);
         waitForStart();
-
-        move.moveForward(2500);
-
-        move.turnRight(1000);
-        Servo.moveServo(0);
-        move.moveForward(2500);
+        move.moveForward(2000, 100);
+        move.turnRight(850, 100);
+        move.moveForward(9500, 45);
     }
 }

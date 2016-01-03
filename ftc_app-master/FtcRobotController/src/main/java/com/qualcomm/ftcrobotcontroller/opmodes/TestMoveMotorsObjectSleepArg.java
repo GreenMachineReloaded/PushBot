@@ -14,12 +14,12 @@ public class TestMoveMotorsObjectSleepArg extends LinearOpMode {
 
         waitForStart();
 
-        move.moveForward(1000);
+        move.moveForward(1000, 100);
 
-        move.turnRight(1000);
+        move.turnRight(1000, 100);
 
-        move.turnLeft(1000);
+        move.turnLeft(1000, 100);
 
-        move.moveBackward(1000);
+        move.moveBackward(1000, 100);
     }
 }
