@@ -4,12 +4,11 @@ public class Sleeper {
 
     public void Sleep(int s) {
         try {
-
-        sleep(s);
-    }
-    catch (InterruptedException e) {
-        e.printStackTrace();
-    }
+            sleep(s);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
 

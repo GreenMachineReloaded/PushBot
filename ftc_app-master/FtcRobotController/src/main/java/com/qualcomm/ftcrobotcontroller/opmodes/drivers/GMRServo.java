@@ -13,6 +13,12 @@ public class GMRServo {
         //servoController = hardwareMap.servoController.get("Servo Controller 1");
 
     }
+    public void moveServo360(double pos) {
+
+        this.servoHandle.setPosition(pos);
+
+    }
+
     public void moveServo(double pos) {
 
         this.servoHandle.setPosition(pos);

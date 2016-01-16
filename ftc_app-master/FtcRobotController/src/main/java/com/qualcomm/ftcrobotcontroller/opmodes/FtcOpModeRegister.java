@@ -77,13 +77,14 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
 
 
-    manager.register("CadwynTeleOp", CadwynTeleOp.class);
-    manager.register("BlueUpRampDeadReckoning", BlueUpRampDeadReckoning.class);
-    manager.register("BlueCloserUpRampDeadReckining", BlueCloserUpRampDeadReckoning.class);
-    manager.register("RedUpRampDeadReckoning", RedUpRampDeadReckoning.class);
-    manager.register("RedCloserUpRampDeadReckining", RedCloserUpRampDeadReckoning.class);
-    manager.register("BeaconPress", BeaconPress.class);
-
+//    manager.register("CadwynTeleOp", CadwynTeleOp.class);
+//    manager.register("BlueUpRampDeadReckoning", BlueUpRampDeadReckoning.class);
+//    manager.register("BlueCloserUpRampDeadReckining", BlueCloserUpRampDeadReckoning.class);
+//    manager.register("RedUpRampDeadReckoning", RedUpRampDeadReckoning.class);
+//    manager.register("RedCloserUpRampDeadReckining", RedCloserUpRampDeadReckoning.class);
+//    manager.register("BeaconPress", BeaconPress.class);
+    manager.register("TurnGyro90", TurnGyro90.class);
+    manager.register("TestingGyroObject", TestingGyroObject.class);
 
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);

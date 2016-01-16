@@ -7,17 +7,30 @@ public class TestingGyroObject extends LinearOpMode {
     DcMotor leftDriveMotorArg;
     DcMotor rightDriveMotorArg;
     GyroSensor gyroArg;
+    GyroObjectTest degrees;
     @Override
     public void runOpMode() throws InterruptedException {
         leftDriveMotorArg = hardwareMap.dcMotor.get("leftDriveMotor");
         rightDriveMotorArg = hardwareMap.dcMotor.get("rightDriveMotor");
         gyroArg = hardwareMap.gyroSensor.get("gyro");
-        telemetry.addData("name stuff", "");
         s = new Sleeper();
         waitForStart();
-        GyroObject degrees = new GyroObject(leftDriveMotorArg, rightDriveMotorArg, gyroArg);
-        telemetry.addData("before start", gyroArg.getHeading());
-        degrees.turnGyro(90, telemetry);
-
+        degrees = new GyroObjectTest(leftDriveMotorArg, rightDriveMotorArg, gyroArg);
+        degrees.GyroTurn(90);
+        s.Sleep(3000);
+        degrees.GyroTurn(90);
+        s.Sleep(3000);
+        degrees.GyroTurn(90);
+        s.Sleep(3000);
+        degrees.GyroTurn(90);
+        s.Sleep(3000);
+        degrees.GyroTurn(-90);
+        s.Sleep(3000);
+        degrees.GyroTurn(-90);
+        s.Sleep(3000);
+        degrees.GyroTurn(-90);
+        s.Sleep(3000);
+        degrees.GyroTurn(-90);
+        s.Sleep(3000);
     }
 }
