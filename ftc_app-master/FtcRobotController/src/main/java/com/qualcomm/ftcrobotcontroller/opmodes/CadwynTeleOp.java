@@ -72,7 +72,6 @@ public class CadwynTeleOp extends OpMode {
         liftMotor = hardwareMap.dcMotor.get("liftMotor");
 
         leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");
-
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
 
         leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -213,3 +212,5 @@ public class CadwynTeleOp extends OpMode {
 
     }
 }
+
+
