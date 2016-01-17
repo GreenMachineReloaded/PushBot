@@ -22,12 +22,12 @@ public class GyroObject {
         s = new Sleeper();
         t = telemetry;
         gyro.calibrate();
-        while (gyro.isCalibrating()) {
-            //s.Sleep(0.100);
-            count++;
-            t.addData("Gyro Test Number", count);
-            s.Sleep(50);
-        }
+//        while (gyro.isCalibrating()) {
+//            //s.Sleep(0.100);
+//            count++;
+//            t.addData("Gyro Test Number", count);
+//            s.Sleep(50);
+//        }
         t.addData("Gyro Calibration Complete","");
     }
 
@@ -40,17 +40,26 @@ public class GyroObject {
         }
         leftMotor.setPower(0);
         rightMotor.setPower(0);
+        gyro.resetZAxisIntegrator();
     }
 
     public void gyroRightTurn (int degrees) {
         //gyroHeading = gyro.getHeading() + degrees;
+        while (gyro.isCalibrating()) {
+            s.Sleep(50);
+            count++;
+            t.addData("Gyro Test Number", count);
+        }
         while (!(degrees <= gyro.getHeading())) {
             leftMotor.setPower(-0.1);
             rightMotor.setPower(0.1);
             t.addData("Gyro Heading", gyro.getHeading());
         }
+        s.Sleep(10);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
+        gyro.resetZAxisIntegrator();
+        t.addData("Gyro Heading", gyro.getHeading());
     }
 
 //    public void turnGyro(int degrees, Telemetry t) {
