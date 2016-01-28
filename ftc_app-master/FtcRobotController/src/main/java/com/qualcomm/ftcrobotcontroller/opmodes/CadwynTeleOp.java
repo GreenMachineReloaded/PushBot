@@ -38,38 +38,33 @@ public class CadwynTeleOp extends OpMode {
 
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
-    DcMotor liftMotor;
-    //DcMotor liftMotor;
+    DcMotor armMotor;
     DcMotor winchMotor;
+    DcMotor sweeperMotor;
 
-    //GMRServo wheelBarServo;
-
-    GMRServo flapperBlue;
-    GMRServo flapperRed;
-    GMRServo dumpClimbersServo;
+    GMRServo leftFlapperServo;
+    GMRServo rightFlapperServo;
+    GMRServo climberDepositerServo;
     GMRServo winchServo;
-    GMRServo liftAimservo;
 
     Servo servo1;
     Servo servo2;
     Servo servo3;
     Servo servo4;
-    Servo servo5;
 
     //float wheelBarPosition;
 
-    float flapperBluePosition;
-    float flapperRedPosition;
-    float dumpClimbersServoPosition;
+    float flapperRightPosition;
+    float flapperLeftPosition;
+    float climberDepositerPosition;
     float winchServoPosition;
-    float liftAimPosition;
 
     float multiplier;
 
     @Override
     public void init() {
 
-        liftMotor = hardwareMap.dcMotor.get("liftMotor");
+        armMotor = hardwareMap.dcMotor.get("armMotor");
 
         leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
@@ -79,30 +74,25 @@ public class CadwynTeleOp extends OpMode {
 
         winchMotor = hardwareMap.dcMotor.get("winchMotor");
 
+        sweeperMotor = hardwareMap.dcMotor.get("sweeperMotor");
+
 
         servo1 = hardwareMap.servo.get("flapperLeft");
-        flapperBlue = new GMRServo(servo1);
+        leftFlapperServo = new GMRServo(servo1);
 
         servo2 = hardwareMap.servo.get("flapperRight");
-        flapperRed = new GMRServo(servo2);
+        rightFlapperServo = new GMRServo(servo2);
 
-        servo3 = hardwareMap.servo.get("dumpClimbersServo");
-        dumpClimbersServo = new GMRServo(servo3);
+        servo3 = hardwareMap.servo.get("climberDepositerServo");
+        climberDepositerServo = new GMRServo(servo3);
 
         servo4 = hardwareMap.servo.get("winchServo");
         winchServo = new GMRServo(servo4);
 
-        servo5 = hardwareMap.servo.get("liftServo");
-        liftAimservo = new GMRServo(servo5);
-
-
-
-
-        flapperBluePosition = (float) 0;
-        flapperRedPosition = (float) 0.8;
-        dumpClimbersServoPosition = (float) 0.96;
-        winchServoPosition = (float) 0.5;
-        liftAimPosition = (float) 1;
+        flapperRightPosition = (float) 0;
+        flapperLeftPosition = (float) 0;
+        climberDepositerPosition = (float) 0;
+        winchServoPosition = (float) 0;
 
         multiplier = 1;
 
@@ -111,8 +101,8 @@ public class CadwynTeleOp extends OpMode {
     @Override
     public void loop() {
 
-        float moveLeft = gamepad1.left_stick_y;
-        float moveRight = gamepad1.right_stick_y;
+        float moveLeft = -gamepad1.left_stick_y;
+        float moveRight = -gamepad1.right_stick_y;
 
         leftDriveMotor.setPower(moveLeft);
         rightDriveMotor.setPower(moveRight);
@@ -120,11 +110,11 @@ public class CadwynTeleOp extends OpMode {
 
 
         if (gamepad1.right_bumper) {
-            winchMotor.setPower(0.5);
+            sweeperMotor.setPower(0.5);
         } else if (gamepad1.right_trigger > 0) {
-            winchMotor.setPower(-0.5);
+            sweeperMotor.setPower(-0.5);
         } else {
-            winchMotor.setPower(0);
+            sweeperMotor.setPower(0);
         }
 
         if (gamepad1.left_bumper) {
@@ -138,35 +128,43 @@ public class CadwynTeleOp extends OpMode {
 
 
         if (gamepad2.left_stick_y > 0) {
-            flapperBluePosition += 0.01;
+            flapperRightPosition += 0.01;
         }
 
         if (gamepad2.left_stick_y < 0) {
-            flapperBluePosition -= 0.01;
+            flapperRightPosition -= 0.01;
         }
 
         if (gamepad2.right_stick_y > 0) {
-            flapperRedPosition -= 0.01;
+            flapperLeftPosition -= 0.01;
         }
 
         if (gamepad2.right_stick_y < 0) {
-            flapperRedPosition += 0.01;
+            flapperLeftPosition += 0.01;
         }
 
 
         if (gamepad1.dpad_down) {
-            dumpClimbersServoPosition += 0.008;
+            winchMotor.setPower(0.5);
+        }else if (gamepad1.dpad_up) {
+            winchMotor.setPower(-0.5);
+        }else {
+            winchMotor.setPower(0);
         }
-        if (gamepad1.dpad_up) {
-            dumpClimbersServoPosition -= 0.008;
+
+        if (gamepad1.y) {
+            winchServoPosition + 0.005;
+        }
+        if (gamepad1.a) {
+            winchServoPosition - 0.005;
         }
 
         if (gamepad2.right_bumper) {
-            liftMotor.setPower(-1);
+            armMotor.setPower(-1);
         } else if (gamepad2.left_bumper){
-            liftMotor.setPower(1);
+            armMotor.setPower(1);
         } else {
-            liftMotor.setPower(0);
+            armMotor.setPower(0);
         }
         if (gamepad2.left_trigger > 0) {
             liftAimPosition -= 0.005;
@@ -174,7 +172,7 @@ public class CadwynTeleOp extends OpMode {
             liftAimPosition += 0.005;
         }
 
-        if (gamepad1.a) {
+        if (gamepad1.b) {
             leftDriveMotor.setPower(-0.5);
             rightDriveMotor.setPower(-0.5);
         }
@@ -183,31 +181,19 @@ public class CadwynTeleOp extends OpMode {
 //            rightDriveMotor.setPower(-0.5);
 //        }
 
-        if (gamepad2.a) {
-            multiplier = 1;
-        }
-
-        if (gamepad2.b) {
-            multiplier = (float) 0.5;
-        }
-
-
-        flapperRedPosition = (float) Range.clip(flapperRedPosition, 0.25, 0.8);
+        flapperRightPosition = (float) Range.clip(flapperRedPosition, 0, 1);
         flapperRed.moveServo(flapperRedPosition);
 
-        flapperBluePosition = (float) Range.clip(flapperBluePosition, 0, 1);
+        flapperLeftPosition = (float) Range.clip(flapperBluePosition, 0, 1);
         flapperBlue.moveServo(flapperBluePosition);
 
-        dumpClimbersServoPosition = (float) Range.clip(dumpClimbersServoPosition, 0.3, 0.96);
+        climberDepositerPosition = (float) Range.clip(dumpClimbersServoPosition, 0, 01);
         dumpClimbersServo.moveServo(dumpClimbersServoPosition);
 
-        winchServoPosition = (float) Range.clip(winchServoPosition, 0.14, 0.28);
+        winchServoPosition = (float) Range.clip(winchServoPosition, 0, 1);
         winchServo.moveServo(winchServoPosition);
 
-        liftAimPosition = (float) Range.clip(liftAimPosition, 0, 0.2);
-        liftAimservo.moveServo(liftAimPosition);
-
-        String servoPositions = String.format("%.2f",liftAimPosition);
+        String servoPositions = String.format("%.2f",winchServoPosition);
         telemetry.addData("", "Winch Position:  " + servoPositions);
 
     }
