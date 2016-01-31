@@ -62,7 +62,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("K9Line", K9Line.class);
     //manager.register ("PushBotAuto", PushBotAuto.class);
     //manager.register ("PushBotManual", PushBotManual.class);
-    //manager.register ("Test MoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
+    //manager.register ("Test MoveMotors", TestMoveMotorsObjectSleepArg.class);
     //manager.register ("k9 tank drive", K9TankDrive.class);
 
     /*
@@ -73,19 +73,19 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     //manager.register ("K9TankDriveServoTest", K9TankDriveServoTest.class);
 
-    //manager.register("MoveMotorsObject", MoveMotorsObject.class);
+    //manager.register("MoveMotors", MoveMotors.class);
     //manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
 
 
     manager.register("CadwynTeleOp", CadwynTeleOp.class);
-    manager.register("BlueUpRampDeadReckoning", BlueUpRampDeadReckoning.class);
-    manager.register("BlueCloserUpRampDeadReckining", BlueCloserUpRampDeadReckoning.class);
-    manager.register("RedUpRampDeadReckoning", RedUpRampDeadReckoning.class);
-    manager.register("RedCloserUpRampDeadReckining", RedCloserUpRampDeadReckoning.class);
-    manager.register("BeaconPress", BeaconPress.class);
-    manager.register("GyroTest", TestingGyroObject.class);
-    manager.register("Simple Cadwyn", CadwynSimpleDrive.class);
-
+      manager.register("Red to Parking Zone",RedToParkingZone.class);
+    //manager.register("Simple Cadwyn", CadwynSimpleDrive.class);
+    //manager.register("BlueUpRampDeadReckoning", BlueUpRampDeadReckoning.class);
+    //manager.register("BlueCloserUpRampDeadReckining", BlueCloserUpRampDeadReckoning.class);
+    //manager.register("RedUpRampDeadReckoning", RedUpRampDeadReckoning.class);
+    //manager.register("RedCloserUpRampDeadReckining", RedCloserUpRampDeadReckoning.class);
+    //manager.register("BeaconPress", BeaconPress.class);
+    //manager.register("GyroTest", TestingGyroObject.class);
 
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);

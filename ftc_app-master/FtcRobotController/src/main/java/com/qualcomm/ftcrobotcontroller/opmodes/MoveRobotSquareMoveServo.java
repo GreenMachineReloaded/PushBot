@@ -14,7 +14,7 @@ public class MoveRobotSquareMoveServo extends LinearOpMode {
         leftMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         servo = hardwareMap.servo.get("wheelBarServo");
-        MoveMotorsObject move = new MoveMotorsObject(leftMotor, rightMotor);
+        MoveMotors move = new MoveMotors(leftMotor, rightMotor);
         GMRServo servoObject = new GMRServo(servo);
         Sleeper s = new Sleeper();
         waitForStart();

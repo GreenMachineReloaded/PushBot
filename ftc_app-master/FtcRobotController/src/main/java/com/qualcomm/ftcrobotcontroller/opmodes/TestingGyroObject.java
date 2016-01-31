@@ -1,5 +1,5 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 public class TestingGyroObject extends LinearOpMode {
@@ -22,7 +22,7 @@ public class TestingGyroObject extends LinearOpMode {
         //leftDriveMotorArg.setPower(-0.25);
         //rightDriveMotorArg.setPower(-0.25);
         //sleep((long) 2);
-        gyroTurn.gyroRightTurn(90);
+        gyroTurn.rightTurn(90);
         //sleep((long) 2);
         //leftDriveMotorArg.setPower(-0.2);
         //rightDriveMotorArg.setPower(-0.2);

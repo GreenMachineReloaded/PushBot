@@ -10,9 +10,6 @@ public class GyroObject {
     GyroSensor gyro;
     Sleeper s;
     Telemetry t;
-    int count = 0;
-    int gyroHeading = 0;
-
     public GyroObject(DcMotor leftMotorArg, DcMotor rightMotorArg, GyroSensor gyroArg,Telemetry telemetry) throws InterruptedException {
         gyro = gyroArg;
         leftMotor = leftMotorArg;
@@ -22,18 +19,15 @@ public class GyroObject {
         s = new Sleeper();
         t = telemetry;
         gyro.calibrate();
-//        while (gyro.isCalibrating()) {
-//            //s.Sleep(0.100);
-//            count++;
-//            t.addData("Gyro Test Number", count);
-//            s.Sleep(50);
-//        }
         t.addData("Gyro Calibration Complete","");
     }
 
-    public void gyroLeftTurn (int degrees) {
-        gyroHeading = gyro.getHeading() + (359-degrees);
-        while (!(degrees >= gyroHeading)) {
+    public void leftTurn(int degrees) {
+        while (gyro.isCalibrating()) {
+            s.Sleep(50);
+        }
+        int leftTurnDegrees = 359 - degrees;
+        while (!(leftTurnDegrees >= gyro.getHeading())) {
             leftMotor.setPower(0.1);
             rightMotor.setPower(-0.1);
             t.addData("Gyro heading", gyro.getHeading());
@@ -43,12 +37,9 @@ public class GyroObject {
         gyro.resetZAxisIntegrator();
     }
 
-    public void gyroRightTurn (int degrees) {
-        //gyroHeading = gyro.getHeading() + degrees;
+    public void rightTurn (int degrees) {
         while (gyro.isCalibrating()) {
             s.Sleep(50);
-            count++;
-            t.addData("Gyro Test Number", count);
         }
         while (!(degrees <= gyro.getHeading())) {
             leftMotor.setPower(-0.1);

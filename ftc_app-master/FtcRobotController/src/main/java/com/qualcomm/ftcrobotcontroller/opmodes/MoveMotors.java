@@ -1,6 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.hardware.DcMotor;
-public class MoveMotorsObject {
+public class MoveMotors {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //objects
     DcMotor leftMotor;
@@ -9,7 +9,7 @@ public class MoveMotorsObject {
     //objects
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //constructor
-    public MoveMotorsObject (DcMotor leftMotorArg, DcMotor rightMotorArg) {
+    public MoveMotors(DcMotor leftMotorArg, DcMotor rightMotorArg) {
         leftMotor = leftMotorArg;
         rightMotor = rightMotorArg;
         s = new Sleeper();

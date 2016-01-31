@@ -10,7 +10,7 @@ public class TestMoveMotorsObjectSleepArg extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         leftMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightMotor = hardwareMap.dcMotor.get("rightDriveMotor");
-        MoveMotorsObject move = new MoveMotorsObject(leftMotor, rightMotor);
+        MoveMotors move = new MoveMotors(leftMotor, rightMotor);
 
         waitForStart();
 

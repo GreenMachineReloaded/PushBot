@@ -10,7 +10,7 @@ public class BlueCloserUpRampDeadReckoning extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
-        MoveMotorsObject move = new MoveMotorsObject(leftDriveMotor, rightDriveMotor);
+        MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
 
         waitForStart();
 

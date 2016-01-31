@@ -2,8 +2,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /*
  * An example linear op mode where the pushbot
@@ -19,7 +17,7 @@ public class BeaconPress extends LinearOpMode {
         leftMotorArg = hardwareMap.dcMotor.get("leftDriveMotor");
         rightMotorArg = hardwareMap.dcMotor.get("rightDriveMotor");
         s = new Sleeper();
-        MoveMotorsObject move = new MoveMotorsObject(leftMotorArg, rightMotorArg);
+        MoveMotors move = new MoveMotors(leftMotorArg, rightMotorArg);
         waitForStart();
         sleep(5000);
         move.moveForward(3600, 100);
