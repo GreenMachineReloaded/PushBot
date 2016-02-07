@@ -4,20 +4,20 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class GMRServo {
 
-    Servo servoHandle;
+    Servo servoHandle;// creates servo
 
-    public GMRServo(Servo s) {
+    public GMRServo(Servo s) {// constuctor-- when first making servo
 
-        this.servoHandle = s;
-
-    }
-    public void moveServo(double pos) {
-
-        this.servoHandle.setPosition(pos);
+        this.servoHandle = s;// naming servo
 
     }
+    public void moveServo(double pos) {// main method for servo movement
 
-    public double pos(){
+        this.servoHandle.setPosition(pos);//sets servo position
+
+    }
+
+    public double pos(){//reports servo position
 
         return this.servoHandle.getPosition();
 

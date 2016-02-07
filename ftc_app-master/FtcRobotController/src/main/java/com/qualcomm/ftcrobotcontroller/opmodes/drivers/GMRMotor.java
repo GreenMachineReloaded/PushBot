@@ -20,23 +20,25 @@ import com.qualcomm.robotcore.util.Range;
 public class GMRMotor {
 
     public DcMotor motorHandle;
-    Sleeper sleep;
-    Telemetry t;
+    Sleeper sleep;// create sleeper
+    Telemetry t;// create telemetry
 
     public GMRMotor (DcMotor m, Telemetry telemetry) {
-        this.motorHandle = m;
-        t = telemetry;
-        sleep = new Sleeper();
+        this.motorHandle = m;// naming motor
+        t = telemetry;// naming telemetry
+        sleep = new Sleeper();// naming sleeper
     }
 
     public double holdMotor(int position) {
         this.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         sleep.Sleep(10);
-        if (this.motorHandle.getCurrentPosition() != position) {
-            double motorPower = 0;
-            motorPower = (this.motorHandle.getCurrentPosition() - position)/20;
+
+        //if statement
+        if (this.motorHandle.getCurrentPosition() != position) {// current position
+            double motorPower = 0;// no movement
+            motorPower = (this.motorHandle.getCurrentPosition() - position)/20;// make Pwr of motor by dividing position by 20
             motorPower = Range.clip(motorPower,0,1);
-            return motorPower;
+            return motorPower;// return motor PWR value
 //            if (this.motorHandle.getCurrentPosition() > position) {
 //                double motorPower = 0;
 //                motorPower = (this.motorHandle.getCurrentPosition() - position)/20;
@@ -50,7 +52,7 @@ public class GMRMotor {
 //                return motorPower;
 //            }
         }else {
-            return 0;
+            return 0;// returned value at driver station
         }
     }
 }
