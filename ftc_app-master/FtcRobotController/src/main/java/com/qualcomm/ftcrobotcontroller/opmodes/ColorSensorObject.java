@@ -15,7 +15,7 @@ import static android.graphics.Color.*;
 
 public class ColorSensorObject{
 
-    ColorSensor colorSensor;//renaming color sensor to wanted name
+    ColorSensor colorSensor;
 
     Telemetry telemetry;
 
@@ -31,11 +31,11 @@ public class ColorSensorObject{
 
     public int red() {
         return colorSensor.red();
-    }// find value of red then * by 20
+    }
 
-    public int blue(){return colorSensor.blue();}// find value of blue then* by 20
+    public int blue(){return colorSensor.blue();}
 
-    public int green() {return colorSensor.green();}// find value of green then * by 20
+    public int green() {return colorSensor.green();}
 
     public int getColor() {
 
@@ -45,18 +45,18 @@ public class ColorSensorObject{
         telemetry.addData("Start Robot","");
         Color.RGBToHSV(this.red() * 8, this.green() * 8, this.blue() * 8, hsvValues);
 
-        if ((this.green() >= 5) && (this.blue() >= 20) && (this.red() <= 4)) {//   returnColor = BLUE;// tells return color to say BLUE iff it matches the requirements above
+        if ((this.green() >= 5) && (this.blue() >= 20) && (this.red() <= 4)) {//   returnColor = BLUE;
             telemetry.addData("CadwynBlue", this.blue());// return values of the color blue
             telemetry.addData("CadwynBlue!","");
 
         }
 
-         else if ((green()<=5) && (blue()<=4) && (red()>=35)){//   returnColor = RED;// tells return color to say RED iff it matches the requirements above
+         else if ((green()<=5) && (blue()<=4) && (red()>=35)){//   returnColor = RED;
             telemetry.addData("CadwynRed", this.red());// return the values of the color red
             telemetry.addData("CadwynRed!","");
         }
 
-     else if ((green()>=28) && (blue()>=20) && (red()<=10)){// returnColor = GREEN;// tells return color to say GREEN iff it matches the requirements above
+     else if ((green()>=28) && (blue()>=20) && (red()<=10)){// returnColor = GREEN;
             telemetry.addData("CadwynGreen", this.green());// return the value of the color green
             telemetry.addData("CadwynGreen!","");
         }
