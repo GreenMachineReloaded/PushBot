@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.robocol.Telemetry;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * Created by Amber on 1/29/2016.
@@ -30,23 +31,26 @@ public class GMRMotor {
 
     public double holdMotor(int position) {
         this.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-
+        sleep.Sleep(10);
         if (this.motorHandle.getCurrentPosition() != position) {
-            if (this.motorHandle.getCurrentPosition() > 625) {
-                if (this.motorHandle.getCurrentPosition() > position) {
-                    if (this.motorHandle.getCurrentPosition() > (2 + position)) {
-                        return (-0.05);
-                    }
-                }
-            }
-            if (this.motorHandle.getCurrentPosition() < 625) {
-                if (this.motorHandle.getCurrentPosition() < position) {
-                    if (this.motorHandle.getCurrentPosition() < (2 + position)) {
-                        return (0.05);
-                    }
-                }
-            }
-        }
+            double motorPower = 0;
+            motorPower = (this.motorHandle.getCurrentPosition() - position)/20;
+            motorPower = Range.clip(motorPower,0,1);
+            return motorPower;
+//            if (this.motorHandle.getCurrentPosition() > position) {
+//                double motorPower = 0;
+//                motorPower = (this.motorHandle.getCurrentPosition() - position)/20;
+//                motorPower = Range.clip(motorPower,0,1);
+//                return motorPower;
+//            }
+//            if (this.motorHandle.getCurrentPosition() < position) {
+//                double motorPower = 0;
+//                motorPower = (this.motorHandle.getCurrentPosition() - position)/20;
+//                motorPower = Range.clip(motorPower,0,1);
+//                return motorPower;
+//            }
+        }else {
             return 0;
+        }
     }
 }
