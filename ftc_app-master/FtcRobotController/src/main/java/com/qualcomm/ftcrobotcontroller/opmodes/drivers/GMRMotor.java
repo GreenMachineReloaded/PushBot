@@ -20,33 +20,33 @@ import com.qualcomm.robotcore.util.Range;
 public class GMRMotor {
 
     public DcMotor motorHandle;
-    Sleeper sleep;
-    Telemetry t;
+    Sleeper sleep;// create sleeper
+    Telemetry t;// create telemetry
     double motorPower = 0;
 
     public GMRMotor (DcMotor m, Telemetry telemetry) {
-        this.motorHandle = m;
-        t = telemetry;
-        sleep = new Sleeper();
+        this.motorHandle = m;// naming motor
+        t = telemetry;// naming telemetry
+        sleep = new Sleeper();// naming sleeper
     }
 
-    public double holdMotor(int position, Telemetry telemetry) {
+    public double holdMotor(int position) {
         this.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         sleep.Sleep(10);
-        if (this.motorHandle.getCurrentPosition() != position) {
+        if (this.motorHandle.getCurrentPosition() != position) {// current position
             if (this.motorHandle.getCurrentPosition() > position) {
-                motorPower = -((this.motorHandle.getCurrentPosition() - position)/20);
-                telemetry.addData("", "Motor Power" + motorPower);
+                motorPower = -((this.motorHandle.getCurrentPosition() - position)/20);// make Pwr of motor by dividing position by 20
+                t.addData("", "Motor Power" + motorPower);
                 motorPower = Range.clip(motorPower,0,1);
                 return motorPower;
             }
             if (this.motorHandle.getCurrentPosition() < position) {
-                motorPower = (this.motorHandle.getCurrentPosition() - position)/20;
-                telemetry.addData("", "Motor Power" + motorPower);
+                motorPower = (this.motorHandle.getCurrentPosition() - position)/20;// make Pwr of motor by dividing position by 20
+                t.addData("", "Motor Power" + motorPower);
                 motorPower = Range.clip(motorPower,0,1);
                 return motorPower;
            }
         }
-        return 0;
+        return 0;// returned value at driver station
     }
 }

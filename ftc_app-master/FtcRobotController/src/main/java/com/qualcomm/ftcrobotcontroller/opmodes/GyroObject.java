@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.robocol.Telemetry;
 
 public class GyroObject {
 
+
     DcMotor leftMotor;
     DcMotor rightMotor;
     GyroSensor gyro;
