@@ -22,6 +22,7 @@ public class GMRMotor {
     public DcMotor motorHandle;
     Sleeper sleep;
     Telemetry t;
+    double motorPower = 0;
 
     public GMRMotor (DcMotor m, Telemetry telemetry) {
         this.motorHandle = m;
@@ -29,28 +30,23 @@ public class GMRMotor {
         sleep = new Sleeper();
     }
 
-    public double holdMotor(int position) {
+    public double holdMotor(int position, Telemetry telemetry) {
         this.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         sleep.Sleep(10);
         if (this.motorHandle.getCurrentPosition() != position) {
-            double motorPower = 0;
-            motorPower = (this.motorHandle.getCurrentPosition() - position)/20;
-            motorPower = Range.clip(motorPower,0,1);
-            return motorPower;
-//            if (this.motorHandle.getCurrentPosition() > position) {
-//                double motorPower = 0;
-//                motorPower = (this.motorHandle.getCurrentPosition() - position)/20;
-//                motorPower = Range.clip(motorPower,0,1);
-//                return motorPower;
-//            }
-//            if (this.motorHandle.getCurrentPosition() < position) {
-//                double motorPower = 0;
-//                motorPower = (this.motorHandle.getCurrentPosition() - position)/20;
-//                motorPower = Range.clip(motorPower,0,1);
-//                return motorPower;
-//            }
-        }else {
-            return 0;
+            if (this.motorHandle.getCurrentPosition() > position) {
+                motorPower = -((this.motorHandle.getCurrentPosition() - position)/20);
+                telemetry.addData("", "Motor Power" + motorPower);
+                motorPower = Range.clip(motorPower,0,1);
+                return motorPower;
+            }
+            if (this.motorHandle.getCurrentPosition() < position) {
+                motorPower = (this.motorHandle.getCurrentPosition() - position)/20;
+                telemetry.addData("", "Motor Power" + motorPower);
+                motorPower = Range.clip(motorPower,0,1);
+                return motorPower;
+           }
         }
+        return 0;
     }
 }
