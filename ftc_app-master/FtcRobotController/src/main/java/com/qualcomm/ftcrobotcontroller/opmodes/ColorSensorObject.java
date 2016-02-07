@@ -15,17 +15,17 @@ import static android.graphics.Color.*;
 
 public class ColorSensorObject{
 
-    ColorSensor colorSensor;
+    ColorSensor colorSensor;//creating colorsensor
 
-    Telemetry telemetry;
+    Telemetry telemetry;// creating telemetry
 
-    private float hsvValues[] = {0,0,0};
+    private float hsvValues[] = {0,0,0};//
 
 
     public ColorSensorObject(ColorSensor cs, Telemetry t) {
 
-        this.telemetry = t;
-        this.colorSensor = cs;
+        this.telemetry = t;//naming telemetry
+        this.colorSensor = cs;// naming color sensor
 
     }
 
