@@ -70,6 +70,9 @@ public class CadwynTeleOp extends OpMode {
     double multiplier;
 
     int armMotorPosition;
+    int armMotorPosition2;
+
+    int getArmMotorPosition;
 
     Sleeper sleep;
 
@@ -77,7 +80,7 @@ public class CadwynTeleOp extends OpMode {
     public void init() {
 
         dcArmMotor = hardwareMap.dcMotor.get("armMotor");
-        armMotor = new GMRMotor(dcArmMotor);
+        armMotor = new GMRMotor(dcArmMotor, telemetry);
 
         leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
@@ -113,6 +116,8 @@ public class CadwynTeleOp extends OpMode {
 
         armMotor.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
+        getArmMotorPosition = 0;
+
     }
 
     @Override
@@ -123,15 +128,30 @@ public class CadwynTeleOp extends OpMode {
         leftDriveMotor.setPower(gamepad1.left_stick_y);
         rightDriveMotor.setPower(gamepad1.right_stick_y);
 
-        if (armMotor.motorHandle.getCurrentPosition() > 490) {
+        if (armMotor.motorHandle.getCurrentPosition() > 625) {
             multiplier = 0.5;
-        }else if (armMotor.motorHandle.getCurrentPosition() < 490) {
+        }else if (armMotor.motorHandle.getCurrentPosition() < 625) {
             multiplier = 1;
         }
 
-        if (gamepad1.x) {
-            armMotor.holdMotor(armMotorPosition);
+        if (gamepad1.x && getArmMotorPosition == 0) {
+            getArmMotorPosition = 1;
+            armMotorPosition2 = armMotor.motorHandle.getCurrentPosition();
+        }else if (gamepad1.x && getArmMotorPosition == 1) {
+            Double armMotorPower = armMotor.holdMotor(armMotorPosition2);
+            armMotor.motorHandle.setPower(armMotorPower);
+        } else if (!gamepad1.x) {
+            getArmMotorPosition = 0;
+            if (gamepad1.left_bumper) {
+                armMotor.motorHandle.setPower(-0.2);
+            } else if (gamepad1.left_trigger > 0){
+                armMotor.motorHandle.setPower(0.2);
+            }else if ( !gamepad1.left_bumper && !(gamepad1.left_trigger > 0) && (getArmMotorPosition == 0)) {
+                armMotor.motorHandle.setPower(0);
+            }
         }
+        String armPosition = String.valueOf(armMotor.motorHandle.getCurrentPosition());
+        telemetry.addData("", "" + "it made it this far: " + armPosition);
 
         if (gamepad1.right_bumper) {
             sweeperMotor.setPower(-1);
@@ -139,14 +159,6 @@ public class CadwynTeleOp extends OpMode {
             sweeperMotor.setPower(1);
         } else {
             sweeperMotor.setPower(0);
-        }
-
-        if (gamepad1.left_bumper) {
-            armMotor.motorHandle.setPower(-0.2 * multiplier);
-        } else if (gamepad1.left_trigger > 0){
-            armMotor.motorHandle.setPower(0.2 * multiplier);
-        } else {
-            armMotor.motorHandle.setPower(0);
         }
 
         if (gamepad1.b) {
@@ -170,15 +182,15 @@ public class CadwynTeleOp extends OpMode {
 
 
 
-        if (gamepad2.right_stick_y < 0) {
+        if (gamepad2.right_stick_y > 0) {
             flapperRightPosition += 0.01;
-        }else if (gamepad2.right_stick_y > 0) {
+        }else if (gamepad2.right_stick_y < 0) {
             flapperRightPosition -= 0.01;
         }
 
-        if (gamepad2.left_stick_y < 0) {
+        if (gamepad2.left_stick_y > 0) {
             flapperLeftPosition -= 0.01;
-        }else if (gamepad2.left_stick_y > 0) {
+        }else if (gamepad2.left_stick_y < 0) {
             flapperLeftPosition += 0.01;
         }
 
@@ -201,10 +213,10 @@ public class CadwynTeleOp extends OpMode {
         }
 
 
-        flapperRightPosition =  Range.clip(flapperRightPosition, 0.38, 1);
+        flapperRightPosition =  Range.clip(flapperRightPosition, 0, 1);
         rightFlapperServo.moveServo(flapperRightPosition);
 
-        flapperLeftPosition =  Range.clip(flapperLeftPosition, 0, 0.56);
+        flapperLeftPosition =  Range.clip(flapperLeftPosition, 0.8, 1);
         leftFlapperServo.moveServo(flapperLeftPosition);
 
         climberDepositerPosition =  Range.clip(climberDepositerPosition, 0, 1);
@@ -216,15 +228,14 @@ public class CadwynTeleOp extends OpMode {
         hopperDoorleftRedPosition =  Range.clip(hopperDoorleftRedPosition, 0.14, 0.6);
         hopperDoorRed.moveServo(hopperDoorleftRedPosition);
 
-        hopperDoorRightBluePosition =  Range.clip(hopperDoorRightBluePosition, 0, 0.6);
+        hopperDoorRightBluePosition =  Range.clip(hopperDoorRightBluePosition, 0.03, 0.6);
         hopperDoorBlue.moveServo(hopperDoorRightBluePosition);
 
-        String servoPositions = String.valueOf(armMotorPosition);
+        //String servoPositions = String.valueOf(armMotorPosition2);
 
-        //String servoPositions = String.format("%.2f", armMotorPosition);
-        telemetry.addData("", "current multiplier: " + multiplier);
+        //String servoPositions = String.format("%.2f", rightFlapperServo);
+        String servoPositions = String.valueOf(hopperDoorRightBluePosition);
+        telemetry.addData("", "current multiplier: " + servoPositions);
 
     }
 }
-
-

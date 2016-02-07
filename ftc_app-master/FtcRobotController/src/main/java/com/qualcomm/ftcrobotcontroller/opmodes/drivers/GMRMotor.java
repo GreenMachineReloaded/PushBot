@@ -1,8 +1,10 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.drivers;
 
 import com.qualcomm.ftcrobotcontroller.opmodes.Sleeper;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.robocol.Telemetry;
 
 /**
  * Created by Amber on 1/29/2016.
@@ -18,40 +20,33 @@ public class GMRMotor {
 
     public DcMotor motorHandle;
     Sleeper sleep;
+    Telemetry t;
 
-    public GMRMotor (DcMotor m) {
+    public GMRMotor (DcMotor m, Telemetry telemetry) {
         this.motorHandle = m;
+        t = telemetry;
+        sleep = new Sleeper();
     }
 
-    public void holdMotor (int position) {
-        sleep = new Sleeper();
-        //this.motorHandle = motor;
-        this.motorHandle.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        sleep.Sleep(20);
+    public double holdMotor(int position) {
         this.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        if (this.motorHandle.getCurrentPosition() != position){
-            if (this.motorHandle.getCurrentPosition() > position){
-                if (this.motorHandle.getCurrentPosition() > (9.75+position)){
-                    this.motorHandle.setPower(-0.3);
-                    if (this.motorHandle.getCurrentPosition() > (6.5+position)){
-                        this.motorHandle.setPower(-0.2);
-                        if (this.motorHandle.getCurrentPosition() > (3.25+position)){
-                            this.motorHandle.setPower(-0.1);
-                        }
+
+        if (this.motorHandle.getCurrentPosition() != position) {
+            if (this.motorHandle.getCurrentPosition() > 625) {
+                if (this.motorHandle.getCurrentPosition() > position) {
+                    if (this.motorHandle.getCurrentPosition() > (2 + position)) {
+                        return (-0.05);
                     }
                 }
             }
-            if (this.motorHandle.getCurrentPosition() < position) {
-                if (this.motorHandle.getCurrentPosition() < (9.75+position)){
-                    this.motorHandle.setPower(0.3);
-                    if (this.motorHandle.getCurrentPosition() < (6.5+position)){
-                        this.motorHandle.setPower(0.2);
-                        if (this.motorHandle.getCurrentPosition() < (3.25+position)){
-                            this.motorHandle.setPower(0.1);
-                        }
+            if (this.motorHandle.getCurrentPosition() < 625) {
+                if (this.motorHandle.getCurrentPosition() < position) {
+                    if (this.motorHandle.getCurrentPosition() < (2 + position)) {
+                        return (0.05);
                     }
                 }
             }
         }
+            return 0;
     }
 }
