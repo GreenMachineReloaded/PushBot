@@ -135,9 +135,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         rightDriveMotor.setPower(gamepad1.right_stick_y);// gamepad 1, right stick Y controls right motors
 
         //if statement 1
-        if (armMotor.motorHandle.getCurrentPosition() > 625) {//if arm position is greater than 625 then change multiplier by .5
+        if (armMotor.motorHandle.getCurrentPosition() > -110) {//if arm position is greater than 625 then change multiplier by .5
             multiplier = 0.5;
-        }else if (armMotor.motorHandle.getCurrentPosition() < 625) {//if arm position less than 625 then change multiplier by 1
+        }else if (armMotor.motorHandle.getCurrentPosition() < -110) {//if arm position less than 625 then change multiplier by 1
             multiplier = 1;
         }
         //if statement 2
@@ -152,15 +152,16 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
             //if statement in last else if in if statement 2
             if (gamepad1.left_bumper) {// moves arm motor left
-                armMotor.motorHandle.setPower(-0.2);//sets power for direction
+                armMotor.motorHandle.setPower(-0.2*multiplier);//sets power for direction
             } else if (gamepad1.left_trigger > 0){// move arm up
-                armMotor.motorHandle.setPower(0.2);
+                armMotor.motorHandle.setPower(0.2*multiplier);
             }else if ( !gamepad1.left_bumper && !(gamepad1.left_trigger > 0) && (getArmMotorPosition == 0)) {// if no of requirements above are met, then arm does nothing
                 armMotor.motorHandle.setPower(0);
             }
+
         }
-        String armPosition = String.valueOf(armMotor.motorHandle.getCurrentPosition());//sends message to driver's phone for arm position
-        telemetry.addData("", "" + "it made it this far: " + armPosition);
+        //String armPosition = String.valueOf(armMotor.motorHandle.getCurrentPosition());//sends message to driver's phone for arm position
+        //telemetry.addData("", "" + "it made it this far: " + armPosition);
 
         //if statement
         if (gamepad1.right_bumper) {// if gamepad 1 right bumper is pressed then sets sweeper in reverse
@@ -241,7 +242,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         winchServoPosition =  Range.clip(winchServoPosition, 0, 0.21);// winch
         winchServo.moveServo(winchServoPosition);
 
-        hopperDoorleftRedPosition =  Range.clip(hopperDoorleftRedPosition, 0.14, 0.6);// red hopper door (left)
+        hopperDoorleftRedPosition =  Range.clip(hopperDoorleftRedPosition, 0.064, 0.64);// red hopper door (left)
         hopperDoorRed.moveServo(hopperDoorleftRedPosition);
 
         hopperDoorRightBluePosition =  Range.clip(hopperDoorRightBluePosition, 0.03, 0.6);// blue hopper door (right)
@@ -251,7 +252,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         //String servoPositions = String.format("%.2f", rightFlapperServo);
 
-        String servoPositions = String.valueOf(hopperDoorRightBluePosition);// printing info to driver station phone
+        String servoPositions = String.valueOf(armMotorPosition);// printing info to driver station phone
         telemetry.addData("", "current multiplier: " + servoPositions);
 
     }

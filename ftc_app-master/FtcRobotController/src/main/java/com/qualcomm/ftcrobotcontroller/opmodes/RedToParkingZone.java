@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.robocol.Telemetry;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -34,8 +35,13 @@ public class RedToParkingZone extends LinearOpMode {
     double winchServoPosition;
     double hopperDoorleftRedPosition;
     double hopperDoorRightBluePosition;
+
+    Telemetry telemetry;
     @Override
     public void runOpMode() throws InterruptedException {
+
+        telemetry = new Telemetry();
+
         leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         gyro = hardwareMap.gyroSensor.get("gyro");
@@ -80,14 +86,27 @@ public class RedToParkingZone extends LinearOpMode {
 //
 //        move.moveForward(500, 40);
 
-     gyroTurn.leftTurn(45);
+        telemetry.addData("", "Program start");
 
-//        move.moveForward(3000, 50);
-//
-//        gyroTurn.leftTurn(45);
-//
-//        move.moveForward(500, 40);
+        move.moveForward(500, 40);
 
+        telemetry.addData("", "Forward complete");
+
+        gyroTurn.leftTurn(45);
+
+        telemetry.addData("", "Left turn complete");
+
+        move.moveForward(3000, 50);
+
+        telemetry.addData("", "Forward 2 complete");
+
+        gyroTurn.leftTurn(45);
+
+        telemetry.addData("", "Left turn 2 complete");
+
+        move.moveForward(500, 40);
+
+        telemetry.addData("", "Last forward complete, program end.");
 
     }
 }
