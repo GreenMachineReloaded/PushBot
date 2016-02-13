@@ -28,23 +28,26 @@ public class GyroObject {
             s.Sleep(50);
         }
         int leftTurnDegrees = 359 - degrees;
-        while (!(leftTurnDegrees >= gyro.getHeading())) {
-            leftMotor.setPower(0.2);
-            rightMotor.setPower(-0.2);
-            t.addData("Gyro heading", gyro.getHeading());
+        while (leftTurnDegrees > gyro.getHeading()) {
+            leftMotor.setPower(0.5);
+            rightMotor.setPower(-0.5);
+            t.addData("Gyro heading", leftTurnDegrees);
+
         }
+        s.Sleep(10);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         gyro.resetZAxisIntegrator();
+        t.addData("the gyro sensor is",gyro.getHeading());
     }
 
     public void rightTurn (int degrees) {
         while (gyro.isCalibrating()) {
             s.Sleep(50);
         }
-        while (!(degrees <= gyro.getHeading())) {
-            leftMotor.setPower(-0.2);
-            rightMotor.setPower(0.2);
+        while (degrees <= gyro.getHeading()) {
+            leftMotor.setPower(-0.5);
+            rightMotor.setPower(0.5);
             t.addData("Gyro Heading", gyro.getHeading());
         }
         s.Sleep(10);

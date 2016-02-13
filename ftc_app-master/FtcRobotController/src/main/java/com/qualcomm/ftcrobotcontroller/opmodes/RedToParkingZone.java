@@ -77,16 +77,17 @@ public class RedToParkingZone extends LinearOpMode {
         MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
 
         waitForStart();
+//
+//        move.moveForward(500, 40);
 
-        //move.moveForward(500, 40);
+     gyroTurn.leftTurn(45);
 
-        //gyroTurn.leftTurn(45);
+//        move.moveForward(3000, 50);
+//
+//        gyroTurn.leftTurn(45);
+//
+//        move.moveForward(500, 40);
 
-        //move.moveForward(3000, 50);
-
-        //gyroTurn.leftTurn(45);
-
-        //move.moveForward(500, 40);
 
     }
 }
