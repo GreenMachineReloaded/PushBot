@@ -83,6 +83,8 @@ public class RedToParkingZone extends LinearOpMode {
         MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
 
         waitForStart();
+//
+//        move.moveForward(500, 40);
 
         telemetry.addData("", "Program start");
 

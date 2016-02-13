@@ -33,11 +33,14 @@ public class GyroObject {
             leftMotor.setPower(0.45);
             rightMotor.setPower(-0.45);
             t.addData("Gyro heading", gyro.getHeading());
-        }
+        s.Sleep(10);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         gyro.resetZAxisIntegrator();
+        t.addData("the gyro sensor is",gyro.getHeading());
+        }
     }
+
 
     public void rightTurn (int degrees) {
         while (gyro.isCalibrating()) {
