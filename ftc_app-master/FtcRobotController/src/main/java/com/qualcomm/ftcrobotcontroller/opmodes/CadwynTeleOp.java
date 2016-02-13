@@ -76,7 +76,8 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     //positions for hold motor methods
     int armMotorPosition;
     int armMotorPosition2;
-    int getArmMotorPosition;
+
+    boolean getArmMotorPosition;
 
     Sleeper sleep;// for pausing
 
@@ -109,7 +110,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         flapperLeftPosition =  0;// left flapper
         climberDepositerPosition =  0;//climber depositor
         winchServoPosition =  0.21;// winch servo
-        hopperDoorleftRedPosition = 0.6;// red hopper door (left)
+        hopperDoorleftRedPosition = 0.64;// red hopper door (left)
         hopperDoorRightBluePosition = 0;// blue hopper door (right)
 
         multiplier = 1;//setting multiplier value
@@ -122,7 +123,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         armMotor.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);//resets encoder for arm
 
-        getArmMotorPosition = 0;//arm position
+        getArmMotorPosition = false;//arm position
 
     }
 
@@ -135,27 +136,27 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         rightDriveMotor.setPower(gamepad1.right_stick_y);// gamepad 1, right stick Y controls right motors
 
         //if statement 1
-        if (armMotor.motorHandle.getCurrentPosition() > -110) {//if arm position is greater than 625 then change multiplier by .5
+        if (armMotor.motorHandle.getCurrentPosition() > 500) {//if arm position is greater than 625 then change multiplier by .5
             multiplier = 0.5;
-        }else if (armMotor.motorHandle.getCurrentPosition() < -110) {//if arm position less than 625 then change multiplier by 1
+        }else if (armMotor.motorHandle.getCurrentPosition() < 500) {//if arm position less than 625 then change multiplier by 1
             multiplier = 1;
         }
         //if statement 2
-        if (gamepad1.x && getArmMotorPosition == 0) {// if gamepad 1  x and arm position is at 0, then move arm to position 1
-            getArmMotorPosition = 1;
+        if (gamepad1.x && getArmMotorPosition) {// if gamepad 1  x and arm position is at 0, then move arm to position 1
+            getArmMotorPosition = true;
             armMotorPosition2 = armMotor.motorHandle.getCurrentPosition();
-        }else if (gamepad1.x && getArmMotorPosition == 1) {//if gamepad 1 x and arm position is 1, keep at same position
+        }else if (gamepad1.x && getArmMotorPosition) {//if gamepad 1 x and arm position is 1, keep at same position
             Double armMotorPower = armMotor.holdMotor(armMotorPosition2);// hold arm position
             armMotor.motorHandle.setPower(armMotorPower);
         } else if (!gamepad1.x) {// if gamepad 1 x is not pressed then resets arm position system
-            getArmMotorPosition = 0;
+            getArmMotorPosition = false;
 
             //if statement in last else if in if statement 2
             if (gamepad1.left_bumper) {// moves arm motor left
                 armMotor.motorHandle.setPower(-0.2*multiplier);//sets power for direction
             } else if (gamepad1.left_trigger > 0){// move arm up
                 armMotor.motorHandle.setPower(0.2*multiplier);
-            }else if ( !gamepad1.left_bumper && !(gamepad1.left_trigger > 0) && (getArmMotorPosition == 0)) {// if no of requirements above are met, then arm does nothing
+            }else if ( !gamepad1.left_bumper && !(gamepad1.left_trigger > 0) && (getArmMotorPosition)) {// if no of requirements above are met, then arm does nothing
                 armMotor.motorHandle.setPower(0);
             }
 
@@ -252,7 +253,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         //String servoPositions = String.format("%.2f", rightFlapperServo);
 
-        String servoPositions = String.valueOf(armMotorPosition);// printing info to driver station phone
+        String servoPositions = String.valueOf(multiplier);// printing info to driver station phone
         telemetry.addData("", "current multiplier: " + servoPositions);
 
     }

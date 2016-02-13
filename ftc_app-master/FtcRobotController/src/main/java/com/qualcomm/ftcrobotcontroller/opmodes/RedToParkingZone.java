@@ -36,11 +36,11 @@ public class RedToParkingZone extends LinearOpMode {
     double hopperDoorleftRedPosition;
     double hopperDoorRightBluePosition;
 
-    Telemetry telemetry;
+    Telemetry t;
     @Override
     public void runOpMode() throws InterruptedException {
 
-        telemetry = new Telemetry();
+        t = telemetry;
 
         leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
@@ -58,7 +58,7 @@ public class RedToParkingZone extends LinearOpMode {
         flapperLeftPosition =  0;
         climberDepositerPosition =  0;
         winchServoPosition =  0.21;
-        hopperDoorleftRedPosition = 0.6;
+        hopperDoorleftRedPosition = 0.64;
         hopperDoorRightBluePosition = 0.03;
 
         flapperRightPosition =  Range.clip(flapperRightPosition, 0, 1);
@@ -73,7 +73,7 @@ public class RedToParkingZone extends LinearOpMode {
         winchServoPosition =  Range.clip(winchServoPosition, 0, 0.21);
         winchServo.moveServo(winchServoPosition);
 
-        hopperDoorleftRedPosition =  Range.clip(hopperDoorleftRedPosition, 0.14, 0.6);
+        hopperDoorleftRedPosition =  Range.clip(hopperDoorleftRedPosition, 0.064, 0.64);
         hopperDoorRed.moveServo(hopperDoorleftRedPosition);
 
         hopperDoorRightBluePosition =  Range.clip(hopperDoorRightBluePosition, 0.03, 0.6);
@@ -81,12 +81,12 @@ public class RedToParkingZone extends LinearOpMode {
 
         GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
         MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
-
+ 
         waitForStart();
 
         telemetry.addData("", "Program start");
 
-        move.moveForward(500, 40);
+        move.moveForward(1000, 40);
 
         telemetry.addData("", "Forward complete");
 
@@ -102,7 +102,7 @@ public class RedToParkingZone extends LinearOpMode {
 
         telemetry.addData("", "Left turn 2 complete");
 
-        move.moveForward(500, 40);
+        move.moveForward(1000, 40);
 
         telemetry.addData("", "Last forward complete, program end.");
 
