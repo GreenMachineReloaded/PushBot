@@ -1,6 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.robocol.Telemetry;
@@ -23,8 +24,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
         ColorSensor argColorSensor;
         MoveMotorsObject move;
         Telemetry telemetry;
-//    UltrasonicSensor argUltrasonic;
-//    UltrasonicObject ultrasonic ;
+    AnalogInput argUltrasonic;
+    UltrasonicObject ultrasonic ;
 
         @Override
         public void runOpMode() throws InterruptedException {
@@ -34,8 +35,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
             argColorSensor = hardwareMap.colorSensor.get("color");
             colorSensor = new ColorSensorObject(argColorSensor, telemetry);
             argRightMotor.setDirection(DcMotor.Direction.REVERSE);
-//        argUltrasonic = hardwareMap.ultrasonicSensor.get( "ultrasonic");
-//        ultrasonic = new UltrasonicObject();
+        argUltrasonic = hardwareMap.analogInput.get( "ultrasonic");
+        ultrasonic = new UltrasonicObject(argUltrasonic, argLeftMotor, argRightMotor);
 
 
             waitForStart();
@@ -55,7 +56,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
                 move.moveForward();//move robot fwd
             argLeftMotor.setPower(0.3);//pwr for left motor
             argRightMotor.setPower(0.3);//pwr for right motor
-            //ultrasonic.goDistance();//ultrasonic distancefrom wall
+            ultrasonic.GoDistanceCentimeters(8);//ultrasonic distance from wall
             //have move forward until ultrasonic sensor reaches a certain point
 
         }
