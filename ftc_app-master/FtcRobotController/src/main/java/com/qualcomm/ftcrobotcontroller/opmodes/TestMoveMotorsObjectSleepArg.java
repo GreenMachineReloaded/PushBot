@@ -6,11 +6,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class TestMoveMotorsObjectSleepArg extends LinearOpMode {
     DcMotor leftMotor;
     DcMotor rightMotor;
+    MoveMotors move;
     @Override
     public void runOpMode() throws InterruptedException {
         leftMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightMotor = hardwareMap.dcMotor.get("rightDriveMotor");
-        MoveMotors move = new MoveMotors(leftMotor, rightMotor);
+        move = new MoveMotors(leftMotor, rightMotor);
 
         waitForStart();
 
