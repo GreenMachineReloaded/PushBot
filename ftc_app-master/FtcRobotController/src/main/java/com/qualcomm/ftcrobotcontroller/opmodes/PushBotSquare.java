@@ -12,10 +12,11 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 public class PushBotSquare extends LinearOpMode {
     DcMotor leftMotor;
     DcMotor rightMotor;
+
     @Override
     public void runOpMode() throws InterruptedException {
-        leftMotor = hardwareMap.dcMotor.get("leftDriveMotor");
-        rightMotor = hardwareMap.dcMotor.get("rightDriveMotor");
+        leftMotor = hardwareMap.dcMotor.get("left_drive");
+        rightMotor = hardwareMap.dcMotor.get("right_drive");
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);

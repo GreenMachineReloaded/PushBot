@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.AnalogOutput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
+import com.qualcomm.robotcore.robocol.Telemetry;
 
 public class TestUltrasonicObject extends LinearOpMode {
     DcMotor argLeftMotor;
@@ -12,6 +13,7 @@ public class TestUltrasonicObject extends LinearOpMode {
     AnalogInput AUO;
     UltrasonicObject UO;
     Sleeper s;
+    Telemetry t;
     @Override
     public void runOpMode() throws InterruptedException {
         argLeftMotor = hardwareMap.dcMotor.get("leftDriveMotor");
@@ -19,7 +21,10 @@ public class TestUltrasonicObject extends LinearOpMode {
         AUO = hardwareMap.analogInput.get("ultrasonic");
         UO = new UltrasonicObject(AUO, argLeftMotor, argRightMotor);
         s = new Sleeper();
+        t.addData("TUSO before start", UO.getRangeCentimeters());
         waitForStart();
-        UO.GoDistanceCentimeters(20);
+        t.addData("TUSO after start", UO.getRangeCentimeters());
+        s.Sleep(2000);
+        UO.GoDistanceCentimeters(5);
     }
 }
