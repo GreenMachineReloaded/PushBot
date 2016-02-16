@@ -87,7 +87,7 @@ public class PushBotManual extends PushBotTelemetry
 
         //----------------------------------------------------------------------
         //
-        // GMRServo Motors
+        // Servo Motors
         //
         // Obtain the current values of the gamepad 'x' and 'b' buttons.
         //
@@ -96,7 +96,7 @@ public class PushBotManual extends PushBotTelemetry
         // The clip method guarantees the value never exceeds the allowable range of
         // [0,1].
         //
-        // The setPosition methods write the motor power values to the GMRServo
+        // The setPosition methods write the motor power values to the Servo
         // class, but the positions aren't applied until this method ends.
         //
         if (gamepad2.x)

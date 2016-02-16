@@ -2,11 +2,8 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
-
-/**
- * Created by Noah on 2/14/2016.
- */
-
+import com.qualcomm.robotcore.robocol.Telemetry;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class UltrasonicObject {
     AnalogInput sonic;
@@ -14,6 +11,7 @@ public class UltrasonicObject {
     DcMotor LeftMotor;
     double range;
     Sleeper s;
+    Telemetry t;
     public UltrasonicObject(AnalogInput ArgUltrasonicSensor) {
         sonic = ArgUltrasonicSensor;
         s = new Sleeper();
@@ -58,9 +56,13 @@ public class UltrasonicObject {
         LeftMotor.setPower(0);
     }
     public void GoDistanceCentimeters(double distance) {
-        RightMotor.setPower(1.00);
-        LeftMotor.setPower(1.00);
+
+        RightMotor.setPower(.50);
+        LeftMotor.setPower(.50);
+        t.addData("range centimeter", getRangeCentimeters());
+        s.Sleep(2000);
         while(range >= distance) {
+            t.addData("range centimeter loup", getRangeCentimeters());
             s.Sleep(50);
             range = getRangeCentimeters();
         }
