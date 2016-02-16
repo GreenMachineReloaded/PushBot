@@ -1,32 +1,36 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
-        import com.qualcomm.robotcore.hardware.GyroSensor;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 public class TestingGyroObject extends LinearOpMode {
-    GyroSensor gyro;
-    int x, y, z;
+    Sleeper s;
+    DcMotor leftDriveMotorArg;
+    DcMotor rightDriveMotorArg;
+    GyroSensor gyroArg;
+    //int count = 0;
     @Override
     public void runOpMode() throws InterruptedException {
-        gyro = hardwareMap.gyroSensor.get("gyro");
+        leftDriveMotorArg = hardwareMap.dcMotor.get("leftDriveMotor");
+        rightDriveMotorArg = hardwareMap.dcMotor.get("rightDriveMotor");
+        gyroArg = hardwareMap.gyroSensor.get("gyro");
+        //count++;
+        //telemetry.addData("the number being counted: ",count);
+        s = new Sleeper();
+        GyroObject gyroTurn = new GyroObject(leftDriveMotorArg, rightDriveMotorArg, gyroArg, telemetry);
         waitForStart();
-        gyro.calibrate();
-        sleep(1000);
-        GyroObject degrees = new GyroObject();
-        degrees.setGyroObject(90);
-        sleep(1000);
-        degrees.setGyroObject(90);
-        sleep(1000);
-        degrees.setGyroObject(90);
-        sleep(1000);
-        degrees.setGyroObject(90);
-        sleep(1000);
+        //telemetry.addData("before start", gyroArg.getHeading());
+        //leftDriveMotorArg.setPower(-0.25);
+        //rightDriveMotorArg.setPower(-0.25);
+        //sleep((long) 2);
+        gyroTurn.rightTurn(90);
+        //sleep((long) 2);
+        //leftDriveMotorArg.setPower(-0.2);
+        //rightDriveMotorArg.setPower(-0.2);
+        //sleep((long) 2);
+        //leftDriveMotorArg.setPower(0);
+        //rightDriveMotorArg.setPower(0);
+        telemetry.addData("Victory! (Fanfare)","");
 
-        degrees.setGyroObject(-90);
-        sleep(1000);
-        degrees.setGyroObject(-90);
-        sleep(1000);
-        degrees.setGyroObject(-90);
-        sleep(1000);
-        degrees.setGyroObject(-90);
-        sleep(1000);
+
     }
 }

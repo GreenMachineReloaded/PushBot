@@ -55,27 +55,38 @@ public class FtcOpModeRegister implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
 
-    manager.register("NullOp", NullOp.class);
+    //manager.register("NullOp", NullOp.class);
 
     //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-    manager.register("K9TeleOp", K9TeleOp.class);
-    manager.register("K9Line", K9Line.class);
-    manager.register ("PushBotAuto", PushBotAuto.class);
-    manager.register ("PushBotManual", PushBotManual.class);
-    manager.register ("Test MoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
-    manager.register ("k9 tank drive", K9TankDrive.class);
+    //manager.register("K9TeleOp", K9TeleOp.class);
+    //manager.register("K9Line", K9Line.class);
+    //manager.register ("PushBotAuto", PushBotAuto.class);
+    //manager.register ("PushBotManual", PushBotManual.class);
+    //manager.register ("Test MoveMotors", TestMoveMotorsObjectSleepArg.class);
+    //manager.register ("k9 tank drive", K9TankDrive.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
-    manager.register("MR Gyro Test", MRGyroTest.class);
+    //manager.register("MR Gyro Test", MRGyroTest.class);
 
-    manager.register ("K9TankDriveServoTest", K9TankDriveServoTest.class);
 
-    manager.register("MoveMotorsObject", MoveMotorsObject.class);
-    manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
-    manager.register("GyroTest", TestingTheGyroSensors.class);
-    manager.register("ServoTest", ServoTest.class);
+    //manager.register ("K9TankDriveServoTest", K9TankDriveServoTest.class);
+
+    //manager.register("MoveMotors", MoveMotors.class);
+    //manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
+
+
+    manager.register("CadwynTeleOp", CadwynTeleOp.class);
+      manager.register("Red to Parking Zone",RedToParkingZone.class);
+    manager.register("Gyro Test",GyroTest.class);
+    //manager.register("Simple Cadwyn", CadwynSimpleDrive.class);
+    //manager.register("BlueUpRampDeadReckoning", BlueUpRampDeadReckoning.class);
+    //manager.register("BlueCloserUpRampDeadReckining", BlueCloserUpRampDeadReckoning.class);
+    //manager.register("RedUpRampDeadReckoning", RedUpRampDeadReckoning.class);
+    //manager.register("RedCloserUpRampDeadReckining", RedCloserUpRampDeadReckoning.class);
+    //manager.register("BeaconPress", BeaconPress.class);
+    //manager.register("GyroTest", TestingGyroObject.class);
 
     manager.register("TestColorSensor", TestColorSensor.class);
     manager.register("ColorSensorObject",ColorSensorObject.class);

@@ -1,9 +1,9 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
+        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+        import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class TestMoveMotorsObjectSleepArg extends LinearOpMode {
+public class BlueUpRampDeadReckoning extends LinearOpMode {
     DcMotor leftMotor;
     DcMotor rightMotor;
     @Override
@@ -14,12 +14,12 @@ public class TestMoveMotorsObjectSleepArg extends LinearOpMode {
 
         waitForStart();
 
-        move.moveForward(1000, 100);
+        sleep(5000);
 
-        move.turnRight(1000, 100);
+        move.moveForward(1750, 100);
 
-        move.turnLeft(1000, 100);
+        move.turnRight(750, 100);
 
-        move.moveBackward(1000, 100);
+        move.moveForward(9500, 45);
     }
 }

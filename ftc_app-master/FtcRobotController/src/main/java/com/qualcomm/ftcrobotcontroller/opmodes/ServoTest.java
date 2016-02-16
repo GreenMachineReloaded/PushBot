@@ -17,7 +17,7 @@ public class ServoTest extends OpMode {
     @Override
     public void init() {
 
-        servo1 = hardwareMap.servo.get("servo_1");
+        servo1 = hardwareMap.servo.get("wheelieBarServo");
 
         servo = new GMRServo(servo1);
 
@@ -47,11 +47,11 @@ public class ServoTest extends OpMode {
 //       }
 
        if (gamepad1.a) {
-           servo.moveServo(0.1);
+           servo.moveServo(360);
        }
 
        if (gamepad1.y) {
-           servo.moveServo(0.9);
+           servo.moveServo(324);
        }
 
 }}
