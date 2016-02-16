@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 
 
  //Created by Payton on 11/22/2015.
@@ -56,6 +57,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     GMRServo hopperDoorBlue;
     GMRServo hopperDoorRed;
 
+    //Gyro Sensor
+    GyroSensor gyro;// for readings on gyro--- not necessary
+
     Servo servo1;//left flapper servo
     Servo servo2;//right flapper servo
     Servo servo3;//climber depositor servo
@@ -86,6 +90,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         dcArmMotor = hardwareMap.dcMotor.get("armMotor");//says where arm motor is
         armMotor = new GMRMotor(dcArmMotor, telemetry);// changes arm motor to GMR motor
+        gyro = hardwareMap.gyroSensor.get("gyro");// for readings on gyro sensor---not necessary
 
         //Initializing drive motors
         leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");// left motors
@@ -254,8 +259,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         //String servoPositions = String.format("%.2f", rightRedFlapperServo);
 
-        String servoPositions = String.valueOf(winchServoPosition);// printing info to driver station phone
-        telemetry.addData("", "current Position: " + servoPositions);
+        String servoPositions = String.valueOf(multiplier);// printing info to driver station phone
+        telemetry.addData("", "current multiplier: " + servoPositions);
+        telemetry.addData("gyro readings:", gyro.getHeading());// readings for gyro---not necessary
 
     }
 }
