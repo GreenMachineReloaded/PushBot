@@ -79,6 +79,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("CadwynTeleOp", CadwynTeleOp.class);
       manager.register("Red to Parking Zone",RedToParkingZone.class);
+    manager.register("Gyro Test",GyroTest.class);
     //manager.register("Simple Cadwyn", CadwynSimpleDrive.class);
     //manager.register("BlueUpRampDeadReckoning", BlueUpRampDeadReckoning.class);
     //manager.register("BlueCloserUpRampDeadReckining", BlueCloserUpRampDeadReckoning.class);

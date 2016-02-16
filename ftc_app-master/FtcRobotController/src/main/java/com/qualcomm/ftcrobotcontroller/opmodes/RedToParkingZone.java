@@ -14,14 +14,18 @@ import com.qualcomm.robotcore.util.Range;
 public class RedToParkingZone extends LinearOpMode {
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
+
     Sleeper sleep;
+
     GyroSensor gyro;
+
     GMRServo leftFlapperServo;
     GMRServo rightFlapperServo;
     GMRServo climberDepositerServo;
     GMRServo winchServo;
     GMRServo hopperDoorBlue;
     GMRServo hopperDoorRed;
+
     Servo servo1;
     Servo servo2;
     Servo servo3;
@@ -33,14 +37,18 @@ public class RedToParkingZone extends LinearOpMode {
     double flapperLeftPosition;
     double climberDepositerPosition;
     double winchServoPosition;
-    double hopperDoorleftRedPosition;
-    double hopperDoorRightBluePosition;
+    double hopperDoorleftPosition;
+    double hopperDoorRightPosition;
 
     Telemetry t;
+
+    Sleeper s;
     @Override
     public void runOpMode() throws InterruptedException {
 
         t = telemetry;
+
+        s = new Sleeper();
 
         leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
@@ -57,9 +65,9 @@ public class RedToParkingZone extends LinearOpMode {
         flapperRightPosition =  1;
         flapperLeftPosition =  0;
         climberDepositerPosition =  0;
-        winchServoPosition =  0.21;
-        hopperDoorleftRedPosition = 0.64;
-        hopperDoorRightBluePosition = 0.03;
+        winchServoPosition =  1;
+        hopperDoorleftPosition = 0.64;
+        hopperDoorRightPosition = 0.03;
 
         flapperRightPosition =  Range.clip(flapperRightPosition, 0, 1);
         rightFlapperServo.moveServo(flapperRightPosition);
@@ -70,43 +78,77 @@ public class RedToParkingZone extends LinearOpMode {
         climberDepositerPosition =  Range.clip(climberDepositerPosition, 0, 1);
         climberDepositerServo.moveServo(climberDepositerPosition);
 
-        winchServoPosition =  Range.clip(winchServoPosition, 0, 0.21);
+        winchServoPosition =  Range.clip(winchServoPosition, 0.8, 1);
         winchServo.moveServo(winchServoPosition);
 
-        hopperDoorleftRedPosition =  Range.clip(hopperDoorleftRedPosition, 0.064, 0.64);
-        hopperDoorRed.moveServo(hopperDoorleftRedPosition);
+        hopperDoorleftPosition =  Range.clip(hopperDoorleftPosition, 0.064, 0.64);
+        hopperDoorRed.moveServo(hopperDoorleftPosition);
 
-        hopperDoorRightBluePosition =  Range.clip(hopperDoorRightBluePosition, 0.03, 0.6);
-        hopperDoorBlue.moveServo(hopperDoorRightBluePosition);
+        hopperDoorRightPosition =  Range.clip(hopperDoorRightPosition, 0.03, 0.6);
+        hopperDoorBlue.moveServo(hopperDoorRightPosition);
 
         GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
         MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
 
         waitForStart();
+
+//        telemetry.addData("", "Program Start");
 //
-//        move.moveForward(500, 40);
+//        move.moveForward(800, 50);
+//
+//        s.Sleep(50);
+//
+//        telemetry.addData("", "Forward 1 Complete");
+//
+//        gyroTurn.leftTurn(45);
+//
+//        s.Sleep(50);
+//
+//        telemetry.addData("", "Left turn 1 complete");
+//
+//        move.moveForward(3000, 50);
+//
+//        s.Sleep(50);
+//
+//        telemetry.addData("", "Foreward 1 Complete");
+//
+//        gyroTurn.leftTurn(45);
+//
+//        s.Sleep(50);
+//
+//        telemetry.addData("", "Left turn 2 complete");
+//
+//        move.moveForward(300, 40);
+//
+//        telemetry.addData("", "Last forward complete, program end.");
 
-        telemetry.addData("", "Program start");
-
-        move.moveForward(1000, 40);
-
-        telemetry.addData("", "Forward complete");
-
+        move.moveForward(500, 30);
+        s.Sleep(1000);
         gyroTurn.leftTurn(45);
-
-        telemetry.addData("", "Left turn complete");
-
-        move.moveForward(3000, 50);
-
-        telemetry.addData("", "Forward 2 complete");
-
+        s.Sleep(1000);
+        move.moveForward(500, 30);
+        s.Sleep(1000);
         gyroTurn.leftTurn(45);
-
-        telemetry.addData("", "Left turn 2 complete");
-
-        move.moveForward(1000, 40);
-
-        telemetry.addData("", "Last forward complete, program end.");
+        s.Sleep(1000);
+        move.moveForward(500, 30);
+        s.Sleep(1000);
+        gyroTurn.leftTurn(45);
+        s.Sleep(1000);
+        move.moveForward(500, 30);//Original Position
+        s.Sleep(1000);
+        move.moveForward(500, 30);
+        s.Sleep(1000);
+        gyroTurn.rightTurn(45);
+        s.Sleep(1000);
+        move.moveForward(500, 30);
+        s.Sleep(1000);
+        gyroTurn.rightTurn(45);
+        s.Sleep(1000);
+        move.moveForward(500, 30);
+        s.Sleep(1000);
+        gyroTurn.rightTurn(45);
+        s.Sleep(1000);
+        move.moveForward(500, 30);//Original Position
 
     }
 }
