@@ -98,7 +98,6 @@ public class CadwynColorSensorDriver extends LinearOpMode {
                     break;
                 case MODERN_ROBOTICS_I2C:
                     Color.RGBToHSV(colorSensor.red()*8, colorSensor.green()*8, colorSensor.blue()*8, hsvValues);
-                    //cadwynColorSensor.getColor();
                     break;
             }
             telemetry.addData("Red  ", colorSensor.red());

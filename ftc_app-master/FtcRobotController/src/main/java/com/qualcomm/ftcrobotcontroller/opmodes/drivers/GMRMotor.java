@@ -1,8 +1,11 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.drivers;
 
 import com.qualcomm.ftcrobotcontroller.opmodes.Sleeper;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.robocol.Telemetry;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * Created by Amber on 1/29/2016.
@@ -17,41 +20,33 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 public class GMRMotor {
 
     public DcMotor motorHandle;
-    Sleeper sleep;
+    Sleeper sleep;// create sleeper
+    Telemetry t;// create telemetry
+    double motorPower = 0;
 
-    public GMRMotor (DcMotor m) {
-        this.motorHandle = m;
+    public GMRMotor (DcMotor m, Telemetry telemetry) {
+        this.motorHandle = m;// naming motor
+        t = telemetry;// naming telemetry
+        sleep = new Sleeper();// naming sleeper
     }
 
-    public void holdMotor (int position) {
-        sleep = new Sleeper();
-        //this.motorHandle = motor;
-        this.motorHandle.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        sleep.Sleep(20);
+    public double holdMotor(int position) {
         this.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        if (this.motorHandle.getCurrentPosition() != position){
-            if (this.motorHandle.getCurrentPosition() > position){
-                if (this.motorHandle.getCurrentPosition() > (9.75+position)){
-                    this.motorHandle.setPower(-0.3);
-                    if (this.motorHandle.getCurrentPosition() > (6.5+position)){
-                        this.motorHandle.setPower(-0.2);
-                        if (this.motorHandle.getCurrentPosition() > (3.25+position)){
-                            this.motorHandle.setPower(-0.1);
-                        }
-                    }
-                }
+        sleep.Sleep(10);
+        if (this.motorHandle.getCurrentPosition() != position) {// current position
+            if (this.motorHandle.getCurrentPosition() > position) {
+                motorPower = -((this.motorHandle.getCurrentPosition() - position)/20);// make Pwr of motor by dividing position by 20
+                t.addData("", "Motor Power" + motorPower);
+                motorPower = Range.clip(motorPower,0,1);
+                return motorPower;
             }
             if (this.motorHandle.getCurrentPosition() < position) {
-                if (this.motorHandle.getCurrentPosition() < (9.75+position)){
-                    this.motorHandle.setPower(0.3);
-                    if (this.motorHandle.getCurrentPosition() < (6.5+position)){
-                        this.motorHandle.setPower(0.2);
-                        if (this.motorHandle.getCurrentPosition() < (3.25+position)){
-                            this.motorHandle.setPower(0.1);
-                        }
-                    }
-                }
-            }
+                motorPower = (this.motorHandle.getCurrentPosition() - position)/20;// make Pwr of motor by dividing position by 20
+                t.addData("", "Motor Power" + motorPower);
+                motorPower = Range.clip(motorPower,0,1);
+                return motorPower;
+           }
         }
+        return 0;// returned value at driver station
     }
 }

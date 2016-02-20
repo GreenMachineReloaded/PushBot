@@ -56,15 +56,6 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
 
     manager.register("NullOp", NullOp.class);
-
-    //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-    manager.register("K9TeleOp", K9TeleOp.class);
-    manager.register("K9Line", K9Line.class);
-    manager.register ("PushBotAuto", PushBotAuto.class);
-    manager.register ("PushBotManual", PushBotManual.class);
-    manager.register ("Test MoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
-    manager.register ("k9 tank drive", K9TankDrive.class);
-
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
@@ -78,7 +69,26 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("TestColorSensor", TestColorSensor.class);
     manager.register("ColorSensorObject",ColorSensorObject.class);
     manager.register("CadwynColorSensorDriver", CadwynColorSensorDriver.class);
-    manager.register("BlueColoredBeacon", BlueColoredBeacon.class);
+//    manager.register("NullOp", NullOp.class);
+//
+//    //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
+//    manager.register("K9TeleOp", K9TeleOp.class);
+//    manager.register("K9Line", K9Line.class);
+//    manager.register ("PushBotAuto", PushBotAuto.class);
+//    manager.register ("PushBotManual", PushBotManual.class);
+//
+//
+//
+//    /*
+//     * Uncomment any of the following lines if you want to register an op mode.
+//     */
+//    manager.register("MR Gyro Test", MRGyroTest.class);
+      manager.register("TestUltrasonicObject", TestUltrasonicObject.class);
+    manager.register("Main TeleOp for Cadwyn", CadwynTeleOp.class);
+    manager.register("Red far to parkingzone", RedFarToParkingZone.class);
+    manager.register("Red to parkingzone", RedToParkingZone.class);
+    manager.register("Blue far to parkingzone", BlueFarToParkingZone.class);
+    manager.register("Blue to parkingzone", BlueToParkingZone.class);
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
 

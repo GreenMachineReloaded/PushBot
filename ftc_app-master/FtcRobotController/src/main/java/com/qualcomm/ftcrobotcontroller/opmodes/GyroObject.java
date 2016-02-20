@@ -2,15 +2,20 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.robocol.Telemetry;
+import java.io.*;
 
 public class GyroObject {
+
 
     DcMotor leftMotor;
     DcMotor rightMotor;
     GyroSensor gyro;
     Sleeper s;
     Telemetry t;
-    public GyroObject(DcMotor leftMotorArg, DcMotor rightMotorArg, GyroSensor gyroArg,Telemetry telemetry) throws InterruptedException {
+    PrintWriter gyroFile;
+    int turnDegrees;
+
+    public GyroObject(DcMotor leftMotorArg, DcMotor rightMotorArg, GyroSensor gyroArg, Telemetry telemetry) throws InterruptedException {
         gyro = gyroArg;
         leftMotor = leftMotorArg;
         rightMotor = rightMotorArg;
@@ -19,70 +24,64 @@ public class GyroObject {
         s = new Sleeper();
         t = telemetry;
         gyro.calibrate();
-        t.addData("Gyro Calibration Complete","");
+        turnDegrees = 0;
+        //t.addData("Gyro Calibration Complete","");
+//        try {
+//            PrintWriter gyroFile = new PrintWriter("Gyro-File.txt");
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    public GyroObject(GyroSensor gyroArg) throws InterruptedException {
+        gyro = gyroArg;
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        s = new Sleeper();
+        gyro.calibrate();
+        //t.addData("Gyro Calibration Complete","");
     }
 
     public void leftTurn(int degrees) {
         while (gyro.isCalibrating()) {
             s.Sleep(50);
         }
-        int leftTurnDegrees = 359 - degrees;
-        while (!(leftTurnDegrees >= gyro.getHeading())) {
-            leftMotor.setPower(0.1);
-            rightMotor.setPower(-0.1);
+        degrees-=8;
+        turnDegrees = (gyro.getHeading() - degrees);
+        if (turnDegrees < 0) {
+            turnDegrees = (degrees - gyro.getHeading());
+            turnDegrees = (359 - turnDegrees);
+        }
+        while (turnDegrees <= gyro.getHeading() || gyro.getHeading() == 0) {
+            leftMotor.setPower(0.4);
+            rightMotor.setPower(-0.45 );
             t.addData("Gyro heading", gyro.getHeading());
         }
         leftMotor.setPower(0);
         rightMotor.setPower(0);
-        gyro.resetZAxisIntegrator();
     }
 
-    public void rightTurn (int degrees) {
+    public void rightTurn(int degrees) {
         while (gyro.isCalibrating()) {
             s.Sleep(50);
         }
-        while (!(degrees <= gyro.getHeading())) {
-            leftMotor.setPower(-0.1);
-            rightMotor.setPower(0.1);
+        turnDegrees = (gyro.getHeading() + degrees);
+        if (turnDegrees > 359) {
+            turnDegrees = (turnDegrees - 359);
+        }
+        while (turnDegrees >= gyro.getHeading()) {
+            leftMotor.setPower(-0.4);
+            rightMotor.setPower(0.4);
             t.addData("Gyro Heading", gyro.getHeading());
         }
-        s.Sleep(10);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
-        gyro.resetZAxisIntegrator();
-        t.addData("Gyro Heading", gyro.getHeading());
     }
 
-//    public void turnGyro(int degrees, Telemetry t) {
-//        t.addData("przei", gyro.getHeading());
-//        gyro.resetZAxisIntegrator();
-//        t.addData("pozei", gyro.getHeading());
-//        if (degrees > 0) {
-//            //moves the motors
-//
-//            while (degrees >= gyro.getHeading()) {
-//                leftMotor.setPower(-0.5);
-//                rightMotor.setPower(0.5);
-//                t.addData("+h", gyro.getHeading());
-//            }
-//        }
-//
-//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//
-//        else {
-//            while (degrees <= gyro.getHeading()) {
-//                //in here there needs to be an updater for the number of degrees the robot has turned.
-//                leftMotor.setPower(0.5);
-//                rightMotor.setPower(-0.5);
-//                t.addData("-h", gyro.getHeading());
-//            }
-//        }
-//        leftMotor.setPower(0);
-//        rightMotor.setPower(0);
-//        t.addData("end", gyro.getHeading());
-//    }
+    public int getPosition() {
+        while (gyro.isCalibrating()) {
+            s.Sleep(50);
+        }
+        return gyro.getHeading();
+    }
 }
-
-

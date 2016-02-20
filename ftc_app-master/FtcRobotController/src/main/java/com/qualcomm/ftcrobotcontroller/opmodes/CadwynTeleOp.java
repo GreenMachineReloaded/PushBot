@@ -5,9 +5,9 @@ import com.qualcomm.ftcrobotcontroller.opmodes.drivers.GMRServo;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-
 
  //Created by Payton on 11/22/2015.
 
@@ -36,195 +36,285 @@ import com.qualcomm.robotcore.util.Range;
  * Plus = Clockwise
  */
 
-public class CadwynTeleOp extends OpMode {
+public class CadwynTeleOp extends OpMode {//initialisations for all motors and servos
 
+    //motor initialisations
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
     DcMotor dcArmMotor;
     DcMotor winchMotor;
     DcMotor sweeperMotor;
 
+    //specail GMR motor
     GMRMotor armMotor;
 
-    GMRServo leftFlapperServo;
-    GMRServo rightFlapperServo;
+    //Servo initialisations
+    GMRServo leftBlueFlapperServo;
+    GMRServo rightRedFlapperServo;
     GMRServo climberDepositerServo;
     GMRServo winchServo;
     GMRServo hopperDoorBlue;
     GMRServo hopperDoorRed;
+    GMRServo hopperEntranceDoor;
+    GMRServo sweeperLift;
 
-    Servo servo1;
-    Servo servo2;
-    Servo servo3;
-    Servo servo4;
-    Servo servo5;
-    Servo servo6;
+    //Gyro Sensor
+    GyroSensor gyro;// for readings on gyro--- not necessary
 
-    double flapperRightPosition;
-    double flapperLeftPosition;
+    Servo servo1;//left flapper servo
+    Servo servo2;//right flapper servo
+    Servo servo3;//climber depositor servo
+    Servo servo4;//winch servo
+    Servo servo5;// hopper door red
+    Servo servo6;// hopper door blue
+    Servo servo7;// hopper entrance door
+    Servo servo8;//sweeper lift
+
+    //different servo positions
+    double flapperRightRedPosition;
+    double flapperLeftBluePosition;
     double climberDepositerPosition;
     double winchServoPosition;
-    double hopperDoorleftRedPosition;
-    double hopperDoorRightBluePosition;
+    double hopperDoorleftPosition;
+    double hopperDoorRightPosition;
+    double hopperEntranceDoorPosition;
+    double sweeperLiftPosition;
 
-    double multiplier;
+    double multiplier;// mulitplier for determining different speeds
 
+    //positions for hold motor methods
     int armMotorPosition;
+    int armMotorPosition2;
 
-    Sleeper sleep;
+    int getArmMotorPosition;
 
-    @Override
-    public void init() {
+    Sleeper sleep;// for pausing
 
-        dcArmMotor = hardwareMap.dcMotor.get("armMotor");
-        armMotor = new GMRMotor(dcArmMotor);
+    boolean onTheRamp;
 
-        leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");
-        rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
+    @Override//?
+    public void init() {// begin instructions once button "init" is pressed
 
-        leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-        rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+        dcArmMotor = hardwareMap.dcMotor.get("armMotor");//says where arm motor is
+        armMotor = new GMRMotor(dcArmMotor, telemetry);// changes arm motor to GMR motor
+        gyro = hardwareMap.gyroSensor.get("gyro");// for readings on gyro sensor---not necessary
 
-        winchMotor = hardwareMap.dcMotor.get("winchMotor");
+        //Initializing drive motors
+        leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");// left motors
+        rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");// right motors
+        leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);// FWD
+        rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);// reverse
 
-        sweeperMotor = hardwareMap.dcMotor.get("sweeperMotor");
+        winchMotor = hardwareMap.dcMotor.get("winchMotor");// initialisation winch motor
 
-        leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
-        rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
-        climberDepositerServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerServo"));
-        winchServo = new GMRServo(servo4 = hardwareMap.servo.get("winchServo"));
-        hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));
-        hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
+        sweeperMotor = hardwareMap.dcMotor.get("sweeperMotor");// initialisation for sweeper motor
 
-        flapperRightPosition =  1;
-        flapperLeftPosition =  0;
-        climberDepositerPosition =  0;
-        winchServoPosition =  0.21;
-        hopperDoorleftRedPosition = 0.6;
-        hopperDoorRightBluePosition = 0;
+        // initialisation for all servos- telling where they all are by name in config. file
+        leftBlueFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));//left flap servo
+        rightRedFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));// right flap servo
+        climberDepositerServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerServo"));// climber deposit servo
+        winchServo = new GMRServo(servo4 = hardwareMap.servo.get("winchServo"));// winch servo
+        hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));// red hopper door servo
+        hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));// blue hopper door servo
+        hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
+        sweeperLift = new GMRServo(servo8 = hardwareMap.servo.get("sweeperLift"));
 
-        multiplier = 1;
+        //starting positions of servos
+        flapperRightRedPosition =  1;// right flapper
+        flapperLeftBluePosition =  0;// left flapper
+        climberDepositerPosition =  0;//climber depositor
+        winchServoPosition =  1;// winch servo
+        hopperDoorleftPosition = 0.64;// red hopper door (left)
+        hopperDoorRightPosition = 0.03;// blue hopper door (right)
+        hopperEntranceDoorPosition = 1;
+        sweeperLiftPosition = 1;
 
-        sleep = new Sleeper();
+        onTheRamp = false;
 
-        armMotor.motorHandle.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        multiplier = 1;//setting multiplier value
 
-        sleep.Sleep(50);
+        sleep = new Sleeper();// setting sleeper
 
-        armMotor.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        armMotor.motorHandle.setMode(DcMotorController.RunMode.RESET_ENCODERS);// reset encoder for arm
+
+        sleep.Sleep(50);//sleep time
+
+        armMotor.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);//resets encoder for arm
+
+        getArmMotorPosition = 0;//arm position
 
     }
 
     @Override
-    public void loop() {
+    public void loop() {// begin sequence loop for main program
 
-        armMotorPosition = armMotor.motorHandle.getCurrentPosition();
+        armMotorPosition = armMotor.motorHandle.getCurrentPosition();// reading for current arm position
 
-        leftDriveMotor.setPower(gamepad1.left_stick_y);
-        rightDriveMotor.setPower(gamepad1.right_stick_y);
+        leftDriveMotor.setPower(gamepad1.left_stick_y);//gamepad 1, left stick Y controls left motors
+        rightDriveMotor.setPower(gamepad1.right_stick_y);// gamepad 1, right stick Y controls right motors
 
-        if (armMotor.motorHandle.getCurrentPosition() > 490) {
+        //if statement 1
+        if (armMotor.motorHandle.getCurrentPosition() > 500) {//if arm position is greater than 625 then change multiplier by .5
             multiplier = 0.5;
-        }else if (armMotor.motorHandle.getCurrentPosition() < 490) {
+        }else if (armMotor.motorHandle.getCurrentPosition() < 500) {//if arm position less than 625 then change multiplier by 1
             multiplier = 1;
         }
+        //if statement 2
+        if (gamepad1.x && getArmMotorPosition==0) {// if gamepad 1  x and arm position is at 0, then get current arm position
+            getArmMotorPosition = 1;
+            armMotorPosition2 = armMotor.motorHandle.getCurrentPosition();
+        }else if (gamepad1.x && getArmMotorPosition==1) {//if gamepad 1 x and arm position is 1, keep at same position
+            Double armMotorPower = armMotor.holdMotor(armMotorPosition2);// hold arm position
+            armMotor.motorHandle.setPower(armMotorPower);
+        } else if (!gamepad1.x) {// if gamepad 1 x is not pressed then resets arm position system
+            getArmMotorPosition = 0;
 
-        if (gamepad1.x) {
-            armMotor.holdMotor(armMotorPosition);
+            //if statement in last else if in if statement 2
+            if (gamepad1.left_bumper) {// moves arm motor left
+                armMotor.motorHandle.setPower(-0.2*multiplier);//sets power for direction
+            } else if (gamepad1.left_trigger > 0){// move arm up
+                armMotor.motorHandle.setPower(0.2*multiplier);
+            }else {
+                armMotor.motorHandle.setPower(0);
+            }
+
         }
+        //String armPosition = String.valueOf(armMotor.motorHandle.getCurrentPosition());//sends message to driver's phone for arm position
+        //telemetry.addData("", "" + "it made it this far: " + armPosition);
 
-        if (gamepad1.right_bumper) {
+        //if statement
+        if (gamepad1.right_bumper) {// if gamepad 1 right bumper is pressed then sets sweeper in reverse
             sweeperMotor.setPower(-1);
-        } else if (gamepad1.right_trigger > 0) {
+        } else if (gamepad1.right_trigger > 0) {// if gamepad 1 right trigger is pressed then sets sweeper FWD
             sweeperMotor.setPower(1);
         } else {
-            sweeperMotor.setPower(0);
+            sweeperMotor.setPower(0);// if no button is pressed then keep sweeper PWR at 0
         }
 
-        if (gamepad1.left_bumper) {
-            armMotor.motorHandle.setPower(-0.2 * multiplier);
-        } else if (gamepad1.left_trigger > 0){
-            armMotor.motorHandle.setPower(0.2 * multiplier);
+        //if statement
+        if (gamepad1.b) {//if gamepad 1 button b is pressed, then bot goes Forward
+            leftDriveMotor.setPower(-0.75);
+            rightDriveMotor.setPower(-0.75);
+        }
+
+        if (gamepad1.a) {// if gamepad 1 a is pressed then make winch position by +.001
+            hopperEntranceDoorPosition = 0.95;
+        }else if (gamepad1.y) {// if gamepad 1 y is pressed, then make winch position by -.001
+            hopperEntranceDoorPosition = 0;
+        }
+
+        if (gamepad2.dpad_left) {// if gamepad 1 dpad down is pressed, then moves winch out
+            sweeperLiftPosition += 0.08;
+        }else if (gamepad2.dpad_right) {// if gamepad 1 dpad up is pressed, then move winch in
+            sweeperLiftPosition -= 0.08;
+        }
+
+        if (gamepad2.dpad_down) {// if gamepad 1 dpad down is pressed, then moves winch out
+            winchMotor.setPower(-1);
+        }else if (gamepad2.dpad_up) {// if gamepad 1 dpad up is pressed, then move winch in
+            winchMotor.setPower(1);
+        }else if (gamepad1.x)  {
+            winchMotor.setPower(-1);
         } else {
-            armMotor.motorHandle.setPower(0);
+            winchMotor.setPower(0);// if nothing pressed then winch does nothing
         }
 
-        if (gamepad1.b) {
-            leftDriveMotor.setPower(-0.5);
-            rightDriveMotor.setPower(-0.5);
-        }
 
-        if (gamepad1.dpad_down) {
-            winchMotor.setPower(-0.5);
-        }else if (gamepad1.dpad_up) {
-            winchMotor.setPower( 0.5);
-        }else {
-            winchMotor.setPower(0);
-        }
 
-        if (gamepad1.a) {
+        //if statement
+//        if (gamepad1.a) {// if gamepad 1 a is pressed then make winch position by +.001
+//            winchServoPosition += 0.001;
+//        }else if (gamepad1.y) {// if gamepad 1 y is pressed, then make winch position by -.001
+//            winchServoPosition -= 0.001;
+//        }
+
+        if (gamepad2.x) {// if gamepad 1 a is pressed then make winch position by +.001
             winchServoPosition += 0.001;
-        }else if (gamepad1.y) {
+        }else if (gamepad2.b) {// if gamepad 1 y is pressed, then make winch position by -.001
             winchServoPosition -= 0.001;
         }
 
-
-
-        if (gamepad2.right_stick_y < 0) {
-            flapperRightPosition += 0.01;
-        }else if (gamepad2.right_stick_y > 0) {
-            flapperRightPosition -= 0.01;
+        //if statement
+        if (gamepad2.right_stick_y > 0) {//if gamepad 2 right stick y is pressed up, then move right flapper up
+            flapperRightRedPosition += 0.01;
+        }else if (gamepad2.right_stick_y < 0) {// if gamepad 2 right stick y is pressed down, then move right flapper down
+            flapperRightRedPosition -= 0.01;
         }
 
-        if (gamepad2.left_stick_y < 0) {
-            flapperLeftPosition -= 0.01;
-        }else if (gamepad2.left_stick_y > 0) {
-            flapperLeftPosition += 0.01;
+        //if statement
+        if (gamepad2.left_stick_y > 0) {// if gamepad 2 left stick y is pressed up, then move left flapper up
+            flapperLeftBluePosition -= 0.01;
+        }else if (gamepad2.left_stick_y < 0) {// if gamepad 2 left stick y is pressed down, then mve left flapper down
+            flapperLeftBluePosition += 0.01;
         }
 
-        if (gamepad2.y) {
+        //if statement
+        if (gamepad2.y) {// if gamepad 2 y is pressed then, move climber depositor up
             climberDepositerPosition += 0.05;
-        }else if (gamepad2.a) {
+        }else if (gamepad2.a) {// if gamepad 2 a is pressed, then move climber depositor down
             climberDepositerPosition -= 0.05;
         }
 
-        if (gamepad2.left_bumper) {
-            hopperDoorleftRedPosition += 0.005;
-        }else if (gamepad2.left_trigger > 0) {
-            hopperDoorleftRedPosition -= 0.005;
+        // if statement
+        if (gamepad2.left_bumper) {// if gamepad 2 left bumper is pressed, then move red hopper door (left) up
+            hopperDoorleftPosition += 0.005;
+        }else if (gamepad2.left_trigger > 0) {// if gamepad 2  left trigger is pressed, then move red hopper door (left) down
+            hopperDoorleftPosition -= 0.005;
+        }else {
+            hopperDoorleftPosition += 0;
         }
 
-        if (gamepad2.right_bumper) {
-            hopperDoorRightBluePosition -= 0.005;
-        }else if (gamepad2.right_trigger > 0) {
-            hopperDoorRightBluePosition += 0.005;
+        //if statement
+        if (gamepad2.right_bumper) {// if gamepad 2 right bumper is pressed, then move blue hopper door (right) up
+            hopperDoorRightPosition -= 0.005;
+        }else if (gamepad2.right_trigger > 0) {// if gamepad 2 right trigger is pressed, then move blue hopper door (right) down
+            hopperDoorRightPosition += 0.005;
+        }else {
+            hopperDoorRightPosition += 0;
         }
 
+        if (gamepad1.dpad_up) {
+            hopperEntranceDoorPosition = 0;
+            flapperLeftBluePosition = 0.5;
+            flapperRightRedPosition = 0.5;
+        }else if (gamepad1.dpad_down) {
+            hopperEntranceDoorPosition = 0.95;
+            flapperLeftBluePosition = 0;
+            flapperRightRedPosition = 1;
+        }
 
-        flapperRightPosition =  Range.clip(flapperRightPosition, 0.38, 1);
-        rightFlapperServo.moveServo(flapperRightPosition);
+        // make sure servo values doesn't go below the lowest values or above the highest value
+        flapperRightRedPosition =  Range.clip(flapperRightRedPosition, 0, 1);// right flapper
+        rightRedFlapperServo.moveServo(flapperRightRedPosition);
 
-        flapperLeftPosition =  Range.clip(flapperLeftPosition, 0, 0.56);
-        leftFlapperServo.moveServo(flapperLeftPosition);
+        flapperLeftBluePosition =  Range.clip(flapperLeftBluePosition, 0, 1);// left flapper
+        leftBlueFlapperServo.moveServo(flapperLeftBluePosition);
 
-        climberDepositerPosition =  Range.clip(climberDepositerPosition, 0, 1);
+        climberDepositerPosition =  Range.clip(climberDepositerPosition, 0, 1);// climber depositor
         climberDepositerServo.moveServo(climberDepositerPosition);
 
-        winchServoPosition =  Range.clip(winchServoPosition, 0, 0.21);
+        winchServoPosition =  Range.clip(winchServoPosition, 0, 1);// winch
         winchServo.moveServo(winchServoPosition);
 
-        hopperDoorleftRedPosition =  Range.clip(hopperDoorleftRedPosition, 0.14, 0.6);
-        hopperDoorRed.moveServo(hopperDoorleftRedPosition);
+        hopperDoorleftPosition =  Range.clip(hopperDoorleftPosition, 0.064, 0.64);// red hopper door (left)
+        hopperDoorRed.moveServo(hopperDoorleftPosition);
 
-        hopperDoorRightBluePosition =  Range.clip(hopperDoorRightBluePosition, 0, 0.6);
-        hopperDoorBlue.moveServo(hopperDoorRightBluePosition);
+        hopperDoorRightPosition =  Range.clip(hopperDoorRightPosition, 0.03, 0.6);// blue hopper door (right)
+        hopperDoorBlue.moveServo(hopperDoorRightPosition);
 
-        String servoPositions = String.valueOf(armMotorPosition);
+        hopperEntranceDoorPosition =  Range.clip(hopperEntranceDoorPosition, 0, 0.95);// blue hopper door (right)
+        hopperEntranceDoor.moveServo(hopperEntranceDoorPosition);
 
-        //String servoPositions = String.format("%.2f", armMotorPosition);
-        telemetry.addData("", "current multiplier: " + multiplier);
+        sweeperLiftPosition =  Range.clip(sweeperLiftPosition, 0, 1);// blue hopper door (right)
+        sweeperLift.moveServo(sweeperLiftPosition);
+
+        //String servoPositions = String.valueOf(armMotorPosition2);
+
+        //String servoPositions = String.format("%.2f", rightRedFlapperServo);
+
+        String servoPositions = String.valueOf(sweeperLiftPosition);
+        telemetry.addData("Winch Servo Position: ", servoPositions);
+        //telemetry.addData("Gyro Raw Y: ", gyro.rawY());
 
     }
 }
-
-
