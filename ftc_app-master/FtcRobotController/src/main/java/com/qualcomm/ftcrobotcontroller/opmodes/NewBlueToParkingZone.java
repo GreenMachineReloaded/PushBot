@@ -26,38 +26,44 @@ import com.qualcomm.robotcore.hardware.DcMotor;
         Telemetry telemetry;
     AnalogInput argUltrasonic;
     UltrasonicObject ultrasonic ;
+        FollowLine followLine;
 
         @Override
         public void runOpMode() throws InterruptedException {
             argLeftMotor = hardwareMap.dcMotor.get("leftDriveMotor");
             argRightMotor = hardwareMap.dcMotor.get("rightDriveMotor");
             move = new MoveMotorsObject(argLeftMotor, argRightMotor, 1000);
-            argColorSensor = hardwareMap.colorSensor.get("color");
+            argColorSensor = hardwareMap.colorSensor.get("colorSensor");
             colorSensor = new ColorSensorObject(argColorSensor, telemetry);
             argRightMotor.setDirection(DcMotor.Direction.REVERSE);
-        argUltrasonic = hardwareMap.analogInput.get( "ultrasonic");
-        ultrasonic = new UltrasonicObject(argUltrasonic, argLeftMotor, argRightMotor);
+            argUltrasonic = hardwareMap.analogInput.get( "ultrasonic");
+            ultrasonic = new UltrasonicObject(argUltrasonic, argLeftMotor, argRightMotor);
+            followLine = new FollowLine (colorSensor, argRightMotor, argLeftMotor, ultrasonic);
 
 
             waitForStart();
 
-            //if color sensor sees grey
-            while ((colorSensor.green() <= 59) && (colorSensor.blue() <= 59) && (colorSensor.red() <= 59)) {
+            followLine.traceALine();
 
-                move.turnRight();//has robot turn right
-                argLeftMotor.setPower(0.4);//pwr for left motor
-                argRightMotor.setPower(-0.4);//pwr for right motor
-            }
 
-            //if color sensor sees grey
-            while ((colorSensor.green() >= 60) && (colorSensor.blue() >= 60) && (colorSensor.red() >= 60))
 
-                // have robot turn counterclockwise depending on how much the robot turns
-                move.moveForward();//move robot fwd
-            argLeftMotor.setPower(0.3);//pwr for left motor
-            argRightMotor.setPower(0.3);//pwr for right motor
-            ultrasonic.GoDistanceCentimeters(8);//ultrasonic distance from wall
-            //have move forward until ultrasonic sensor reaches a certain point
+//            //if color sensor sees grey
+//            while ((colorSensor.green() <= 59) && (colorSensor.blue() <= 59) && (colorSensor.red() <= 59)) {
+//
+//                move.turnRight();//has robot turn right
+//                argLeftMotor.setPower(0.4);//pwr for left motor
+//                argRightMotor.setPower(-0.4);//pwr for right motor
+//            }
+//
+//            //if color sensor sees grey
+//            while ((colorSensor.green() >= 60) && (colorSensor.blue() >= 60) && (colorSensor.red() >= 60))
+//
+//                // have robot turn counterclockwise depending on how much the robot turns
+//                move.moveForward();//move robot fwd
+//            argLeftMotor.setPower(0.3);//pwr for left motor
+//            argRightMotor.setPower(0.3);//pwr for right motor
+//            ultrasonic.GoDistanceCentimeters(8);//ultrasonic distance from wall
+//            //have move forward until ultrasonic sensor reaches a certain point
 
         }
     }

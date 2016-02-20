@@ -58,29 +58,32 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("NullOp", NullOp.class);
 
     //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-    manager.register("K9TeleOp", K9TeleOp.class);
-    manager.register("K9Line", K9Line.class);
-    manager.register ("PushBotAuto", PushBotAuto.class);
-    manager.register ("PushBotManual", PushBotManual.class);
-    manager.register ("Test MoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
-    manager.register ("k9 tank drive", K9TankDrive.class);
+   // manager.register("K9TeleOp", K9TeleOp.class);
+    //manager.register("K9Line", K9Line.class);
+    //manager.register ("PushBotAuto", PushBotAuto.class);
+    //manager.register ("PushBotManual", PushBotManual.class);
+    //manager.register ("Test MoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
+    //manager.register ("k9 tank drive", K9TankDrive.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
-    manager.register("MR Gyro Test", MRGyroTest.class);
+    //manager.register("MR Gyro Test", MRGyroTest.class);
 
-    manager.register ("K9TankDriveServoTest", K9TankDriveServoTest.class);
+    //manager.register ("K9TankDriveServoTest", K9TankDriveServoTest.class);
 
-    manager.register("MoveMotorsObject", MoveMotorsObject.class);
-    manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
-    manager.register("GyroTest", TestingTheGyroSensors.class);
-    manager.register("ServoTest", ServoTest.class);
+//    manager.register("MoveMotorsObject", MoveMotorsObject.class);
+//    manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
+//    manager.register("GyroTest", TestingTheGyroSensors.class);
+//    manager.register("ServoTest", ServoTest.class);
 
-    manager.register("TestColorSensor", TestColorSensor.class);
-    manager.register("ColorSensorObject",ColorSensorObject.class);
-    manager.register("CadwynColorSensorDriver", CadwynColorSensorDriver.class);
-    manager.register("UltrasonicObject", UltrasonicObject.class);
+
+    //manager.register("TestColorSensor", TestColorSensor.class);
+    manager.register("NewBlueToParkingZone", NewBlueToParkingZone.class);
+//    manager.register("ColorSensorObject",ColorSensorObject.class);
+    //manager.register("CadwynColorSensorDriver", CadwynColorSensorDriver.class);
+//    manager.register("UltrasonicObject", UltrasonicObject.class);
+//    manager.register("FollowLine", FollowLine.class);
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
 
