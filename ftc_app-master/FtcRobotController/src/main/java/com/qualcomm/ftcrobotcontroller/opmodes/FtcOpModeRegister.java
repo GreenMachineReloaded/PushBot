@@ -71,6 +71,9 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("TestUltrasonicObject", TestUltrasonicObject.class);
     manager.register("Main TeleOp for Cadwyn", CadwynTeleOp.class);
     manager.register("Red far to parkingzone", RedFarToParkingZone.class);
+    manager.register("Red to parkingzone", RedToParkingZone.class);
+    manager.register("Blue far to parkingzone", BlueFarToParkingZone.class);
+    manager.register("Blue to parkingzone", BlueToParkingZone.class);
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
 
