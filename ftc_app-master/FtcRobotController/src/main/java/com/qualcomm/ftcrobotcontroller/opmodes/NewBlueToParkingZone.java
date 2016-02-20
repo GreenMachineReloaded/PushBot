@@ -46,24 +46,26 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
             waitForStart();
 
+            followLine.traceALine();
 
-   //if color sensor sees grey
-            while ((colorSensor.green() <= 59) && (colorSensor.blue() <= 59) && (colorSensor.red() <= 59)) {
 
-                move.turnRight(10,45);//has robot turn right
-                argLeftMotor.setPower(0.4);//pwr for left motor
-                argRightMotor.setPower(-0.4);//pwr for right motor
-            }
-
-            //if color sensor sees grey
-            while ((colorSensor.green() >= 60) && (colorSensor.blue() >= 60) && (colorSensor.red() >= 60))
-
-                // have robot turn counterclockwise depending on how much the robot turns
-                move.moveForward(10,45);//move robot fwd
-            argLeftMotor.setPower(0.3);//pwr for left motor
-            argRightMotor.setPower(0.3);//pwr for right motor
-            ultrasonic.GoDistanceCentimeters(8);//ultrasonic distance from wall
-            //have move forward until ultrasonic sensor reaches a certain point
+//   //if color sensor sees grey
+//            while ((colorSensor.green() <= 59) && (colorSensor.blue() <= 59) && (colorSensor.red() <= 59)) {
+//
+//                move.turnRight(10,45);//has robot turn right
+//                argLeftMotor.setPower(0.4);//pwr for left motor
+//                argRightMotor.setPower(-0.4);//pwr for right motor
+//            }
+//
+//            //if color sensor sees grey
+//            while ((colorSensor.green() >= 60) && (colorSensor.blue() >= 60) && (colorSensor.red() >= 60))
+//
+//                // have robot turn counterclockwise depending on how much the robot turns
+//                move.moveForward(10,45);//move robot fwd
+//            argLeftMotor.setPower(0.3);//pwr for left motor
+//            argRightMotor.setPower(0.3);//pwr for right motor
+//            ultrasonic.GoDistanceCentimeters(8);//ultrasonic distance from wall
+//            //have move forward until ultrasonic sensor reaches a certain point
 
         }
     }

@@ -31,7 +31,7 @@ public class FollowLine {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         String direction = "left";
-        while(ultrasonic.getRangeCentimeters() > 10){
+//        while(ultrasonic.getRangeCentimeters() > 10){
 
             if(direction.equals("left")) {
                 while(colorSensor.getColor() == WHITE ){
@@ -54,4 +54,4 @@ public class FollowLine {
         }
     }
 
-}
+//}
