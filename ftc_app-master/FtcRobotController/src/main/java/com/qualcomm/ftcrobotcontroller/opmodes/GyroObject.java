@@ -42,7 +42,7 @@ public class GyroObject {
         //t.addData("Gyro Calibration Complete","");
     }
 
-    public void leftTurn(int degrees) {
+    public void leftTurn(int degrees) {//GyroTurnLeft
         while (gyro.isCalibrating()) {
             s.Sleep(50);
         }
@@ -61,7 +61,7 @@ public class GyroObject {
         rightMotor.setPower(0);
     }
 
-    public void rightTurn(int degrees) {
+    public void rightTurn(int degrees) {//GyroTurnRight
         while (gyro.isCalibrating()) {
             s.Sleep(50);
         }

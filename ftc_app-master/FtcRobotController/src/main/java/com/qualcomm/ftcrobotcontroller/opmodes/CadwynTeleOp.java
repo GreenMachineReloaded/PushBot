@@ -153,7 +153,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         leftDriveMotor.setPower(gamepad1.left_stick_y);//gamepad 1, left stick Y controls left motors
         rightDriveMotor.setPower(gamepad1.right_stick_y);// gamepad 1, right stick Y controls right motors
 
-        //if statement 1
+        //SlowArm
         if (armMotor.motorHandle.getCurrentPosition() > 500) {//if arm position is greater than 625 then change multiplier by .5
             multiplier = 0.5;
         }else if (armMotor.motorHandle.getCurrentPosition() < 500) {//if arm position less than 625 then change multiplier by 1
@@ -273,6 +273,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
             hopperDoorRightPosition += 0;
         }
 
+        //UpRamp
         if (gamepad1.dpad_up) {
             hopperEntranceDoorPosition = 0;
             flapperLeftBluePosition = 0.5;
