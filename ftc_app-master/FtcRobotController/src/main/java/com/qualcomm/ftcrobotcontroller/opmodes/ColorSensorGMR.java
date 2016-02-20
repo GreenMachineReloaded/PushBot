@@ -52,7 +52,6 @@ public class ColorSensorGMR extends LinearOpMode {
   DeviceInterfaceModule cdim;
   LED led;
   TouchSensor t;
-
   @Override
   public void runOpMode() throws InterruptedException {
     hardwareMap.logDevices();

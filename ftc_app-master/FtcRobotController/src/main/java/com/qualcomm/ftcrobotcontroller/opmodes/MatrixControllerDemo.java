@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.hardware.MatrixDcMotorController;
+import com.qualcomm.hardware.matrix.MatrixDcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -108,7 +108,7 @@ public class MatrixControllerDemo extends OpMode {
          * but software wants to treat it as two distinct controllers, one
          * DcMotorController, and one ServoController.
          *
-         * We accomplish this by appending Motor and GMRServo to the name
+         * We accomplish this by appending Motor and Servo to the name
          * given in the configuration.  In the example below the name
          * of the controller is "MatrixController" so the motor controller
          * instance is "MatrixControllerMotor" and the servo controller

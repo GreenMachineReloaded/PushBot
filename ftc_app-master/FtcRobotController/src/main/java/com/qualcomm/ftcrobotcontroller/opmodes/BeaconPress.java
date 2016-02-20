@@ -1,0 +1,28 @@
+package com.qualcomm.ftcrobotcontroller.opmodes;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+/*
+ * An example linear op mode where the pushbot
+ * will drive in a square pattern using sleep()
+ * and a for loop.
+ */
+public class BeaconPress extends LinearOpMode {
+    DcMotor leftMotorArg;
+    DcMotor rightMotorArg;
+    Sleeper s;
+    @Override
+    public void runOpMode() throws InterruptedException {
+        leftMotorArg = hardwareMap.dcMotor.get("leftDriveMotor");
+        rightMotorArg = hardwareMap.dcMotor.get("rightDriveMotor");
+        s = new Sleeper();
+        MoveMotors move = new MoveMotors(leftMotorArg, rightMotorArg);
+        waitForStart();
+        sleep(5000);
+        move.moveForward(3600, 100);
+        move.turnRight(400, 100);
+        move.moveForward(1100, 100);
+
+    }
+}
