@@ -89,17 +89,12 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("Red to parkingzone", RedToParkingZone.class);
     manager.register("Blue far to parkingzone", BlueFarToParkingZone.class);
     manager.register("Blue to parkingzone", BlueToParkingZone.class);
-<<<<<<< HEAD
-
-<<<<<<< HEAD
       manager.register("FollowLine", FollowLine.class);
       manager.register("NewBlueToParkingZone", NewBlueToParkingZone.class);
       // manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
-=======
-=======
->>>>>>> b59f5d69e8bbdf9c8d0a7216ce729607e424cc35
+
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
->>>>>>> 7db283340729196e2ffbfd22b147bb4b59bfc53c
+
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
 
     //manager.register("IrSeekerOp", IrSeekerOp.class);
