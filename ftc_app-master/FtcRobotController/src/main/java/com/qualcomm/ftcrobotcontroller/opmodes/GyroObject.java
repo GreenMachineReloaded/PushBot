@@ -42,25 +42,26 @@ public class GyroObject {
         //t.addData("Gyro Calibration Complete","");
     }
 
-    public void leftTurn(int degrees) {
+    public void leftTurn(int degrees) {//GyroTurnLeft
         while (gyro.isCalibrating()) {
             s.Sleep(50);
         }
+        degrees-=8;
         turnDegrees = (gyro.getHeading() - degrees);
         if (turnDegrees < 0) {
             turnDegrees = (degrees - gyro.getHeading());
             turnDegrees = (359 - turnDegrees);
         }
         while (turnDegrees <= gyro.getHeading() || gyro.getHeading() == 0) {
-            leftMotor.setPower(0.35);
-            rightMotor.setPower(-0.35);
+            leftMotor.setPower(0.4);
+            rightMotor.setPower(-0.45 );
             t.addData("Gyro heading", gyro.getHeading());
         }
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
 
-    public void rightTurn(int degrees) {
+    public void rightTurn(int degrees) {//GyroTurnRight
         while (gyro.isCalibrating()) {
             s.Sleep(50);
         }
@@ -69,8 +70,8 @@ public class GyroObject {
             turnDegrees = (turnDegrees - 359);
         }
         while (turnDegrees >= gyro.getHeading()) {
-            leftMotor.setPower(-0.35);
-            rightMotor.setPower(0.35);
+            leftMotor.setPower(-0.4);
+            rightMotor.setPower(0.4);
             t.addData("Gyro Heading", gyro.getHeading());
         }
         leftMotor.setPower(0);

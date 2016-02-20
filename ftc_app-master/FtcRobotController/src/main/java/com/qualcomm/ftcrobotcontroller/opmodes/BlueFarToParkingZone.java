@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.robocol.Telemetry;
 import com.qualcomm.robotcore.util.Range;
 
 /**
- * Created by Payton on 2/16/2016.
+ * Created by Payton on 2/19/2016.
  */
-public class RedFarToParkingZone extends LinearOpMode {
+public class BlueFarToParkingZone extends LinearOpMode {
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
 
@@ -95,11 +95,11 @@ public class RedFarToParkingZone extends LinearOpMode {
 
         move.moveForward(250,25);
 
-        gyroTurn.leftTurn(45);
+        gyroTurn.rightTurn(45);
 
         move.moveForward(4300, 50);
 
-        gyroTurn.leftTurn(70);
+        gyroTurn.rightTurn(70);
 
         move.moveForward(750,40);
     }
