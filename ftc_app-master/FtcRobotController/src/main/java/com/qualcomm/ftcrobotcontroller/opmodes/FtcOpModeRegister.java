@@ -55,20 +55,10 @@ public class FtcOpModeRegister implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
 
-    manager.register("NullOp", NullOp.class);
+
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
-    manager.register("MR Gyro Test", MRGyroTest.class);
-
-    manager.register ("K9TankDriveServoTest", K9TankDriveServoTest.class);
-    manager.register("TestMoveMotorsObject", TestMoveMotorsObjectSleepArg.class);
-    manager.register("GyroTest", TestingTheGyroSensors.class);
-    manager.register("ServoTest", ServoTest.class);
-
-    manager.register("TestColorSensor", TestColorSensor.class);
-    manager.register("ColorSensorObject",ColorSensorObject.class);
-    manager.register("CadwynColorSensorDriver", CadwynColorSensorDriver.class);
 //    manager.register("NullOp", NullOp.class);
 //
 //    //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
@@ -83,17 +73,14 @@ public class FtcOpModeRegister implements OpModeRegister {
 //     * Uncomment any of the following lines if you want to register an op mode.
 //     */
 //    manager.register("MR Gyro Test", MRGyroTest.class);
-      manager.register("TestUltrasonicObject", TestUltrasonicObject.class);
     manager.register("Main TeleOp for Cadwyn", CadwynTeleOp.class);
     manager.register("Red far to parkingzone", RedFarToParkingZone.class);
     manager.register("Red to parkingzone", RedToParkingZone.class);
     manager.register("Blue far to parkingzone", BlueFarToParkingZone.class);
     manager.register("Blue to parkingzone", BlueToParkingZone.class);
-<<<<<<< HEAD
-
-=======
->>>>>>> b59f5d69e8bbdf9c8d0a7216ce729607e424cc35
-    //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
+    manager.register("Follow line program", NewBlueToParkingZone.class);
+    manager.register("Color Sensor Test", CadwynColorSensorDriver.class);
+       //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
 
     //manager.register("IrSeekerOp", IrSeekerOp.class);

@@ -1,13 +1,9 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import android.app.Activity;
 import android.graphics.Color;
-import android.view.View;
-import com.qualcomm.ftcrobotcontroller.R;
+
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.robocol.Telemetry;
-
-import static android.graphics.Color.*;
 
 /**
  * Created by Patrick on 11/22/2015.
@@ -37,36 +33,36 @@ public class ColorSensorObject{
 
     public int green() {return colorSensor.green();}
 
-    public int getColor() {
+    public String getColor() {
 
 
-        int returnColor = Color.GRAY;// when return color is asked, it will say GRAY unless otherwise instructed to later
+        String returnColor = "gray";// when return color is asked, it will say GRAY unless otherwise instructed to later
 
         telemetry.addData("Start Robot","");
         Color.RGBToHSV(this.red() * 8, this.green() * 8, this.blue() * 8, hsvValues);
 
-        if ((this.green() >= 5) && (this.blue() >= 20) && (this.red() <= 4)) {//   returnColor = BLUE;
+        if ((this.green()>=1) && (this.blue()>=3) && (this.red()<=1)) {//   returnColor = BLUE;
             telemetry.addData("CadwynBlue", this.blue());// return values of the color blue
             telemetry.addData("CadwynBlue!","");
 
         }
 
-         else if ((green()<=5) && (blue()<=4) && (red()>=35)){//   returnColor = RED;
+         else if ((green()<=1) && (blue()<=1) && (red()>=3)){//   returnColor = RED;
             telemetry.addData("CadwynRed", this.red());// return the values of the color red
             telemetry.addData("CadwynRed!","");
         }
 
-     else if ((green()>=28) && (blue()>=20) && (red()<=10)){// returnColor = GREEN;
+     else if ((green()>=3) && (blue()>=1) && (red()<=1)){// returnColor = GREEN;
             telemetry.addData("CadwynGreen", this.green());// return the value of the color green
             telemetry.addData("CadwynGreen!","");
         }
 
-      else if ((green()>=60) && (blue()>=60) && (red()>=60)){
-        returnColor = WHITE;//tells return color to say WHITE iff it matches the requirements above
+      else if ((green()>=2)&&(blue()>=2)&&(red()>=2)){
+        returnColor = "white";//tells return color to say WHITE iff it matches the requirements above
         }
 
-      else if ((green() >= 10 && blue() >= 10 && red() >= 10)){
-        returnColor = GRAY;// tells return color to say GRAY iff it matches the requirements above
+      else if ((green()==0&&blue()==0&&red()==0)){
+        returnColor = "gray";// tells return color to say GRAY iff it matches the requirements above
 
         }
 

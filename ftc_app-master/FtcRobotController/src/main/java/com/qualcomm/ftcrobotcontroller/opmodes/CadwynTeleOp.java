@@ -125,8 +125,8 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         climberDepositerPosition =  0;//climber depositor
         winchServoPosition =  1;// winch servo
         hopperDoorleftPosition = 0.64;// red hopper door (left)
-        hopperDoorRightPosition = 0.03;// blue hopper door (right)
-        hopperEntranceDoorPosition = 1;
+        hopperDoorRightPosition = 0.0882;// blue hopper door (right)
+        hopperEntranceDoorPosition = 0.7;
         sweeperLiftPosition = 1;
 
         onTheRamp = false;
@@ -198,7 +198,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         }
 
         if (gamepad1.a) {// if gamepad 1 a is pressed then make winch position by +.001
-            hopperEntranceDoorPosition = 0.95;
+            hopperEntranceDoorPosition = 0.5;
         }else if (gamepad1.y) {// if gamepad 1 y is pressed, then make winch position by -.001
             hopperEntranceDoorPosition = 0;
         }
@@ -279,7 +279,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
             flapperLeftBluePosition = 0.5;
             flapperRightRedPosition = 0.5;
         }else if (gamepad1.dpad_down) {
-            hopperEntranceDoorPosition = 0.95;
+            hopperEntranceDoorPosition = 0.5;
             flapperLeftBluePosition = 0;
             flapperRightRedPosition = 1;
         }
@@ -294,16 +294,16 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         climberDepositerPosition =  Range.clip(climberDepositerPosition, 0, 1);// climber depositor
         climberDepositerServo.moveServo(climberDepositerPosition);
 
-        winchServoPosition =  Range.clip(winchServoPosition, 0, 1);// winch
+        winchServoPosition =  Range.clip(winchServoPosition, 0.2, 0.45);// winch
         winchServo.moveServo(winchServoPosition);
 
         hopperDoorleftPosition =  Range.clip(hopperDoorleftPosition, 0.064, 0.64);// red hopper door (left)
         hopperDoorRed.moveServo(hopperDoorleftPosition);
 
-        hopperDoorRightPosition =  Range.clip(hopperDoorRightPosition, 0.03, 0.6);// blue hopper door (right)
+        hopperDoorRightPosition =  Range.clip(hopperDoorRightPosition, 0.0882, 0.6);// blue hopper door (right)
         hopperDoorBlue.moveServo(hopperDoorRightPosition);
 
-        hopperEntranceDoorPosition =  Range.clip(hopperEntranceDoorPosition, 0, 0.95);// blue hopper door (right)
+        hopperEntranceDoorPosition =  Range.clip(hopperEntranceDoorPosition, 0, 0.5);// blue hopper door (right)
         hopperEntranceDoor.moveServo(hopperEntranceDoorPosition);
 
         sweeperLiftPosition =  Range.clip(sweeperLiftPosition, 0, 1);// blue hopper door (right)
@@ -313,7 +313,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         //String servoPositions = String.format("%.2f", rightRedFlapperServo);
 
-        String servoPositions = String.valueOf(sweeperLiftPosition);
+        String servoPositions = String.valueOf(hopperEntranceDoorPosition);
         telemetry.addData("Winch Servo Position: ", servoPositions);
         //telemetry.addData("Gyro Raw Y: ", gyro.rawY());
 
