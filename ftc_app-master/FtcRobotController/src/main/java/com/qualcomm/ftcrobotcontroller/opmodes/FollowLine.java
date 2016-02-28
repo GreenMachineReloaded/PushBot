@@ -17,41 +17,39 @@ public class FollowLine {
     UltrasonicObject ultrasonic;
     Telemetry telemetry;
 
-    public FollowLine(ColorSensorObject cs, DcMotor rm, DcMotor lm, UltrasonicObject us){
+    public FollowLine(ColorSensorObject cs, DcMotor rm, DcMotor lm, UltrasonicObject us) {
 
         colorSensor = cs;
         rightMotor = rm;
         leftMotor = lm;
-        ultrasonic =us;
+        ultrasonic = us;
 
 
     }
-    public void traceALine(){
+
+    public void traceALine() {
 
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         String direction = "left";
-//        while(ultrasonic.getRangeCentimeters() > 10){
-
-            if(direction.equals("left")) {
-                while(colorSensor.getColor() == WHITE ){
+        while (ultrasonic.getRangeCentimeters() > 10) {
+            if (direction.equals("left")) {
+                while (colorSensor.getColor() == WHITE) {
                     rightMotor.setPower(0.2);
                     leftMotor.setPower(0.3);
                     telemetry.addData("colorSensor left", "");
                 }
                 direction = "right";
-
-
-            } else if(direction.equals("right")){
-                while(colorSensor.getColor() == WHITE ){
+            } else if (direction.equals("right")) {
+                while (colorSensor.getColor() == WHITE) {
                     rightMotor.setPower(0.3);
                     leftMotor.setPower(0.2);
                     telemetry.addData("colorSensor right", "");
                 }
                 direction = "left";
-
             }
+            telemetry.addData("ultrasonic values", ultrasonic.getRangeCentimeters());
         }
     }
 
-//}
+}

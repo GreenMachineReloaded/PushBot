@@ -37,13 +37,13 @@ public class UltrasonicObject {
 
 
     public double getRangeInches() {
-        range = sonic.getValue() / 6;
+        range = (sonic.getValue() / 6);
         return range;
     }
 
 
     public double getRangeCentimeters() {
-        range = (sonic.getValue()/6)/ 2.54;
+        range = ((sonic.getValue()/6)/ 2.54);
         return range;
     }
     //returns range
