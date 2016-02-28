@@ -12,7 +12,6 @@ public class FollowLine {
     DcMotor rightMotor;
     DcMotor leftMotor;
     UltrasonicObject ultrasonic;
-<<<<<<< HEAD
     Telemetry t;
     boolean isOnWhite;
     Sleeper sleep;
@@ -20,17 +19,10 @@ public class FollowLine {
     MoveMotors mm;
     String directionCanSwitch;
     public FollowLine(ColorSensorObject cs, DcMotor rm, DcMotor lm, UltrasonicObject us, Telemetry telemetry){
-=======
-    Telemetry telemetry;
-
-    public FollowLine(ColorSensorObject cs, DcMotor rm, DcMotor lm, UltrasonicObject us) {
-
->>>>>>> 4944ab70686b3a08783f5ae8e326c89081ce825a
         colorSensor = cs;
         rightMotor = rm;
         leftMotor = lm;
         ultrasonic = us;
-<<<<<<< HEAD
         t = telemetry;
         isOnWhite = true;
         sleep = new Sleeper();
@@ -106,34 +98,6 @@ public class FollowLine {
 //            } else if (colorSensor.getColor()=="gray" && direction=="right") {
 //                direction = "left";
 //            }
-=======
-
-
-    }
-
-    public void traceALine() {
-
-        leftMotor.setDirection(DcMotor.Direction.FORWARD);
-        rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        String direction = "left";
-        while (ultrasonic.getRangeCentimeters() > 10) {
-            if (direction.equals("left")) {
-                while (colorSensor.getColor() == WHITE) {
-                    rightMotor.setPower(0.2);
-                    leftMotor.setPower(0.3);
-                    telemetry.addData("colorSensor left", "");
-                }
-                direction = "right";
-            } else if (direction.equals("right")) {
-                while (colorSensor.getColor() == WHITE) {
-                    rightMotor.setPower(0.3);
-                    leftMotor.setPower(0.2);
-                    telemetry.addData("colorSensor right", "");
-                }
-                direction = "left";
-            }
-            telemetry.addData("ultrasonic values", ultrasonic.getRangeCentimeters());
->>>>>>> 4944ab70686b3a08783f5ae8e326c89081ce825a
         }
         rightMotor.setPower(0);
         leftMotor.setPower(0);
