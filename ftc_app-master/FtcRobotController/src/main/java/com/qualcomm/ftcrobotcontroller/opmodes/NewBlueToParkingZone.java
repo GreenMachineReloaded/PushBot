@@ -37,12 +37,19 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
             waitForStart();
 
+<<<<<<< HEAD
             telemetry.addData("","Program Start");
 
             followLine.traceALine();
 
 
    //if color sensor sees grey
+=======
+            followLine.traceALine();
+
+
+//   //if color sensor sees grey
+>>>>>>> 4944ab70686b3a08783f5ae8e326c89081ce825a
 //            while ((colorSensor.green() <= 59) && (colorSensor.blue() <= 59) && (colorSensor.red() <= 59)) {
 //
 //                move.turnRight(10,45);//has robot turn right
@@ -58,7 +65,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 //            argLeftMotor.setPower(0.3);//pwr for left motor
 //            argRightMotor.setPower(0.3);//pwr for right motor
 //            ultrasonic.GoDistanceCentimeters(8);//ultrasonic distance from wall
+<<<<<<< HEAD
             //have move forward until ultrasonic sensor reaches a certain point
+=======
+//            //have move forward until ultrasonic sensor reaches a certain point
+>>>>>>> 4944ab70686b3a08783f5ae8e326c89081ce825a
 
         }
     }
