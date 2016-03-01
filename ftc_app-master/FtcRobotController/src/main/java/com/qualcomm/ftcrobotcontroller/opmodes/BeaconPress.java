@@ -5,7 +5,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
  */
 public class BeaconPress {
 
-    
+
 
 
 
