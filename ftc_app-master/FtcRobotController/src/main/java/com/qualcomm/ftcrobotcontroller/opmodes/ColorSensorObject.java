@@ -61,7 +61,7 @@ public class ColorSensorObject{
         returnColor = "white";//tells return color to say WHITE iff it matches the requirements above
         }
 
-      else if ((green()==0&&blue()==0&&red()==0)){
+      else if ((green()==1&&blue()==1&&red()==1)){
         returnColor = "gray";// tells return color to say GRAY iff it matches the requirements above
 
         }

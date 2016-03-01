@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.robocol.Telemetry;
  * Created by Patrick on 2/16/2016.
  */
 public class FollowLine {
-
     ColorSensorObject colorSensor;
     DcMotor rightMotor;
     DcMotor leftMotor;
@@ -18,6 +17,7 @@ public class FollowLine {
     String lastDirection;
     MoveMotors mm;
     String directionCanSwitch;
+    String startOfProgram;
     public FollowLine(ColorSensorObject cs, DcMotor rm, DcMotor lm, UltrasonicObject us, Telemetry telemetry){
         colorSensor = cs;
         rightMotor = rm;
@@ -26,39 +26,45 @@ public class FollowLine {
         t = telemetry;
         isOnWhite = true;
         sleep = new Sleeper();
-        lastDirection = "left";
+        lastDirection = "start";
         mm = new MoveMotors(lm,rm);
         directionCanSwitch = "yes";
+        startOfProgram = "start";
     }
     public void traceALine(){
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         t.addData("", "Trace a line start");
         t.addData("", ultrasonic.getRangeInches());
+
         while(ultrasonic.getRangeInches() > 5){
             t.addData("", lastDirection);
 
-            rightMotor.setPower(-0.3);
-            leftMotor.setPower(-0.3);
+            mm.moveForward(5,10);
 
-            while (colorSensor.getColor() == "gray" && lastDirection == "left") {
-                mm.turnLeft(10,40);
+            while (colorSensor.getColor() == "gray" && lastDirection == "left" && startOfProgram == "continue") {
+                mm.turnLeft(5,30);
                 directionCanSwitch = "yes";
             }
-            while (colorSensor.getColor() == "gray" && lastDirection == "right") {
-                mm.turnRight(10,40);
+            while (colorSensor.getColor() == "gray" && lastDirection == "right" && startOfProgram == "continue") {
+                mm.turnRight(5,30);
                 directionCanSwitch = "yes";
             }
-            if (colorSensor.getColor() == "white" && lastDirection == "right" && directionCanSwitch == "yes") {
+            if (colorSensor.getColor() == "white" && lastDirection == "right" && directionCanSwitch == "yes" && startOfProgram == "continue") {
                 lastDirection = "left";
                 directionCanSwitch = "no";
-            } else if (colorSensor.getColor() == "white" && lastDirection == "left" && directionCanSwitch == "yes") {
+            } else if (colorSensor.getColor() == "white" && lastDirection == "left" && directionCanSwitch == "yes" && startOfProgram == "continue") {
                 lastDirection = "right";
                 directionCanSwitch = "no";
             }
 
-
-
+            if (startOfProgram == "start") {
+                mm.moveForward(5,10);
+                t.addData("",startOfProgram);
+                if (!(colorSensor.getColor() == "gray") || !(colorSensor.getColor() == "gray")) {
+                    startOfProgram = "continue";
+                }
+            }
 
 //            if (direction == "left") {
 //                rightMotor.setPower(0.2);

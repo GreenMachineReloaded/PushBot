@@ -7,9 +7,6 @@ import android.view.View;
 import com.qualcomm.ftcrobotcontroller.R;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
-import com.qualcomm.robotcore.hardware.LED;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * Created by Patrick on 1/10/2016.
@@ -72,7 +69,7 @@ public class CadwynColorSensorDriver extends LinearOpMode {
                 colorSensor = hardwareMap.colorSensor.get("lady");
                 break;
             case MODERN_ROBOTICS_I2C:
-                colorSensor = hardwareMap.colorSensor.get("mr");
+                colorSensor = hardwareMap.colorSensor.get("color");
                 break;
         }
 //        led = hardwareMap.led.get("led");
