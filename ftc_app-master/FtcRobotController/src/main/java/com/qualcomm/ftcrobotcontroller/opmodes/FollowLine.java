@@ -38,21 +38,24 @@ public class FollowLine {
         while(ultrasonic.getRangeInches() > 5){
             t.addData("", lastDirection);
 
-            rightMotor.setPower(-0.3);
-            leftMotor.setPower(-0.3);
+            rightMotor.setPower(-0.1);
+            leftMotor.setPower(-0.1);
 
             while (colorSensor.getColor() == "gray" && lastDirection == "left") {
                 mm.turnLeft(10,40);
                 directionCanSwitch = "yes";
             }
             while (colorSensor.getColor() == "gray" && lastDirection == "right") {
-                mm.turnRight(10,40);
+                mm.turnRight(10, 40);
                 directionCanSwitch = "yes";
             }
+
             if (colorSensor.getColor() == "white" && lastDirection == "right" && directionCanSwitch == "yes") {
+                sleep.Sleep(100);
                 lastDirection = "left";
                 directionCanSwitch = "no";
             } else if (colorSensor.getColor() == "white" && lastDirection == "left" && directionCanSwitch == "yes") {
+                sleep.Sleep(100);
                 lastDirection = "right";
                 directionCanSwitch = "no";
             }
