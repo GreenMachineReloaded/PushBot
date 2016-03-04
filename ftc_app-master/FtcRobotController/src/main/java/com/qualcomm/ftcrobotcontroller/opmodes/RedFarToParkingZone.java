@@ -41,6 +41,12 @@ public class RedFarToParkingZone extends LinearOpMode {
 
     Sleeper s;
 
+    FollowLine followLine;
+
+    ColorSensorObject colorSensor;
+
+    UltrasonicObject ultrasonic;
+
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -52,6 +58,7 @@ public class RedFarToParkingZone extends LinearOpMode {
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         gyro = hardwareMap.gyroSensor.get("gyro");
         sleep = new Sleeper();
+        followLine = new FollowLine (colorSensor, rightDriveMotor, leftDriveMotor, ultrasonic, t);
 
 //        leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
 //        rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
@@ -90,7 +97,7 @@ public class RedFarToParkingZone extends LinearOpMode {
 
         waitForStart();
 
-        move.moveForward(250,25);
+        move.moveForward(250, 25);
 
         gyroTurn.leftTurn(45);
 
@@ -98,6 +105,9 @@ public class RedFarToParkingZone extends LinearOpMode {
 
         gyroTurn.leftTurn(70);
 
-        move.moveForward(750,40);
+        move.moveForward(750, 40);
+
+        followLine.traceALine();
+
     }
 }
