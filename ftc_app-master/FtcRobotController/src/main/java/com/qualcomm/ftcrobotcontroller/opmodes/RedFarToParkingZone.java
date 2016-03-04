@@ -1,5 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.ftcrobotcontroller.opmodes.drivers.GMRServo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -26,6 +27,8 @@ public class RedFarToParkingZone extends LinearOpMode {
 //    GMRServo winchServo;
 //    GMRServo hopperDoorBlue;
 //    GMRServo hopperDoorRed;
+//    GMRServo hopperEntranceDoor;
+//    GMRServo sweeperLift;
 
 //    Servo servo1;
 //    Servo servo2;
@@ -33,6 +36,8 @@ public class RedFarToParkingZone extends LinearOpMode {
 //    Servo servo4;
 //    Servo servo5;
 //    Servo servo6;
+//    Servo servo7;
+//    Servo servo8;
 
 //    double flapperRightPosition;
 //    double flapperLeftPosition;
@@ -40,6 +45,8 @@ public class RedFarToParkingZone extends LinearOpMode {
 //    double winchServoPosition;
 //    double hopperDoorleftPosition;
 //    double hopperDoorRightPosition;
+//    double hopperEntranceDoorPosition;
+//    double sweeperLiftPosition;
 
     Telemetry t;
 
@@ -71,12 +78,19 @@ public class RedFarToParkingZone extends LinearOpMode {
 
         followLine = new FollowLine (colorSensor, rightDriveMotor, leftDriveMotor, ultrasonic, t);
 
+        GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
+
+        MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
+
+
 //        leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
 //        rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
 //        climberDepositerServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerServo"));
 //        winchServo = new GMRServo(servo4 = hardwareMap.servo.get("winchServo"));
 //        hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));
 //        hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
+//        hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
+//        sweeperLift = new GMRServo(servo8 = hardwareMap.servo.get("sweeperLift"));
 
 //        flapperRightPosition = 1;
 //        flapperLeftPosition = 0;
@@ -84,7 +98,9 @@ public class RedFarToParkingZone extends LinearOpMode {
 //        winchServoPosition = 1;
 //        hopperDoorleftPosition = 0.64;
 //        hopperDoorRightPosition = 0.03;
-
+//        hopperEntranceDoorPosition = 0.7;
+//        sweeperLiftPosition = 1;
+//
 //        flapperRightPosition = Range.clip(flapperRightPosition, 0, 1);
 //        rightFlapperServo.moveServo(flapperRightPosition);
 //
@@ -103,8 +119,6 @@ public class RedFarToParkingZone extends LinearOpMode {
 //        hopperDoorRightPosition = Range.clip(hopperDoorRightPosition, 0.03, 0.6);
 //        hopperDoorBlue.moveServo(hopperDoorRightPosition);
 
-        GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
-        MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
 
         waitForStart();
 
