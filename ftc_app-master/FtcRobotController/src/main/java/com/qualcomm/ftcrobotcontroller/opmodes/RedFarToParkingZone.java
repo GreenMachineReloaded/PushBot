@@ -1,6 +1,8 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.robocol.Telemetry;
@@ -13,6 +15,8 @@ public class RedFarToParkingZone extends LinearOpMode {
     DcMotor rightDriveMotor;
 
     Sleeper sleep;
+    Sleeper s;
+
 
     GyroSensor gyro;
 
@@ -39,13 +43,13 @@ public class RedFarToParkingZone extends LinearOpMode {
 
     Telemetry t;
 
-    Sleeper s;
-
     FollowLine followLine;
 
     ColorSensorObject colorSensor;
+    ColorSensor cs;
 
     UltrasonicObject ultrasonic;
+    AnalogInput us;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -53,11 +57,18 @@ public class RedFarToParkingZone extends LinearOpMode {
         t = telemetry;
 
         s = new Sleeper();
+        sleep = new Sleeper();
 
         leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
+
         gyro = hardwareMap.gyroSensor.get("gyro");
-        sleep = new Sleeper();
+
+        colorSensor = new ColorSensorObject(cs, telemetry);
+
+        us = hardwareMap.analogInput.get( "ultrasonic");
+        ultrasonic = new UltrasonicObject(us, leftDriveMotor, rightDriveMotor);
+
         followLine = new FollowLine (colorSensor, rightDriveMotor, leftDriveMotor, ultrasonic, t);
 
 //        leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
