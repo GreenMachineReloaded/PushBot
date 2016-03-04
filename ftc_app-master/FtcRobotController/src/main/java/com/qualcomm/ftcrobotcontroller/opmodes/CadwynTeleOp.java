@@ -255,22 +255,16 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
             climberDepositerPosition -= 0.05;
         }
 
-        // if statement
-        if (gamepad2.left_bumper) {// if gamepad 2 left bumper is pressed, then move red hopper door (left) up
-            hopperDoorleftPosition += 0.005;
-        }else if (gamepad2.left_trigger > 0) {// if gamepad 2  left trigger is pressed, then move red hopper door (left) down
-            hopperDoorleftPosition -= 0.005;
-        }else {
-            hopperDoorleftPosition += 0;
-        }
-
         //if statement
         if (gamepad2.right_bumper) {// if gamepad 2 right bumper is pressed, then move blue hopper door (right) up
             hopperDoorRightPosition -= 0.005;
+            hopperDoorleftPosition += 0.005;
         }else if (gamepad2.right_trigger > 0) {// if gamepad 2 right trigger is pressed, then move blue hopper door (right) down
             hopperDoorRightPosition += 0.005;
+            hopperDoorleftPosition -= 0.005;
         }else {
             hopperDoorRightPosition += 0;
+            hopperDoorleftPosition += 0;
         }
 
         //UpRamp
