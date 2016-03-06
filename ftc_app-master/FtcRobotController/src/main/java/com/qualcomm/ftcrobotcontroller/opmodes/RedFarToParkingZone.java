@@ -52,7 +52,7 @@ public class RedFarToParkingZone extends LinearOpMode {
     Telemetry t;
 
     ColorSensor cs;
-    
+
     AnalogInput us;
 
     ColorSensorObject colorSensor;
