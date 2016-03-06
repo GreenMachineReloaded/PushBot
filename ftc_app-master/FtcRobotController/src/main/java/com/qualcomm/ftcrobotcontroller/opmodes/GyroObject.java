@@ -13,10 +13,10 @@ public class GyroObject {
     Telemetry t;
     int turnDegrees;
 
-    public GyroObject(DcMotor leftMotorArg, DcMotor rightMotorArg, GyroSensor gyroArg, Telemetry telemetry) throws InterruptedException {
-        gyro = gyroArg;
-        leftMotor = leftMotorArg;
-        rightMotor = rightMotorArg;
+    public GyroObject(DcMotor lm, DcMotor rm, GyroSensor gyroInput, Telemetry telemetry) throws InterruptedException {
+        gyro = gyroInput;
+        leftMotor = lm;
+        rightMotor = rm;
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         s = new Sleeper();

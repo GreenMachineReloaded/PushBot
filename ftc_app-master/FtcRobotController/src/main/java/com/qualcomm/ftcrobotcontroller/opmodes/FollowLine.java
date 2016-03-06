@@ -16,19 +16,17 @@ public class FollowLine {
     boolean isOnWhite;
     Sleeper sleep;
     String lastDirection;
-    MoveMotors mm;
+    //MoveMotors mm;
     String directionCanSwitch;
-    public FollowLine(ColorSensorObject cs, DcMotor rm, DcMotor lm, UltrasonicObject us, Telemetry telemetry){
+    public FollowLine(ColorSensorObject cs, DcMotor rm, DcMotor lm, UltrasonicObject us, Telemetry telemetry) {
         colorSensor = cs;
         rightMotor = rm;
         leftMotor = lm;
         ultrasonic = us;
         t = telemetry;
-        isOnWhite = true;
         sleep = new Sleeper();
         lastDirection = "left";
-        mm = new MoveMotors(lm,rm);
-        directionCanSwitch = "yes";
+        //mm = new MoveMotors(lm,rm);
     }
     public void traceALine(){
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
