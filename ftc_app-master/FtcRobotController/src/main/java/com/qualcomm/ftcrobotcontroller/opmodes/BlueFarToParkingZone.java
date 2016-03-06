@@ -39,14 +39,16 @@ public class BlueFarToParkingZone extends LinearOpMode {
 
     Telemetry t;
 
-    Sleeper s;
+    ColorSensorObject colorSensor;
+
+    UltrasonicObject ultrasonic;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         t = telemetry;
 
-        s = new Sleeper();
+        sleep = new Sleeper();
 
         leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
@@ -86,8 +88,7 @@ public class BlueFarToParkingZone extends LinearOpMode {
 //        hopperDoorBlue.moveServo(hopperDoorRightPosition);
 
         GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
-        MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
-
+        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
         waitForStart();
 
         sleep.Sleep(10000);
