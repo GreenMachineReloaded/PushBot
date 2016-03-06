@@ -1,8 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
-import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.robocol.Telemetry;
-import java.io.*;
 
 public class GyroObject {
 
@@ -12,7 +11,6 @@ public class GyroObject {
     GyroSensor gyro;
     Sleeper s;
     Telemetry t;
-    PrintWriter gyroFile;
     int turnDegrees;
 
     public GyroObject(DcMotor leftMotorArg, DcMotor rightMotorArg, GyroSensor gyroArg, Telemetry telemetry) throws InterruptedException {
@@ -25,12 +23,6 @@ public class GyroObject {
         t = telemetry;
         gyro.calibrate();
         turnDegrees = 0;
-        //t.addData("Gyro Calibration Complete","");
-//        try {
-//            PrintWriter gyroFile = new PrintWriter("Gyro-File.txt");
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public GyroObject(GyroSensor gyroArg) throws InterruptedException {
@@ -54,7 +46,7 @@ public class GyroObject {
         }
         while (turnDegrees <= gyro.getHeading() || gyro.getHeading() == 0) {
             leftMotor.setPower(0.4);
-            rightMotor.setPower(-0.45 );
+            rightMotor.setPower(-0.45);
             t.addData("Gyro heading", gyro.getHeading());
         }
         leftMotor.setPower(0);

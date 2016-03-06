@@ -88,6 +88,8 @@ public class BlueToParkingZone extends LinearOpMode {
 
         waitForStart();
 
+        sleep.Sleep(10000);
+
         telemetry.addData("", "Program Start");
 
         move.moveForward(800, 50);

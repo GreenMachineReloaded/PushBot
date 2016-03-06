@@ -35,16 +35,20 @@ public class FollowLine {
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         t.addData("", "Trace a line start");
         t.addData("", ultrasonic.getRangeInches());
-        while(ultrasonic.getRangeInches() > 5){
+        while(ultrasonic.getRangeInches() > 2){
             t.addData("", lastDirection);
-            
+
             if (colorSensor.getColor() == "white") {
-                leftMotor.setPower(-0.35);
+                leftMotor.setPower(-0.3);
                 rightMotor.setPower(0.1);
             } else if (colorSensor.getColor() == "gray") {
-                rightMotor.setPower(-0.35);
+                rightMotor.setPower(-0.3);
                 leftMotor.setPower(0.1);
             }
+
+            //t.addData("Ultrasonic Range Inches ",ultrasonic.getRangeInches());
+            //t.addData("Ultrasonic Range Centimeters",ultrasonic.getRangeCentimeters());
+            //t.addData("Ultrasonic Range Value",ultrasonic.getRangeValue());
 
         }
         rightMotor.setPower(0);

@@ -90,6 +90,8 @@ public class BlueFarToParkingZone extends LinearOpMode {
 
         waitForStart();
 
+        sleep.Sleep(10000);
+
         move.moveForward(250,25);
 
         gyroTurn.rightTurn(45);

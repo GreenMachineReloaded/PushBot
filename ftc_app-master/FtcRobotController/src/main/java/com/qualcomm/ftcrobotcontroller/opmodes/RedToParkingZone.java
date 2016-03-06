@@ -89,6 +89,8 @@ public class RedToParkingZone extends LinearOpMode {
 
         waitForStart();
 
+        sleep.Sleep(10000);
+
         telemetry.addData("", "Program Start");
 
         move.moveForward(800, 50);
