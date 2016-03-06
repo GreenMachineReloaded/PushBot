@@ -3,7 +3,7 @@ import static java.lang.Thread.sleep;
 public class Sleeper {
 
     public void Sleep(int s) {
-        try {
+    try {
         sleep(s);
     }
     catch (InterruptedException e) {
