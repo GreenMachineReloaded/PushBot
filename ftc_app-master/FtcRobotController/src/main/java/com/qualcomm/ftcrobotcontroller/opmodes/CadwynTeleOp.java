@@ -57,6 +57,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     GMRServo hopperDoorRed;
     GMRServo hopperEntranceDoor;
     GMRServo sweeperLift;
+    GMRServo sweeperHold;
 
     //Gyro Sensor
     GyroSensor gyro;// for readings on gyro--- not necessary
@@ -69,6 +70,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     Servo servo6;// hopper door blue
     Servo servo7;// hopper entrance door
     Servo servo8;//sweeper lift
+    Servo servo9;//sweeper hold
 
     //different servo positions
     double flapperRightRedPosition;
@@ -79,6 +81,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     double hopperDoorRightPosition;
     double hopperEntranceDoorPosition;
     double sweeperLiftPosition;
+    double sweeperHoldPosition;
 
     double multiplier;// mulitplier for determining different speeds
 
@@ -87,6 +90,8 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     int armMotorPosition2;
 
     int getArmMotorPosition;
+
+    int sweeperHoldTimer;
 
     Sleeper sleep;// for pausing
 
@@ -118,6 +123,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));// blue hopper door servo
         hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
         sweeperLift = new GMRServo(servo8 = hardwareMap.servo.get("sweeperLift"));
+        sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
 
         //starting positions of servos
         flapperRightRedPosition =  1;// right flapper
@@ -128,6 +134,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         hopperDoorRightPosition = 0.0882;// blue hopper door (right)
         hopperEntranceDoorPosition = 0.7;
         sweeperLiftPosition = 1;
+        sweeperHoldPosition = 0;
+
+        sweeperHoldTimer = 0;
 
         onTheRamp = false;
 
@@ -171,9 +180,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
             //if statement in last else if in if statement 2
             if (gamepad1.left_bumper) {// moves arm motor left
-                armMotor.motorHandle.setPower(-0.2*multiplier);//sets power for direction
+                armMotor.motorHandle.setPower(0.2*multiplier);//sets power for direction
             } else if (gamepad1.left_trigger > 0){// move arm up
-                armMotor.motorHandle.setPower(0.2*multiplier);
+                armMotor.motorHandle.setPower(-0.2*multiplier);
             }else {
                 armMotor.motorHandle.setPower(0);
             }
@@ -205,8 +214,16 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         if (gamepad2.dpad_left) {// if gamepad 1 dpad down is pressed, then moves winch out
             sweeperLiftPosition += 0.08;
-        }else if (gamepad2.dpad_right) {// if gamepad 1 dpad up is pressed, then move winch in
+            sweeperHoldTimer = 0;
+        } else if (gamepad2.dpad_right) {// if gamepad 1 dpad up is pressed, then move winch in
             sweeperLiftPosition -= 0.08;
+            sweeperHoldTimer += 1;
+        }
+
+        if (sweeperHoldTimer == 600) {
+            sweeperHoldPosition = 1;
+        } else {
+            sweeperHoldPosition = 0;
         }
 
         if (gamepad2.dpad_down) {// if gamepad 1 dpad down is pressed, then moves winch out
@@ -219,14 +236,11 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
             winchMotor.setPower(0);// if nothing pressed then winch does nothing
         }
 
-
-
-        //if statement
-//        if (gamepad1.a) {// if gamepad 1 a is pressed then make winch position by +.001
-//            winchServoPosition += 0.001;
-//        }else if (gamepad1.y) {// if gamepad 1 y is pressed, then make winch position by -.001
-//            winchServoPosition -= 0.001;
-//        }
+        if (gamepad2.right_bumper) {
+            sweeperHoldPosition += 0.001;
+        } else if (gamepad2.right_trigger > 0) {
+            sweeperHoldPosition -= 0.001;
+        }
 
         if (gamepad2.x) {// if gamepad 1 a is pressed then make winch position by +.001
             winchServoPosition += 0.001;
@@ -303,13 +317,16 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         sweeperLiftPosition =  Range.clip(sweeperLiftPosition, 0, 1);// blue hopper door (right)
         sweeperLift.moveServo(sweeperLiftPosition);
 
+        sweeperHoldPosition =  Range.clip(sweeperHoldPosition, 0, 1);// blue hopper door (right)
+        sweeperHold.moveServo(sweeperHoldPosition);
+
         //String servoPositions = String.valueOf(armMotorPosition2);
 
         //String servoPositions = String.format("%.2f", rightRedFlapperServo);
 
-        String servoPositions = String.valueOf(hopperEntranceDoorPosition);
-        telemetry.addData("Winch Servo Position: ", servoPositions);
-        //telemetry.addData("Gyro Raw Y: ", gyro.rawY());
+        String servoPositions = String.valueOf(sweeperHoldPosition);
+        telemetry.addData("Sweeper Hold Position: ", servoPositions);
+        telemetry.addData("Sweeper Hold Timer", sweeperHoldTimer);
 
     }
 }
