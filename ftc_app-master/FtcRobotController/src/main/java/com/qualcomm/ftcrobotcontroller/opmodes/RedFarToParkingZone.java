@@ -83,7 +83,7 @@ public class RedFarToParkingZone extends LinearOpMode {
 
         GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
 
-        MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
+        //MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
 
         leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
         rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
@@ -116,17 +116,9 @@ public class RedFarToParkingZone extends LinearOpMode {
         colorSensor = new ColorSensorObject(argColorSensor, telemetry);
         argUltrasonic = hardwareMap.analogInput.get( "ultrasonic");
         ultrasonic = new UltrasonicObject(argUltrasonic, leftDriveMotor, rightDriveMotor);
-        followLine = new FollowLine (colorSensor, rightDriveMotor, leftDriveMotor, ultrasonic, telemetry);
+
 
         waitForStart();
-
-        move.moveForward(250, 25);
-
-        sleep.Sleep(50);
-
-        move.moveForward(500, 40);
-
-        sleep.Sleep(50);
-
+        
     }
 }

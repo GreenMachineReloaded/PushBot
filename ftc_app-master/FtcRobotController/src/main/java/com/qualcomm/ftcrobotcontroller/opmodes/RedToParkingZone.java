@@ -85,7 +85,7 @@ public class RedToParkingZone extends LinearOpMode {
 //        hopperDoorBlue.moveServo(hopperDoorRightPosition);
 
         GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
-        MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
+        //MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
 
         waitForStart();
 
@@ -93,7 +93,7 @@ public class RedToParkingZone extends LinearOpMode {
 
         telemetry.addData("", "Program Start");
 
-        move.moveForward(800, 50);
+        //move.moveForward(800, 50);
 
         s.Sleep(50);
 
@@ -105,7 +105,7 @@ public class RedToParkingZone extends LinearOpMode {
 
         telemetry.addData("", "Left turn 1 complete");
 
-        move.moveForward(3000, 50);
+        //move.moveForward(3000, 50);
 
         s.Sleep(50);
 
@@ -117,35 +117,35 @@ public class RedToParkingZone extends LinearOpMode {
 
         telemetry.addData("", "Left turn 2 complete");
 
-        move.moveForward(300, 40);
+        //move.moveForward(300, 40);
 
         telemetry.addData("", "Last forward complete, program end.");
 
 //        move.moveForward(500, 30);
 //        s.Sleep(1000);
-//        gyroTurn.leftTurn(45);
+//        gyroTurn.gyroLeft(45);
 //        s.Sleep(1000);
 //        move.moveForward(500, 30);
 //        s.Sleep(1000);
-//        gyroTurn.leftTurn(45);
+//        gyroTurn.gyroLeft(45);
 //        s.Sleep(1000);
 //        move.moveForward(500, 30);
 //        s.Sleep(1000);
-//        gyroTurn.leftTurn(45);
+//        gyroTurn.gyroLeft(45);
 //        s.Sleep(1000);
 //        move.moveForward(500, 30);//Original Position
 //        s.Sleep(1000);
 //        move.moveForward(500, 30);
 //        s.Sleep(1000);
-//        gyroTurn.rightTurn(45);
+//        gyroTurn.gyroRight(45);
 //        s.Sleep(1000);
 //        move.moveForward(500, 30);
 //        s.Sleep(1000);
-//        gyroTurn.rightTurn(45);
+//        gyroTurn.gyroRight(45);
 //        s.Sleep(1000);
 //        move.moveForward(500, 30);
 //        s.Sleep(1000);
-//        gyroTurn.rightTurn(45);
+//        gyroTurn.gyroRight(45);
 //        s.Sleep(1000);
 //        move.moveForward(500, 30);//Original Position
 

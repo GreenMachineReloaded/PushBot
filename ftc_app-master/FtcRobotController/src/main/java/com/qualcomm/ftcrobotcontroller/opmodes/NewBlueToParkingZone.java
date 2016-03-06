@@ -26,7 +26,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
             argLeftMotor = hardwareMap.dcMotor.get("leftDriveMotor");
             argRightMotor = hardwareMap.dcMotor.get("rightDriveMotor");
 
-            move = new MoveMotors(argLeftMotor, argRightMotor);
+            //move = new MoveMotors(argLeftMotor, argRightMotor);
             argColorSensor = hardwareMap.colorSensor.get("color");
             colorSensor = new ColorSensorObject(argColorSensor, telemetry);
             argRightMotor.setDirection(DcMotor.Direction.REVERSE);
