@@ -4,28 +4,28 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 public class GMROpticDistanceSensor {
 
 
-    DcMotor leftMotor;
-    DcMotor rightMotor;
-    OpticalDistanceSensor opticalDistanceSensoR;
+    DcMotor lm;
+    DcMotor rm;
+    OpticalDistanceSensor opticSensor;
 
     Sleeper s;
     double distance;
 
 
-    public GMROpticDistanceSensor(DcMotor leftMotorArg, DcMotor rightMotorArg, OpticalDistanceSensor opticDistanceSensorArg) throws InterruptedException {
-        leftMotor = leftMotorArg;
-        rightMotor = rightMotorArg;
-        opticalDistanceSensoR = opticDistanceSensorArg;
+    public GMROpticDistanceSensor(DcMotor leftMotor, DcMotor rightMotor, OpticalDistanceSensor opticDistanceSensor) throws InterruptedException {
+        lm = leftMotor;
+        rm = rightMotor;
+        opticSensor = opticDistanceSensor;
         s = new Sleeper();
     }
 
-    public GMROpticDistanceSensor(OpticalDistanceSensor opticDistanceSensorArg) throws InterruptedException {
-        opticalDistanceSensoR = opticDistanceSensorArg;
+    public GMROpticDistanceSensor(OpticalDistanceSensor opticDistanceSensor) throws InterruptedException {
+        opticSensor = opticDistanceSensor;
         s = new Sleeper();
     }
 
     public double OpticDistanceSensorGetDistance() {
-        distance = opticalDistanceSensoR.getLightDetected();
+        distance = opticSensor.getLightDetected();
         return distance;
     }
 }
