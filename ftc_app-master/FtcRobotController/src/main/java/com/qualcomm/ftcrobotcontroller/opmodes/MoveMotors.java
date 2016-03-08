@@ -13,7 +13,6 @@ public class MoveMotors {
     UltrasonicObject ultrasonic;
     Telemetry t;
     String lastDirection;
-    MoveMotors mm;
     GyroSensor gyro;
     int turnDegrees;
     //objects
@@ -40,8 +39,8 @@ public class MoveMotors {
     public void turnRight(int sleepTime, double motorPower){
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setPower(-motorPower/100);
-        rightMotor.setPower(motorPower/100);
+        leftMotor.setPower(motorPower/100);
+        rightMotor.setPower(-motorPower/100);
         sleep.Sleep(sleepTime);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
@@ -49,8 +48,8 @@ public class MoveMotors {
     public void turnLeft(int sleepTime, double motorPower) {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setPower(motorPower/100);
-        rightMotor.setPower(-motorPower/100);
+        leftMotor.setPower(-motorPower/100);
+        rightMotor.setPower(motorPower/100);
         sleep.Sleep(sleepTime);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
@@ -58,8 +57,8 @@ public class MoveMotors {
     public void moveForward(int sleepTime, double motorPower) {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setPower(-motorPower/100);
-        rightMotor.setPower(-motorPower/100);
+        leftMotor.setPower(motorPower/100);
+        rightMotor.setPower(motorPower/100);
         sleep.Sleep(sleepTime);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
@@ -67,8 +66,8 @@ public class MoveMotors {
     public void moveBackward(int sleepTime, double motorPower){
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setPower(motorPower/100);
-        rightMotor.setPower(motorPower/100);
+        leftMotor.setPower(-motorPower/100);
+        rightMotor.setPower(-motorPower/100);
         sleep.Sleep(sleepTime);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
@@ -84,12 +83,12 @@ public class MoveMotors {
         while(ultrasonic.getRangeInches() > 2){
             t.addData("", lastDirection);
 
-            if (colorSensor.getColor() == "white") {
-                leftMotor.setPower(-0.3);
-                rightMotor.setPower(0.1);
+            if (!(colorSensor.getColor() == "gray")) {
+                rightMotor.setPower(0.4);
+                leftMotor.setPower(-0.2);
             } else if (colorSensor.getColor() == "gray") {
-                rightMotor.setPower(-0.3);
-                leftMotor.setPower(0.1);
+                rightMotor.setPower(-0.2);
+                leftMotor.setPower(0.4);
             }
 
             //t.addData("Ultrasonic Range Inches ",ultrasonic.getRangeInches());
@@ -101,7 +100,7 @@ public class MoveMotors {
         leftMotor.setPower(0);
     }
 //GyroObject
-      public void gyroLeft(int degrees) {//GyroTurnLeft
+    public void gyroLeft(int degrees) {//GyroTurnLeft
         while (gyro.isCalibrating()) {
             sleep.Sleep(50);
         }

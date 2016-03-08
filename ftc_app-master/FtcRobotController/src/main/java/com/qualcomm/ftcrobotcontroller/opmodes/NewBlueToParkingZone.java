@@ -36,9 +36,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
             waitForStart();
 
-            telemetry.addData("","Program Start");
-
-            followLine.traceALine();
+            while (true) {
+                telemetry.addData("Red",colorSensor.red());
+                telemetry.addData("Green",colorSensor.green());
+                telemetry.addData("Blue",colorSensor.blue());
+            }
         }
     }
 

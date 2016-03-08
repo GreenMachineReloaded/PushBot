@@ -59,7 +59,6 @@ public class RedFarToParkingZone extends LinearOpMode {
     ColorSensor argColorSensor;
     AnalogInput argUltrasonic;
     UltrasonicObject ultrasonic ;
-    FollowLine followLine;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -79,9 +78,10 @@ public class RedFarToParkingZone extends LinearOpMode {
         us = hardwareMap.analogInput.get( "ultrasonic");
         ultrasonic = new UltrasonicObject(us, leftDriveMotor, rightDriveMotor);
 
-        followLine = new FollowLine (colorSensor, rightDriveMotor, leftDriveMotor, ultrasonic, t);
-
-        GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
+        argColorSensor = hardwareMap.colorSensor.get("color");
+        colorSensor = new ColorSensorObject(argColorSensor, telemetry);
+        argUltrasonic = hardwareMap.analogInput.get( "ultrasonic");
+        ultrasonic = new UltrasonicObject(argUltrasonic, leftDriveMotor, rightDriveMotor);
 
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
 
@@ -112,13 +112,26 @@ public class RedFarToParkingZone extends LinearOpMode {
         hopperEntranceDoor.moveServo(hopperEntranceDoorPosition);
         sweeperLift.moveServo(sweeperLiftPosition);
 
-        argColorSensor = hardwareMap.colorSensor.get("color");
-        colorSensor = new ColorSensorObject(argColorSensor, telemetry);
-        argUltrasonic = hardwareMap.analogInput.get( "ultrasonic");
-        ultrasonic = new UltrasonicObject(argUltrasonic, leftDriveMotor, rightDriveMotor);
-
 
         waitForStart();
-        
+        //move.moveForward(250, 25);
+        telemetry.addData("", "Stage 1");
+        sleep.Sleep(50);
+        //move.gyroLeft(51);
+        //move.turnRight(4000,30);
+        telemetry.addData("", "Stage 2");
+        sleep.Sleep(50);
+        while (!(colorSensor.getColor() == "red")) {
+            move.moveForward(5, 12);
+        }
+        //move.gyroLeft(30);
+        telemetry.addData("","Stage 3");
+        sleep.Sleep(50);
+        while (!(colorSensor.getColor() == "gray")) {
+            move.moveForward(5, 8);
+        }
+        telemetry.addData("","Stage 4");
+        sleep.Sleep(50);
+        move.traceALine();
     }
 }

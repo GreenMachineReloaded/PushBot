@@ -45,14 +45,17 @@ public class BlueFarToParkingZone extends LinearOpMode {
 
         //GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
+
         waitForStart();
-
-        sleep.Sleep(10000);
-
-        move.moveForward(1000, 40);
-        move.moveBackward(1000, 40);
+        //sleep.Sleep(10000);
+        move.moveForward(250, 25);
+        sleep.Sleep(50);
         move.gyroRight(45);
-        move.gyroLeft(45);
-        move.traceALine();
+        sleep.Sleep(50);
+        move.moveForward(4300, 50);
+        sleep.Sleep(50);
+        move.gyroRight(45);
+        sleep.Sleep(50);
+        move.moveForward(750, 40);
     }
 }
