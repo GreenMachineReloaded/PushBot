@@ -9,8 +9,8 @@ public class MoveMotors {
     DcMotor leftMotor;
     DcMotor rightMotor;
     Sleeper sleep;
-    ColorSensorObject colorSensor;
-    UltrasonicObject ultrasonic;
+    GMRColorSensor colorSensor;
+    GMRUltrasonic ultrasonic;
     Telemetry t;
     String lastDirection;
     MoveMotors mm;
@@ -19,7 +19,7 @@ public class MoveMotors {
     //objects
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //constructor
-    public MoveMotors(ColorSensorObject cs, DcMotor rm, DcMotor lm, UltrasonicObject us, Telemetry telemetry, GyroSensor gyroInput) {
+    public MoveMotors(GMRColorSensor cs, DcMotor rm, DcMotor lm, GMRUltrasonic us, Telemetry telemetry, GyroSensor gyroInput) {
         colorSensor = cs;
         rightMotor = rm;
         leftMotor = lm;

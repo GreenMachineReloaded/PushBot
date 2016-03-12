@@ -8,17 +8,17 @@ import com.qualcomm.robotcore.robocol.Telemetry;
  */
 public class FollowLine {
 
-    ColorSensorObject colorSensor;
+    GMRColorSensor colorSensor;
     DcMotor rightMotor;
     DcMotor leftMotor;
-    UltrasonicObject ultrasonic;
+    GMRUltrasonic ultrasonic;
     Telemetry t;
     boolean isOnWhite;
     Sleeper sleep;
     String lastDirection;
     //MoveMotors mm;
     String directionCanSwitch;
-    public FollowLine(ColorSensorObject cs, DcMotor rm, DcMotor lm, UltrasonicObject us, Telemetry telemetry) {
+    public FollowLine(GMRColorSensor cs, DcMotor rm, DcMotor lm, GMRUltrasonic us, Telemetry telemetry) {
         colorSensor = cs;
         rightMotor = rm;
         leftMotor = lm;

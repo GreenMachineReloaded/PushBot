@@ -5,7 +5,11 @@ import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 import com.qualcomm.robotcore.robocol.Telemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-public class UltrasonicObject {
+/**
+ * Created by Patrick on 3/12/2016.
+ */
+
+public class GMRUltrasonic {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //verbals
     AnalogInput sonic;
@@ -16,11 +20,11 @@ public class UltrasonicObject {
     //verbals
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //constructor
-    public UltrasonicObject(AnalogInput ArgUltrasonicSensor) {
+    public GMRUltrasonic(AnalogInput ArgUltrasonicSensor) {
         sonic = ArgUltrasonicSensor;
         s = new Sleeper();
     }
-    public UltrasonicObject(AnalogInput ArgUltrasonicSensor, DcMotor ArgLeftMotor,DcMotor ArgRightMotor) {
+    public GMRUltrasonic(AnalogInput ArgUltrasonicSensor, DcMotor ArgLeftMotor,DcMotor ArgRightMotor) {
         sonic = ArgUltrasonicSensor;
         s = new Sleeper();
         RightMotor = ArgRightMotor;
@@ -88,3 +92,5 @@ public class UltrasonicObject {
     //go distance
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
+
+

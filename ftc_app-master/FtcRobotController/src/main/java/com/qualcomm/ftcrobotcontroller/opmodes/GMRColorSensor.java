@@ -9,16 +9,16 @@ import com.qualcomm.robotcore.robocol.Telemetry;
  * Created by Patrick on 11/22/2015.
  */
 
-public class ColorSensorObject{
+public class GMRColorSensor {
 
-    ColorSensor colorSensor;//creating colorsensor
+    com.qualcomm.robotcore.hardware.ColorSensor colorSensor;//creating colorsensor
 
     Telemetry telemetry;// creating telemetry
 
     private float hsvValues[] = {0,0,0};//
 
-
-    public ColorSensorObject(ColorSensor cs, Telemetry t) {
+    
+    public GMRColorSensor(com.qualcomm.robotcore.hardware.ColorSensor cs, Telemetry t) {
 
         this.telemetry = t;//naming telemetry
         this.colorSensor = cs;// naming color sensor

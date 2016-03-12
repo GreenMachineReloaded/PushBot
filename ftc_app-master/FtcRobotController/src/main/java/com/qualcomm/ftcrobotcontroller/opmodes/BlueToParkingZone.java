@@ -40,9 +40,9 @@ public class BlueToParkingZone extends LinearOpMode {
 
     Sleeper s;
 
-    ColorSensorObject colorSensor;
+    GMRColorSensor colorSensor;
 
-    UltrasonicObject ultrasonic;
+    GMRUltrasonic ultrasonic;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -87,7 +87,7 @@ public class BlueToParkingZone extends LinearOpMode {
 //        hopperDoorRightPosition =  Range.clip(hopperDoorRightPosition, 0.03, 0.6);
 //        hopperDoorBlue.moveServo(hopperDoorRightPosition);
 
-        GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
+        GMRGyro gyroTurn = new GMRGyro(leftDriveMotor, rightDriveMotor,gyro,telemetry);
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
 
         waitForStart();

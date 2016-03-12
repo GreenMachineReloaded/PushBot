@@ -3,7 +3,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.ftcrobotcontroller.opmodes.drivers.GMRServo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -51,14 +50,14 @@ public class RedFarToParkingZone extends LinearOpMode {
 
     Telemetry t;
 
-    ColorSensor cs;
+    com.qualcomm.robotcore.hardware.ColorSensor cs;
 
     AnalogInput us;
 
-    ColorSensorObject colorSensor;
-    ColorSensor argColorSensor;
+    GMRColorSensor colorSensor;
+    com.qualcomm.robotcore.hardware.ColorSensor argColorSensor;
     AnalogInput argUltrasonic;
-    UltrasonicObject ultrasonic ;
+    GMRUltrasonic ultrasonic ;
     FollowLine followLine;
 
     @Override
@@ -74,14 +73,14 @@ public class RedFarToParkingZone extends LinearOpMode {
 
         gyro = hardwareMap.gyroSensor.get("gyro");
 
-        colorSensor = new ColorSensorObject(cs, telemetry);
+        colorSensor = new GMRColorSensor(cs, telemetry);
 
         us = hardwareMap.analogInput.get( "ultrasonic");
-        ultrasonic = new UltrasonicObject(us, leftDriveMotor, rightDriveMotor);
+        ultrasonic = new GMRUltrasonic(us, leftDriveMotor, rightDriveMotor);
 
         followLine = new FollowLine (colorSensor, rightDriveMotor, leftDriveMotor, ultrasonic, t);
 
-        GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
+        GMRGyro gyroTurn = new GMRGyro(leftDriveMotor, rightDriveMotor, gyro, telemetry);
 
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
 
@@ -113,9 +112,9 @@ public class RedFarToParkingZone extends LinearOpMode {
         sweeperLift.moveServo(sweeperLiftPosition);
 
         argColorSensor = hardwareMap.colorSensor.get("color");
-        colorSensor = new ColorSensorObject(argColorSensor, telemetry);
+        colorSensor = new GMRColorSensor(argColorSensor, telemetry);
         argUltrasonic = hardwareMap.analogInput.get( "ultrasonic");
-        ultrasonic = new UltrasonicObject(argUltrasonic, leftDriveMotor, rightDriveMotor);
+        ultrasonic = new GMRUltrasonic(argUltrasonic, leftDriveMotor, rightDriveMotor);
         followLine = new FollowLine (colorSensor, rightDriveMotor, leftDriveMotor, ultrasonic, telemetry);
 
         waitForStart();

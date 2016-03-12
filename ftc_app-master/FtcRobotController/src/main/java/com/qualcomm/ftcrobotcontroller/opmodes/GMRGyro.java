@@ -3,7 +3,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.robocol.Telemetry;
 
-public class GyroObject {
+public class GMRGyro {
 
 
     DcMotor leftMotor;
@@ -13,7 +13,7 @@ public class GyroObject {
     Telemetry t;
     int turnDegrees;
 
-    public GyroObject(DcMotor lm, DcMotor rm, GyroSensor gyroInput, Telemetry telemetry) throws InterruptedException {
+    public GMRGyro(DcMotor lm, DcMotor rm, GyroSensor gyroInput, Telemetry telemetry) throws InterruptedException {
         gyro = gyroInput;
         leftMotor = lm;
         rightMotor = rm;
@@ -25,7 +25,7 @@ public class GyroObject {
         turnDegrees = 0;
     }
 
-    public GyroObject(GyroSensor gyroArg) throws InterruptedException {
+    public GMRGyro(GyroSensor gyroArg) throws InterruptedException {
         gyro = gyroArg;
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);

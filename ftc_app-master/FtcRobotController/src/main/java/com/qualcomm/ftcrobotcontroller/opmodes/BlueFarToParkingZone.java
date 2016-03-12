@@ -1,5 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.ftcrobotcontroller.opmodes.drivers.GMRServo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
@@ -39,9 +40,9 @@ public class BlueFarToParkingZone extends LinearOpMode {
 
     Telemetry t;
 
-    ColorSensorObject colorSensor;
+    GMRColorSensor colorSensor;
 
-    UltrasonicObject ultrasonic;
+    GMRUltrasonic ultrasonic;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -87,7 +88,7 @@ public class BlueFarToParkingZone extends LinearOpMode {
 //        hopperDoorRightPosition = Range.clip(hopperDoorRightPosition, 0.03, 0.6);
 //        hopperDoorBlue.moveServo(hopperDoorRightPosition);
 
-        GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
+        GMRGyro gyroTurn = new GMRGyro(leftDriveMotor, rightDriveMotor, gyro, telemetry);
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
         waitForStart();
 
