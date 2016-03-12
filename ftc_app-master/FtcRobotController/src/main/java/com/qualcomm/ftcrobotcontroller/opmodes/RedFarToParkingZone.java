@@ -114,12 +114,9 @@ public class RedFarToParkingZone extends LinearOpMode {
         argColorSensor = hardwareMap.colorSensor.get("color");
         colorSensor = new GMRColorSensor(argColorSensor, telemetry);
         argUltrasonic = hardwareMap.analogInput.get( "ultrasonic");
-<<<<<<< HEAD
+
         ultrasonic = new GMRUltrasonic(argUltrasonic, leftDriveMotor, rightDriveMotor);
         followLine = new FollowLine (colorSensor, rightDriveMotor, leftDriveMotor, ultrasonic, telemetry);
-=======
-        ultrasonic = new UltrasonicObject(argUltrasonic, leftDriveMotor, rightDriveMotor);
->>>>>>> c54f9e659a1e7fa24224f83097083dc980c8d56c
 
 
         waitForStart();

@@ -88,13 +88,10 @@ public class RedToParkingZone extends LinearOpMode {
 //        hopperDoorRightPosition =  Range.clip(hopperDoorRightPosition, 0.03, 0.6);
 //        hopperDoorBlue.moveServo(hopperDoorRightPosition);
 
-<<<<<<< HEAD
+
         GMRGyro gyroTurn = new GMRGyro(leftDriveMotor, rightDriveMotor,gyro,telemetry);
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
-=======
-        GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
-        //MoveMotors move = new MoveMotors(leftDriveMotor, rightDriveMotor);
->>>>>>> c54f9e659a1e7fa24224f83097083dc980c8d56c
+
 
         waitForStart();
 
