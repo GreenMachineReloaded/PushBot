@@ -101,7 +101,7 @@ public class MoveMotors {
         leftMotor.setPower(0);
     }
 //GyroObject
-      public void leftTurn(int degrees) {//GyroTurnLeft
+      public void gyroLeft(int degrees) {//GyroTurnLeft
         while (gyro.isCalibrating()) {
             sleep.Sleep(50);
         }
@@ -120,7 +120,7 @@ public class MoveMotors {
         rightMotor.setPower(0);
     }
 
-    public void rightTurn(int degrees) {//GyroTurnRight
+    public void gyroRight(int degrees) {//GyroTurnRight
         while (gyro.isCalibrating()) {
             sleep.Sleep(50);
         }

@@ -2,47 +2,29 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.ftcrobotcontroller.opmodes.drivers.GMRServo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.robocol.Telemetry;
 
-/**
- * Created by Payton on 2/19/2016.
- */
 public class BlueFarToParkingZone extends LinearOpMode {
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
 
+    GMRGyro gyroTurn;
+    MoveMotors move;
     Sleeper sleep;
 
     GyroSensor gyro;
 
-//    GMRServo leftFlapperServo;
-//    GMRServo rightFlapperServo;
-//    GMRServo climberDepositerServo;
-//    GMRServo winchServo;
-//    GMRServo hopperDoorBlue;
-//    GMRServo hopperDoorRed;
-//
-//    Servo servo1;
-//    Servo servo2;
-//    Servo servo3;
-//    Servo servo4;
-//    Servo servo5;
-//    Servo servo6;
-//
-//    double flapperRightPosition;
-//    double flapperLeftPosition;
-//    double climberDepositerPosition;
-//    double winchServoPosition;
-//    double hopperDoorleftPosition;
-//    double hopperDoorRightPosition;
-
     Telemetry t;
+
 
     GMRColorSensor colorSensor;
 
     GMRUltrasonic ultrasonic;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -55,6 +37,7 @@ public class BlueFarToParkingZone extends LinearOpMode {
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         gyro = hardwareMap.gyroSensor.get("gyro");
         sleep = new Sleeper();
+
 
 //        leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
 //        rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
@@ -88,20 +71,24 @@ public class BlueFarToParkingZone extends LinearOpMode {
 //        hopperDoorRightPosition = Range.clip(hopperDoorRightPosition, 0.03, 0.6);
 //        hopperDoorBlue.moveServo(hopperDoorRightPosition);
 
-        GMRGyro gyroTurn = new GMRGyro(leftDriveMotor, rightDriveMotor, gyro, telemetry);
-        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
+        gyroTurn = new GMRGyro(leftDriveMotor, rightDriveMotor, gyro, telemetry);
+        move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
         waitForStart();
 
         sleep.Sleep(10000);
 
-        move.moveForward(250,25);
 
-        gyroTurn.rightTurn(45);
+        gyro = hardwareMap.gyroSensor.get("gyro");
+        //GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
 
-        move.moveForward(4300, 50);
+        waitForStart();
 
-        gyroTurn.rightTurn(70);
+        sleep.Sleep(10000);
 
-        move.moveForward(750,40);
+        move.moveForward(1000, 40);
+        move.moveBackward(1000, 40);
+        move.gyroRight(45);
+        move.gyroLeft(45);
+        move.traceALine();
     }
 }
