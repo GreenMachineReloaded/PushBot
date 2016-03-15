@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robocol.Telemetry;
 
+import java.util.Calendar;
+
 /**
  * Created by Amber on 1/29/2016. waffle
  */
@@ -49,6 +51,16 @@ public class RedToParkingZone extends LinearOpMode {
     Servo servo7;
     Servo servo8;
     Servo servo9;
+
+    double flapperRightPosition;
+    double flapperLeftPosition;
+    double climberDepositerPosition;
+    double winchServoPosition;
+    double hopperDoorleftPosition;
+    double hopperDoorRightPosition;
+    double hopperEntranceDoorPosition;
+    double sweeperLiftPosition;
+
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -88,37 +100,66 @@ public class RedToParkingZone extends LinearOpMode {
         sweeperLift.moveServo(1);
         sweeperHold.moveServo(0);
 
-        sleep.Sleep(10000);
+        telemetry.addData("", "Stage 1");
+        sleep.Sleep(50);
+        //move.gyroLeft(51);
+        //move.turnRight(4000,30);
 
-        telemetry.addData("", "Program Start");
+        telemetry.addData("", "Stage 2");
+        sleep.Sleep(50);
+        while (colorSensor.getColor() == "gray"){
+            move.moveForward(5, 12);
+        }
+        telemetry.addData("", "Stage 3");
+        while (opticSensor.getDistance() < 0.035){
+            move.moveForward(5, 5);
+        }
 
-        move.moveForward(800, 50);
-
-        s.Sleep(50);
-
-        telemetry.addData("", "Forward 1 Complete");
-
-        gyroTurn.leftTurn(45);
-
-        s.Sleep(50);
-
-        telemetry.addData("", "Left turn 1 complete");
-
-        move.moveForward(3000, 50);
-
-        s.Sleep(50);
-
-        telemetry.addData("", "Foreward 1 Complete");
-
-        gyroTurn.leftTurn(45);
-
-        s.Sleep(50);
-
-        telemetry.addData("", "Left turn 2 complete");
-
-        move.moveForward(300, 40);
-
-        telemetry.addData("", "Last forward complete, program end.");
-
+//        sleep.Sleep(1000);
+//        move.gyroLeft(33);
+//        sleep.Sleep(1000);
+//
+//            leftDriveMotor.setPower(0.30);
+//            rightDriveMotor.setPower(0.30);
+//
+            sleep.Sleep(50);
+            climberDepositerPosition = 1;
+            climberDepositerServo.moveServo(climberDepositerPosition);
+        }
     }
-}
+//         sleep.Sleep(10000);10 second sleep
+
+//        telemetry.addData("", "Program Start");
+//
+//        move.moveForward(800, 50);
+//
+//        s.Sleep(1000);
+//
+//        telemetry.addData("", "Forward 1 Complete");
+//
+//        gyroTurn.rightTurn(50);
+//
+//        s.Sleep(1000);
+//
+//        telemetry.addData("", "Left turn 1 complete");
+//
+//        move.moveForward(3000, 50);
+//
+//        s.Sleep(1000);
+//
+//        move.traceALine();// senses line
+
+//        telemetry.addData("", "Forward 1 Complete");
+//
+//        gyroTurn.leftTurn(45);
+//
+//        s.Sleep(50);
+//
+//        telemetry.addData("", "Left turn 2 complete");
+//
+//        move.moveForward(300, 40);
+//
+//        telemetry.addData("", "Last forward complete, program end.");
+//
+//    }
+//}

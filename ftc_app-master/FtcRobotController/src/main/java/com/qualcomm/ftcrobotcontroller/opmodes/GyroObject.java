@@ -55,7 +55,7 @@ public class GyroObject {
 
     public void rightTurn(int degrees) {//GyroTurnRight
         while (gyro.isCalibrating()) {
-            s.Sleep(50);
+            s.Sleep(1000);
         }
         turnDegrees = (gyro.getHeading() + degrees);
         if (turnDegrees > 359) {
