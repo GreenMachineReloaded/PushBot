@@ -25,8 +25,8 @@ public class GMRGyro {
         turnDegrees = 0;
     }
 
-    public GMRGyro(GyroSensor gyroArg) throws InterruptedException {
-        gyro = gyroArg;
+    public GMRGyro(GyroSensor gyroMap) throws InterruptedException {
+        gyro = gyroMap;
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         s = new Sleeper();
@@ -55,7 +55,7 @@ public class GMRGyro {
 
     public void rightTurn(int degrees) {//GyroTurnRight
         while (gyro.isCalibrating()) {
-            s.Sleep(50);
+            s.Sleep(1000);// was 50
         }
         turnDegrees = (gyro.getHeading() + degrees);
         if (turnDegrees > 359) {

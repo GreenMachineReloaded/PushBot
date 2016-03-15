@@ -12,6 +12,9 @@ public class RedToParkingZone extends LinearOpMode {
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
 
+    GMRGyro gyroTurn;
+    MoveMotors move;
+
     Sleeper sleep;
 
     GyroSensor gyro;
@@ -89,71 +92,47 @@ public class RedToParkingZone extends LinearOpMode {
 //        hopperDoorBlue.moveServo(hopperDoorRightPosition);
 
 
-        GMRGyro gyroTurn = new GMRGyro(leftDriveMotor, rightDriveMotor,gyro,telemetry);
-        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
+       gyroTurn = new GMRGyro(leftDriveMotor, rightDriveMotor,gyro,telemetry);
+       move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
 
 
         waitForStart();
 
-        sleep.Sleep(10000);
+        sleep.Sleep(1000);//make 10,000
 
         telemetry.addData("", "Program Start");
 
-        //move.moveForward(800, 50);
+        move.moveBackward(800, 50);
 
-        s.Sleep(50);
+        s.Sleep(1000);
 
         telemetry.addData("", "Forward 1 Complete");
 
-        gyroTurn.leftTurn(45);
+        gyroTurn.rightTurn(35);//45-35
 
-        s.Sleep(50);
+        telemetry.addData("Gyro Values:",gyro.getHeading());//for gyro values
+
+        s.Sleep(1000);
 
         telemetry.addData("", "Left turn 1 complete");
 
-        //move.moveForward(3000, 50);
+        move.moveBackward(3000, 50);//3000-3500-3000
 
-        s.Sleep(50);
+        move.traceALine();
 
-        telemetry.addData("", "Foreward 1 Complete");
-
-        gyroTurn.leftTurn(45);
-
-        s.Sleep(50);
-
-        telemetry.addData("", "Left turn 2 complete");
-
-        //move.moveForward(300, 40);
-
-        telemetry.addData("", "Last forward complete, program end.");
-
-//        move.moveForward(500, 30);
 //        s.Sleep(1000);
-//        gyroTurn.gyroLeft(45);
+//
+//        telemetry.addData("", "Foreward 1 Complete");
+//
+//        gyroTurn.rightTurn(45);
+//
 //        s.Sleep(1000);
-//        move.moveForward(500, 30);
-//        s.Sleep(1000);
-//        gyroTurn.gyroLeft(45);
-//        s.Sleep(1000);
-//        move.moveForward(500, 30);
-//        s.Sleep(1000);
-//        gyroTurn.gyroLeft(45);
-//        s.Sleep(1000);
-//        move.moveForward(500, 30);//Original Position
-//        s.Sleep(1000);
-//        move.moveForward(500, 30);
-//        s.Sleep(1000);
-//        gyroTurn.gyroRight(45);
-//        s.Sleep(1000);
-//        move.moveForward(500, 30);
-//        s.Sleep(1000);
-//        gyroTurn.gyroRight(45);
-//        s.Sleep(1000);
-//        move.moveForward(500, 30);
-//        s.Sleep(1000);
-//        gyroTurn.gyroRight(45);
-//        s.Sleep(1000);
-//        move.moveForward(500, 30);//Original Position
+//
+//        telemetry.addData("", "Left turn 2 complete");
+//
+//        move.moveBackward(300, 40);
+//
+//        telemetry.addData("", "Last forward complete, program end.");
 
     }
 }

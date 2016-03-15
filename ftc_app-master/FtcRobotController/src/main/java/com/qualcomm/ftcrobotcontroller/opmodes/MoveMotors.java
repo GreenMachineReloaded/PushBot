@@ -13,7 +13,6 @@ public class MoveMotors {
     GMRUltrasonic ultrasonic;
     Telemetry t;
     String lastDirection;
-    MoveMotors mm;
     GyroSensor gyro;
     int turnDegrees;
     //objects
