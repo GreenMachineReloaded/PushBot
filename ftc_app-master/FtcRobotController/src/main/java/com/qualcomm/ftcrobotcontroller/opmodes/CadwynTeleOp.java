@@ -44,6 +44,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     DcMotor dcArmMotor;
     DcMotor winchMotor;
     DcMotor sweeperMotor;
+    DcMotor liftMotor;
 
     //specail GMR motor
     GMRMotor armMotor;
@@ -58,9 +59,6 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     GMRServo hopperEntranceDoor;
     GMRServo sweeperLift;
     GMRServo sweeperHold;
-
-    //Gyro Sensor
-    GyroSensor gyro;// for readings on gyro--- not necessary
 
     Servo servo1;//left flapper servo
     Servo servo2;//right flapper servo
@@ -84,6 +82,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     double sweeperHoldPosition;
 
     double multiplier;// mulitplier for determining different speeds
+
+    //Gyro Sensor
+    GyroSensor gyro;// for readings on gyro--- not necessary
 
     //positions for hold motor methods
     int armMotorPosition;
@@ -109,10 +110,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");// right motors
         leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);// FWD
         rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);// reverse
-
         winchMotor = hardwareMap.dcMotor.get("winchMotor");// initialisation winch motor
-
         sweeperMotor = hardwareMap.dcMotor.get("sweeperMotor");// initialisation for sweeper motor
+        liftMotor = hardwareMap.dcMotor.get("liftMotor");
 
         // initialisation for all servos- telling where they all are by name in config. file
         leftBlueFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));//left flap servo
@@ -180,16 +180,20 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
             //if statement in last else if in if statement 2
             if (gamepad1.left_bumper) {// moves arm motor left
-                armMotor.motorHandle.setPower(0.2*multiplier);//sets power for direction
-            } else if (gamepad1.left_trigger > 0){// move arm up
-                armMotor.motorHandle.setPower(-0.2*multiplier);
-            }else {
+                armMotor.motorHandle.setPower(-0.2 * multiplier);//sets power for direction
+            } else if (gamepad1.left_trigger > 0) {// move arm up
+                armMotor.motorHandle.setPower(0.2 * multiplier);
+            } else  if (gamepad1.dpad_left) {
+                armMotor.motorHandle.setPower(0.8);
+            } else {
                 armMotor.motorHandle.setPower(0);
             }
 
         }
-        //String armPosition = String.valueOf(armMotor.motorHandle.getCurrentPosition());//sends message to driver's phone for arm position
-        //telemetry.addData("", "" + "it made it this far: " + armPosition);
+
+        if (sweeperHoldTimer > 310) {
+            sweeperHoldTimer = 300;
+        }
 
         //if statement
         if (gamepad1.right_bumper) {// if gamepad 1 right bumper is pressed then sets sweeper in reverse
@@ -198,6 +202,14 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
             sweeperMotor.setPower(1);
         } else {
             sweeperMotor.setPower(0);// if no button is pressed then keep sweeper PWR at 0
+        }
+
+        if (gamepad2.left_bumper) {// if gamepad 1 right bumper is pressed then sets sweeper in reverse
+            liftMotor.setPower(-1);
+        } else if (gamepad2.left_trigger > 0) {// if gamepad 1 right trigger is pressed then sets sweeper FWD
+            liftMotor.setPower(1);
+        } else {
+            liftMotor.setPower(0);// if no button is pressed then keep sweeper PWR at 0
         }
 
         //if statement
@@ -220,7 +232,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
             sweeperHoldTimer += 1;
         }
 
-        if (sweeperHoldTimer == 600) {
+        if (sweeperHoldTimer >= 260) {
             sweeperHoldPosition = 1;
         } else {
             sweeperHoldPosition = 0;

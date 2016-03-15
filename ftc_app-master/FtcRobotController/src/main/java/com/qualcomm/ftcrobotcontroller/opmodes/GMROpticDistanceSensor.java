@@ -24,7 +24,7 @@ public class GMROpticDistanceSensor {
         s = new Sleeper();
     }
 
-    public double OpticDistanceSensorGetDistance() {
+    public double getDistance() {
         distance = opticSensor.getLightDetected();
         return distance;
     }

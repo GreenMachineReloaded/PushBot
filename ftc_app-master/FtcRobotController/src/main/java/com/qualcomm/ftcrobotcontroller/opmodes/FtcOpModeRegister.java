@@ -53,6 +53,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("Blue far to parkingzone", BlueFarToParkingZone.class);
     manager.register("Blue to parkingzone", BlueToParkingZone.class);
     manager.register("Color Sensor Test", NewBlueToParkingZone.class);
+      manager.register("Optic Sensor Test", TestOpticDistanceSensor.class);
  
    }
 }

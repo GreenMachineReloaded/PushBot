@@ -15,10 +15,11 @@ public class MoveMotors {
     String lastDirection;
     GyroSensor gyro;
     int turnDegrees;
+    GMROpticDistanceSensor opticSensor;
     //objects
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //constructor
-    public MoveMotors(ColorSensorObject cs, DcMotor rm, DcMotor lm, UltrasonicObject us, Telemetry telemetry, GyroSensor gyroInput) {
+    public MoveMotors(ColorSensorObject cs, DcMotor rm, DcMotor lm, UltrasonicObject us, Telemetry telemetry, GyroSensor gyroInput, GMROpticDistanceSensor os) {
         colorSensor = cs;
         rightMotor = rm;
         leftMotor = lm;
@@ -31,6 +32,7 @@ public class MoveMotors {
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         gyro.calibrate();
         turnDegrees = 0;
+        opticSensor = os;
     }
     //constructor
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,8 +50,8 @@ public class MoveMotors {
     public void turnLeft(int sleepTime, double motorPower) {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setPower(-motorPower/100);
-        rightMotor.setPower(motorPower/100);
+        leftMotor.setPower(motorPower/100);
+        rightMotor.setPower(-motorPower/100);
         sleep.Sleep(sleepTime);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
@@ -81,6 +83,30 @@ public class MoveMotors {
         t.addData("", "Trace a line start");
         t.addData("", ultrasonic.getRangeInches());
         while(ultrasonic.getRangeInches() > 2){
+            t.addData("", lastDirection);
+
+            if (!(colorSensor.getColor() == "gray")) {
+                rightMotor.setPower(0.4);
+                leftMotor.setPower(-0.2);
+            } else if (colorSensor.getColor() == "gray") {
+                rightMotor.setPower(-0.2);
+                leftMotor.setPower(0.4);
+            }
+
+            //t.addData("Ultrasonic Range Inches ",ultrasonic.getRangeInches());
+            //t.addData("Ultrasonic Range Centimeters",ultrasonic.getRangeCentimeters());
+            //t.addData("Ultrasonic Range Value",ultrasonic.getRangeValue());
+
+        }
+        rightMotor.setPower(0);
+        leftMotor.setPower(0);
+    }
+    public void traceALineClose(){
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        t.addData("", "Trace a line start");
+        t.addData("", ultrasonic.getRangeInches());
+        while(opticSensor.getDistance() < 0.029){
             t.addData("", lastDirection);
 
             if (!(colorSensor.getColor() == "gray")) {

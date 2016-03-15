@@ -6,12 +6,12 @@ import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robocol.Telemetry;
 
-/**
- * Created by Payton on 2/16/2016.
- */
+import java.util.Calendar;
+
 public class RedFarToParkingZone extends LinearOpMode {
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
@@ -59,6 +59,14 @@ public class RedFarToParkingZone extends LinearOpMode {
     ColorSensor argColorSensor;
     AnalogInput argUltrasonic;
     UltrasonicObject ultrasonic ;
+    OpticalDistanceSensor opticSensorMap;
+    GMROpticDistanceSensor opticSensor;
+
+    boolean True = true;
+
+    long endTime;
+
+    Calendar rightNow;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -83,7 +91,9 @@ public class RedFarToParkingZone extends LinearOpMode {
         argUltrasonic = hardwareMap.analogInput.get( "ultrasonic");
         ultrasonic = new UltrasonicObject(argUltrasonic, leftDriveMotor, rightDriveMotor);
 
-        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro);
+        opticSensor = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("optic"));
+
+        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor);
 
         leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
         rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
@@ -112,26 +122,34 @@ public class RedFarToParkingZone extends LinearOpMode {
         hopperEntranceDoor.moveServo(hopperEntranceDoorPosition);
         sweeperLift.moveServo(sweeperLiftPosition);
 
+        rightNow = Calendar.getInstance();
+
+        endTime = (rightNow.getTimeInMillis() + 30000);
 
         waitForStart();
-        //move.moveForward(250, 25);
         telemetry.addData("", "Stage 1");
         sleep.Sleep(50);
         //move.gyroLeft(51);
         //move.turnRight(4000,30);
         telemetry.addData("", "Stage 2");
         sleep.Sleep(50);
-        while (!(colorSensor.getColor() == "red")) {
+        while (colorSensor.getColor() == "gray" || rightNow.getTimeInMillis() < endTime) {
             move.moveForward(5, 12);
         }
-        //move.gyroLeft(30);
-        telemetry.addData("","Stage 3");
-        sleep.Sleep(50);
-        while (!(colorSensor.getColor() == "gray")) {
-            move.moveForward(5, 8);
+        telemetry.addData("", "Stage 3");
+        sleep.Sleep(1000);
+        move.gyroLeft(33);
+        sleep.Sleep(1000);
+        while (opticSensor.getDistance() < 0.035 || rightNow.getTimeInMillis() < endTime) {
+            leftDriveMotor.setPower(0.30);
+            rightDriveMotor.setPower(0.30);
         }
-        telemetry.addData("","Stage 4");
-        sleep.Sleep(50);
-        move.traceALine();
+        if (rightNow.getTimeInMillis() < endTime) {
+            sleep.Sleep(50);
+            climberDepositerPosition = 1;
+            climberDepositerServo.moveServo(climberDepositerPosition);
+        }
+        leftDriveMotor.setPower(0);
+        rightDriveMotor.setPower(0);
     }
 }
