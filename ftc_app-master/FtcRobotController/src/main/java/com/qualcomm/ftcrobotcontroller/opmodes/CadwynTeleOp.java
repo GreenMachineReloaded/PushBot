@@ -9,7 +9,10 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
- //Created by Payton on 11/22/2015.
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+//Created by Payton on 11/22/2015.
 
 
 /**
@@ -98,6 +101,14 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
     boolean onTheRamp;
 
+    int currentMinute;
+    int baseTime;
+    int betterTime;
+    String currentTime;
+    String currentMinuteString;
+    String currentSecondString;
+    boolean timeCanChange;
+
     @Override//?
     public void init() {// begin instructions once button "init" is pressed
 
@@ -151,6 +162,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         armMotor.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);//resets encoder for arm
 
         getArmMotorPosition = 0;//arm position
+
+        currentMinute = 0;
+        timeCanChange = false;
 
     }
 
@@ -336,9 +350,40 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         //String servoPositions = String.format("%.2f", rightRedFlapperServo);
 
-        String servoPositions = String.valueOf(sweeperHoldPosition);
-        telemetry.addData("Sweeper Hold Position: ", servoPositions);
-        telemetry.addData("Sweeper Hold Timer", sweeperHoldTimer);
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("ss");
+
+        baseTime = Integer.valueOf(sdf.format(cal.getTime()));
+
+        if (baseTime == betterTime) {
+            baseTime++;
+            betterTime = baseTime;
+        }
+
+        if (betterTime == 60) {
+            currentMinute++;
+            timeCanChange = false;
+        }
+        if (betterTime == 1) {
+            timeCanChange = true;
+        }
+
+        currentMinuteString = String.valueOf(currentMinute);
+        currentSecondString = String.valueOf(betterTime);
+        currentTime = currentMinuteString + ":" + betterTime;
+
+        telemetry.addData("Time Left In Match", currentTime);
+
+//        String servoPositions = String.valueOf(sweeperHoldPosition);
+//        telemetry.addData("Sweeper Hold Position: ", servoPositions);
+//        telemetry.addData("Sweeper Hold Timer", sweeperHoldTimer);
+
+//        int count = 1;
+//
+//        while (count < 999999999) {
+//            count++;
+//            telemetry.addData("Count", count);
+//        }
 
     }
 }

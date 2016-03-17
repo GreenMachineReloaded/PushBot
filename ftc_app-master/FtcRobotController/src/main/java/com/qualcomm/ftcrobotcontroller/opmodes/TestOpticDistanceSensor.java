@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class TestOpticDistanceSensor extends LinearOpMode {
@@ -13,13 +14,8 @@ public class TestOpticDistanceSensor extends LinearOpMode {
     OpticalDistanceSensor opticSensorMap;
     GMROpticDistanceSensor opticSensor;
 
-    int one = 1;
-
-    Long endTime;
-
-    Calendar rightNow;
-
-    Integer longToInt;
+    Integer currentTime;
+    Integer endTime;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -27,15 +23,20 @@ public class TestOpticDistanceSensor extends LinearOpMode {
         rightMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         opticSensor = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("optic"));
 
-        rightNow = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("ss");
 
-        endTime = (rightNow.getTimeInMillis());
+//        currentTime = Integer.parseInt(sdf.format(cal.getTime()));
+//        endTime = (Integer.parseInt(sdf.format(cal.getTime())) + 30);
+//        if (endTime > 60) {
+//            endTime = (endTime - 60);
+//        }
 
         waitForStart();
-        while (one == 1) {
-            longToInt = endTime.intValue();
-            //telemetry.addData("Current Time" , rightNow.getTimeInMillis());
-            telemetry.addData("Optical Sensor Distance", longToInt);
+        while (true) {
+            telemetry.addData("Current time", (sdf.format(cal.getTime())));
+            telemetry.addData("Time in Thirty Seconds" , (sdf.format(cal.getTime())));
+            telemetry.addData("Curent Sensor Distance", opticSensor.getDistance());
         }
     }
 }

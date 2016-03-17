@@ -137,8 +137,8 @@ public class MoveMotors {
             turnDegrees = (359 - turnDegrees);
         }
         while (turnDegrees <= gyro.getHeading() || gyro.getHeading() == 0) {
-            leftMotor.setPower(0.4);
-            rightMotor.setPower(-0.45);
+            leftMotor.setPower(-0.3);
+            rightMotor.setPower(0.35);
             t.addData("Gyro heading", gyro.getHeading());
         }
         leftMotor.setPower(0);

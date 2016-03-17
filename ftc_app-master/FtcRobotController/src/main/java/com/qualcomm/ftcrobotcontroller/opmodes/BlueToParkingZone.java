@@ -76,6 +76,9 @@ public class BlueToParkingZone extends LinearOpMode {
 
         waitForStart();
 
+
+
+        sleep.Sleep(10000);
         rightFlapperServo.moveServo(1);
         leftFlapperServo.moveServo(0);
         climberDepositerServo.moveServo(0);
@@ -85,9 +88,6 @@ public class BlueToParkingZone extends LinearOpMode {
         hopperEntranceDoor.moveServo(0.7);
         sweeperLift.moveServo(1);
         sweeperHold.moveServo(0);
-
-        sleep.Sleep(10000);
-
         telemetry.addData("", "Program Start");
 
         move.moveForward(800, 50);
