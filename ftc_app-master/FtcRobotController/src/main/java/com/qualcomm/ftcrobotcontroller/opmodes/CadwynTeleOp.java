@@ -279,6 +279,8 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
             flapperRightRedPosition += 0.01;
         }else if (gamepad2.right_stick_y < 0) {// if gamepad 2 right stick y is pressed down, then move right flapper down
             flapperRightRedPosition -= 0.01;
+        } else {
+            flapperRightRedPosition -= 0;
         }
 
         //if statement

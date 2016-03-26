@@ -94,11 +94,12 @@ public class BlueFarToParkingZone extends LinearOpMode {
         hopperEntranceDoor.moveServo(0.7);
         sweeperLift.moveServo(1);
         sweeperHold.moveServo(0);
+        sleep.Sleep(10000);
         while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
             rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftDriveMotor.setPower(-0.15);
-            rightDriveMotor.setPower(- 0.15);
+            leftDriveMotor.setPower(-0.2);
+            rightDriveMotor.setPower(-0.2);
         }
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);

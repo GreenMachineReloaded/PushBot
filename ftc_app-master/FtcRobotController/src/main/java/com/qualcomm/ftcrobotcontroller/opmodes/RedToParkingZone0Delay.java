@@ -8,9 +8,24 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robocol.Telemetry;
 
-public class BlueToParkingZone extends LinearOpMode {
+public class RedToParkingZone0Delay extends LinearOpMode {
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
+
+    Sleeper sleep;
+
+    GyroSensor gyro;
+
+    OpticalDistanceSensor opticSensorMap;
+    GMROpticDistanceSensor opticSensor;
+
+    Telemetry t;
+
+    Sleeper s;
+
+    ColorSensorObject colorSensor;
+
+    UltrasonicObject ultrasonic;
 
     GMRServo leftFlapperServo;
     GMRServo rightFlapperServo;
@@ -31,21 +46,6 @@ public class BlueToParkingZone extends LinearOpMode {
     Servo servo7;
     Servo servo8;
     Servo servo9;
-
-    Sleeper sleep;
-
-    GyroSensor gyro;
-
-    OpticalDistanceSensor opticSensorMap;
-    GMROpticDistanceSensor opticSensor;
-
-    Telemetry t;
-
-    Sleeper s;
-
-    ColorSensorObject colorSensor;
-
-    UltrasonicObject ultrasonic;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -57,7 +57,11 @@ public class BlueToParkingZone extends LinearOpMode {
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         gyro = hardwareMap.gyroSensor.get("gyro");
         sleep = new Sleeper();
+
         opticSensor = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("optic"));
+
+        GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
+        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor);
 
         leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
         rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
@@ -69,14 +73,8 @@ public class BlueToParkingZone extends LinearOpMode {
         sweeperLift = new GMRServo(servo8 = hardwareMap.servo.get("sweeperLift"));
         sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
 
-        GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
-        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor);
-
         waitForStart();
 
-
-
-        sleep.Sleep(10000);
         rightFlapperServo.moveServo(1);
         leftFlapperServo.moveServo(0);
         climberDepositerServo.moveServo(0);
@@ -86,17 +84,50 @@ public class BlueToParkingZone extends LinearOpMode {
         hopperEntranceDoor.moveServo(0.7);
         sweeperLift.moveServo(1);
         sweeperHold.moveServo(0);
-        sleep.Sleep(10000);
-        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
+
+        telemetry.addData("", "Program Start");
+
+        move.moveForward(800, 50);
+
+        s.Sleep(50);
+
+        telemetry.addData("", "Forward 1 Complete");
+
+        gyroTurn.leftTurn(45);
+
+        s.Sleep(50);
+
+        telemetry.addData("", "Left turn 1 complete");
+
+        move.moveForward(3000, 50);
+
+        s.Sleep(50);
+
+        telemetry.addData("", "Foreward 1 Complete");
+
+        gyroTurn.leftTurn(45);
+
+        s.Sleep(50);
+
+        telemetry.addData("", "Left turn 2 complete");
+
+        move.moveForward(300, 40);
+        sleep.Sleep(1000);
+        climberDepositerServo.moveServo(0);
+        leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftDriveMotor.setPower(0.25);
+        rightDriveMotor.setPower(0.25);
+        sleep.Sleep(750);
+        move.turnRight(1400, 50);
+        while (colorSensor.getColor() != "red" && opModeIsActive()) {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
             rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftDriveMotor.setPower(-0.2);
-            rightDriveMotor.setPower(-0.2);
+            leftDriveMotor.setPower(-0.25);
+            rightDriveMotor.setPower(-0.25);
         }
-        leftDriveMotor.setPower(0);
-        rightDriveMotor.setPower(0);
-        telemetry.addData("", "Stage 3");
-        sleep.Sleep(1000);
-        climberDepositerServo.moveServo(1);
+
+        telemetry.addData("", "Last forward complete, program end.");
+
     }
 }

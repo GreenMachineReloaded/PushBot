@@ -8,9 +8,6 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robocol.Telemetry;
 
-/**
- * Created by Amber on 1/29/2016. waffle
- */
 public class RedToParkingZone extends LinearOpMode {
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
