@@ -30,6 +30,7 @@ public class RedFarToParkingZone extends LinearOpMode {
     GMRServo hopperDoorRed;
     GMRServo hopperEntranceDoor;
     GMRServo sweeperLift;
+    GMRServo sweeperHold;
 
     Servo servo1;
     Servo servo2;
@@ -39,15 +40,7 @@ public class RedFarToParkingZone extends LinearOpMode {
     Servo servo6;
     Servo servo7;
     Servo servo8;
-
-    double flapperRightPosition;
-    double flapperLeftPosition;
-    double climberDepositerPosition;
-    double winchServoPosition;
-    double hopperDoorleftPosition;
-    double hopperDoorRightPosition;
-    double hopperEntranceDoorPosition;
-    double sweeperLiftPosition;
+    Servo servo9;
 
     Telemetry t;
 
@@ -103,53 +96,45 @@ public class RedFarToParkingZone extends LinearOpMode {
         hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
         hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
         sweeperLift = new GMRServo(servo8 = hardwareMap.servo.get("sweeperLift"));
-
-        flapperRightPosition = 1;
-        flapperLeftPosition = 0;
-        climberDepositerPosition = 0;
-        winchServoPosition = 1;
-        hopperDoorleftPosition = 0.64;
-        hopperDoorRightPosition = 0.03;
-        hopperEntranceDoorPosition = 0.7;
-        sweeperLiftPosition = 1;
-
-        rightFlapperServo.moveServo(flapperRightPosition);
-        leftFlapperServo.moveServo(flapperLeftPosition);
-        climberDepositerServo.moveServo(climberDepositerPosition);
-        winchServo.moveServo(winchServoPosition);
-        hopperDoorRed.moveServo(hopperDoorleftPosition);
-        hopperDoorBlue.moveServo(hopperDoorRightPosition);
-        hopperEntranceDoor.moveServo(hopperEntranceDoorPosition);
-        sweeperLift.moveServo(sweeperLiftPosition);
-
-        rightNow = Calendar.getInstance();
-
-        endTime = (rightNow.getTimeInMillis() + 30000);
+        sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
 
         waitForStart();
+        rightFlapperServo.moveServo(1);
+        leftFlapperServo.moveServo(0);
+        climberDepositerServo.moveServo(0);
+        winchServo.moveServo(1);
+        hopperDoorRed.moveServo(0.64);
+        hopperDoorBlue.moveServo(0.03);
+        hopperEntranceDoor.moveServo(0.7);
+        sweeperLift.moveServo(1);
+        sweeperHold.moveServo(0);
+        sleep.Sleep(10000);
         telemetry.addData("", "Stage 1");
         sleep.Sleep(50);
-        //move.gyroLeft(51);
-        //move.turnRight(4000,30);
         telemetry.addData("", "Stage 2");
         sleep.Sleep(50);
-        while (colorSensor.getColor() == "gray" || rightNow.getTimeInMillis() < endTime) {
-            move.moveForward(5, 12);
-        }
-        telemetry.addData("", "Stage 3");
-        sleep.Sleep(1000);
-        move.gyroLeft(33);
-        sleep.Sleep(1000);
-        while (opticSensor.getDistance() < 0.035 || rightNow.getTimeInMillis() < endTime) {
-            leftDriveMotor.setPower(0.30);
-            rightDriveMotor.setPower(0.30);
-        }
-        if (rightNow.getTimeInMillis() < endTime) {
-            sleep.Sleep(50);
-            climberDepositerPosition = 1;
-            climberDepositerServo.moveServo(climberDepositerPosition);
+        while (colorSensor.getColor() == "gray" && opModeIsActive()) {
+            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+            leftDriveMotor.setPower(-0.2);
+            rightDriveMotor.setPower(-0.2);
         }
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);
+        telemetry.addData("", "Stage 3");
+        sleep.Sleep(1000);
+        //move.turnLeft(700, 42);
+        move.gyroLeft(32);
+        sleep.Sleep(1000);
+        while (opticSensor.getDistance() < 0.06 && opModeIsActive()) {
+            leftDriveMotor.setPower(-0.40);
+            rightDriveMotor.setPower(-0.5);
+        }
+        leftDriveMotor.setPower(0);
+        rightDriveMotor.setPower(0);
+        sleep.Sleep(50);
+        if (opModeIsActive()) {
+            climberDepositerServo.moveServo(1);
+        }
     }
 }
