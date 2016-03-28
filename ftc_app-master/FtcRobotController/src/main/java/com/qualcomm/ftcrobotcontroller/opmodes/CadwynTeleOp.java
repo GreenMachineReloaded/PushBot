@@ -211,9 +211,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         //if statement
         if (gamepad1.right_bumper) {// if gamepad 1 right bumper is pressed then sets sweeper in reverse
-            sweeperMotor.setPower(-1);
+            sweeperMotor.setPower(-0.8);
         } else if (gamepad1.right_trigger > 0) {// if gamepad 1 right trigger is pressed then sets sweeper FWD
-            sweeperMotor.setPower(1);
+            sweeperMotor.setPower(0.8);
         } else {
             sweeperMotor.setPower(0);// if no button is pressed then keep sweeper PWR at 0
         }
