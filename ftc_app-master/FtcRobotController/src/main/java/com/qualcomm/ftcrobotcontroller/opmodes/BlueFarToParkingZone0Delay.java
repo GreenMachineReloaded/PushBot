@@ -66,7 +66,7 @@ public class BlueFarToParkingZone0Delay extends LinearOpMode {
 
         gyro = hardwareMap.gyroSensor.get("gyro");
 
-        argUltrasonic = hardwareMap.analogInput.get( "ultrasonic");
+        argUltrasonic = hardwareMap.analogInput.get("ultrasonic");
         ultrasonic = new UltrasonicObject(argUltrasonic, leftDriveMotor, rightDriveMotor);
 
         opticSensor = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("optic"));
@@ -94,30 +94,33 @@ public class BlueFarToParkingZone0Delay extends LinearOpMode {
         hopperEntranceDoor.moveServo(0.7);
         sweeperLift.moveServo(1);
         sweeperHold.moveServo(0);
-        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
-            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftDriveMotor.setPower(-0.2);
-            rightDriveMotor.setPower(-0.2);
-        }
-        leftDriveMotor.setPower(0);
-        rightDriveMotor.setPower(0);
-        telemetry.addData("", "Stage 3");
-        sleep.Sleep(1000);
-        climberDepositerServo.moveServo(1);
-        sleep.Sleep(1000);
-        climberDepositerServo.moveServo(0);
-            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftDriveMotor.setPower(0.25);
-            rightDriveMotor.setPower(0.25);
-        sleep.Sleep(750);
-        move.turnLeft(1400, 50);
-        while (colorSensor.getColor() != "red" && opModeIsActive()) {
-            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftDriveMotor.setPower(-0.25);
-            rightDriveMotor.setPower(-0.25);
+//        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
+//            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+//            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+//            leftDriveMotor.setPower(-0.2);
+//            rightDriveMotor.setPower(-0.2);
+//        }
+//        leftDriveMotor.setPower(0);
+//        rightDriveMotor.setPower(0);
+//        telemetry.addData("", "Stage 3");
+//        sleep.Sleep(1000);
+//        climberDepositerServo.moveServo(1);
+//        sleep.Sleep(1000);
+//        climberDepositerServo.moveServo(0);
+        //Moving Backing up & Ramp //
+        move.moveBackward(1700, 50);
+        move.turnRight(4700, 60);
+        rightFlapperServo.moveServo(.5);
+        leftFlapperServo.moveServo(.5);
+        move.moveForward(15000,90);
+//        move.moveForward(10000,75);
+
+//      move.turnLeft(1400,50);
+//        while (colorSensor.getColor() != "red" && opModeIsActive()) {
+//            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+//            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+//            leftDriveMotor.setPower(0.25);
+//            rightDriveMotor.setPower(0.25);
+//            sleep.Sleep(150);
         }
     }
-}

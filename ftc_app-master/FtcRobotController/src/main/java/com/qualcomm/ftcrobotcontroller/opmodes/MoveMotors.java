@@ -41,8 +41,8 @@ public class MoveMotors {
     public void turnRight(int sleepTime, double motorPower){
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setPower(motorPower/100);
-        rightMotor.setPower(-motorPower/100);
+        leftMotor.setPower(-motorPower/100);
+        rightMotor.setPower(motorPower/100);
         sleep.Sleep(sleepTime);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
