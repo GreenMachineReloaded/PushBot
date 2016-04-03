@@ -1,11 +1,14 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import android.util.Log;
+
 import com.kauailabs.navx.ftc.AHRS;
 import com.kauailabs.navx.ftc.navXPIDController;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.robocol.Telemetry;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 public class navXGyroscopeTest extends LinearOpMode {
     DcMotor leftMotor;
@@ -22,7 +25,7 @@ public class navXGyroscopeTest extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     private final double TARGET_ANGLE_DEGREES = 90.0;
-    private final double TOLERANCE_DEGREES = 2.0;
+    private final double TOLERANCE_DEGREES = 1.0;
     private final double MIN_MOTOR_OUTPUT_VALUE = -1.0;
     private final double MAX_MOTOR_OUTPUT_VALUE = 1.0;
     private final double YAW_PID_P = 0.005;
@@ -35,7 +38,7 @@ public class navXGyroscopeTest extends LinearOpMode {
         leftMotor = hardwareMap.dcMotor.get("leftDriveMotor");
         rightMotor = hardwareMap.dcMotor.get("rightDriveMotor");
 
-        navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("navXGyro"),
+        navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("DIM1"),
                 NAVX_DIM_I2C_PORT,
                 AHRS.DeviceDataType.kProcessedData);
 
@@ -59,34 +62,43 @@ public class navXGyroscopeTest extends LinearOpMode {
            with the new PID value with each new output value.
          */
 
-        final double TOTAL_RUN_TIME_SECONDS = 30.0;
+        final double TOTAL_RUN_TIME_SECONDS = 10.0;
         int DEVICE_TIMEOUT_MS = 500;
         navXPIDController.PIDResult yawPIDResult = new navXPIDController.PIDResult();
 
-        while ( runtime.time() < TOTAL_RUN_TIME_SECONDS ) {
-//            if ( yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS ) ) {
-//                if ( yawPIDResult.isOnTarget() ) {
-//                    leftMotor.setPower(0);
-//                    rightMotor.setPower(0);
-//                } else {
-//                    double output = yawPIDResult.getOutput();
-//                    if ( output < 0 ) {
-//                        /* Rotate Left */
-//                        leftMotor.setPower(-output);
-//                        rightMotor.setPower(output);
-//                    } else {
-//                        /* Rotate Right */
-//                        leftMotor.setPower(output);
-//                        rightMotor.setPower(-output);
-//                    }
-//                }
-//            } else {
-//			          /* A timeout occurred */
-//                Log.w("navXRotateToAnglePIDOp", "Yaw PID waitForNewUpdate() TIMEOUT.");
-//            }
-            double output = yawPIDResult.getOutput();
-            telemetry.addData("Current navX Gyro Value", output);
-            telemetry.addData("Current Runtime", runtime.time());
+        while (runtime.time() < TOTAL_RUN_TIME_SECONDS) {
+            if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
+                if (yawPIDResult.isOnTarget()) {
+                    leftMotor.setPower(0);
+                    rightMotor.setPower(0);
+                } else {
+                    double output = yawPIDResult.getOutput();
+                    if (output < 0) {
+                        /* Rotate Left */
+                        output = output + 0.5;
+                        output = Range.clip(output, 0 ,1);
+                        leftMotor.setPower(-output);
+                        rightMotor.setPower(output);
+                    } else {
+                        /* Rotate Right */
+                        output = output + 0.5;
+                        output = Range.clip(output, 0 ,1);
+                        leftMotor.setPower(output);
+                        rightMotor.setPower(-output);
+                    }
+                }
+                double output = yawPIDResult.getOutput();
+                telemetry.addData("Current navX Gyro Value", output);
+                telemetry.addData("Current Runtime", runtime.time());
+            } else {
+			          /* A timeout occurred */
+                Log.w("navXRotateToAnglePIDOp", "Yaw PID waitForNewUpdate() TIMEOUT.");
+            }
+//            double output = yawPIDResult.getOutput();
+//            telemetry.addData("Current navX Gyro Value", output);
+//            telemetry.addData("Current Runtime", runtime.time());
         }
+        leftMotor.setPowerFloat();
+        rightMotor.setPowerFloat();
     }
 }
