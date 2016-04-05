@@ -1,4 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
+import android.graphics.Color;
+
 import com.kauailabs.navx.ftc.AHRS;
 import com.kauailabs.navx.ftc.navXPIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -181,14 +183,49 @@ public class MoveMotors {
         navx_device.zeroYaw();
     }
 
-    public String AccurateRed() {
+    public String AccurateColor() {
         Integer accurateRed = 0;
+        Integer accurateBlue = 0;
+        Integer accurateGreen = 0;
         Integer timesTried = 0;
         while (timesTried <= 10) {
-            accurateRed = accurateRed + colorSensor.red();
+            accurateRed=accurateRed+colorSensor.red();
             timesTried++;
+            accurateBlue=accurateBlue+colorSensor.blue();
+            timesTried++;
+            accurateGreen=accurateGreen+colorSensor.green();
+                    }
+        accurateRed=accurateRed/10;
+        accurateBlue=accurateBlue/10;
+        accurateGreen=accurateGreen/10;
+        float hsvValues[] = {0,0,0};
+        String returnColor = "gray";// when return color is asked, it will say GRAY unless otherwise instructed to later
+
+        t.addData("Start Robot","");
+        Color.RGBToHSV(accurateRed * 8, accurateGreen * 8, accurateBlue * 8, hsvValues);
+
+        if ((accurateGreen>=0) && (accurateBlue>=2) && (accurateRed<=0)) {
+            t.addData("CadwynBlue", accurateBlue);
+            t.addData("CadwynBlue!","");
+            returnColor = "blue";
+
         }
-        accurateRed = accurateRed/10;
-        return ;
+        else if ((accurateGreen<=0) && (accurateBlue<=0) && (accurateRed>=2)){
+            t.addData("CadwynRed", accurateRed);
+            t.addData("CadwynRed!","");
+            returnColor = "red";
+        }
+        else if ((accurateGreen>=2) && (accurateBlue>=0) && (accurateRed<=0)){
+            t.addData("CadwynGreen", accurateGreen);
+            returnColor = "green";
+        }
+        else if (accurateGreen>=2 && accurateBlue>=2 && accurateRed>=2){
+            returnColor = "white";
+        }
+        else if ((accurateGreen<=1 && accurateBlue<=1 && accurateRed<=1)){
+            returnColor = "gray";
+
+        }
+        return returnColor;
     }
 }
