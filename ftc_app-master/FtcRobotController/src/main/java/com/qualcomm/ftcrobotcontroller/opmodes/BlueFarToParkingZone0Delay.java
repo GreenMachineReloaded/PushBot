@@ -85,8 +85,8 @@ public class BlueFarToParkingZone0Delay extends LinearOpMode {
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor, hardwareMap);
 
         waitForStart();
-        rightFlapperServo.moveServo(1);
         leftFlapperServo.moveServo(0);
+        rightFlapperServo.moveServo(1);
         climberDepositerServo.moveServo(0);
         winchServo.moveServo(1);
         hopperDoorRed.moveServo(0.64);
@@ -94,24 +94,25 @@ public class BlueFarToParkingZone0Delay extends LinearOpMode {
         hopperEntranceDoor.moveServo(0.7);
         sweeperLift.moveServo(1);
         sweeperHold.moveServo(0);
-        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
-            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftDriveMotor.setPower(-0.2);
-            rightDriveMotor.setPower(-0.2);
-        }
-        leftDriveMotor.setPower(0);
-        rightDriveMotor.setPower(0);
-        telemetry.addData("", "Stage 3");
-        sleep.Sleep(1000);
-        climberDepositerServo.moveServo(1);
-        sleep.Sleep(1000);
-        climberDepositerServo.moveServo(0);
-        //Moving Backing up & Ramp //
-        move.moveBackward(1700, 50);
-        move.turnRight(4700, 60);
-        rightFlapperServo.moveServo(.5);
-        leftFlapperServo.moveServo(.5);
-        move.moveForward(15000,90);
-        }
+
+//        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
+//            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+//            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+//            leftDriveMotor.setPower(-0.2);
+//            rightDriveMotor.setPower(-0.2);
+//        }
+//        leftDriveMotor.setPower(0);
+//        rightDriveMotor.setPower(0);
+//        telemetry.addData("", "Stage 3");
+//        sleep.Sleep(1000);
+//        climberDepositerServo.moveServo(1);
+//        sleep.Sleep(1000);
+//        climberDepositerServo.moveServo(0);
+//        //Moving Backing up & Ramp //
+//        move.moveBackward(1700, 50);
+//        move.turnRight(4700, 60);
+//        leftFlapperServo.moveServo(.5);
+//        rightFlapperServo.moveServo(.5);
+//        move.moveForward(15000,90);
+     }
     }

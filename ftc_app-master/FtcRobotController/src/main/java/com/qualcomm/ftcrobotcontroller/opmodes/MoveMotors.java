@@ -24,6 +24,7 @@ public class MoveMotors {
     navXPIDController yawPIDController;
     ElapsedTime runtime = new ElapsedTime();
     float turnDegrees;
+
     //objects
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //constructor
@@ -49,24 +50,26 @@ public class MoveMotors {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //move motors section
 
-    public void turnRight(int sleepTime, double motorPower){
+    public void turnRight(int sleepTime, double motorPower) {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setPower(-motorPower/100);
-        rightMotor.setPower(motorPower/100);
+        leftMotor.setPower(-motorPower / 100);
+        rightMotor.setPower(motorPower / 100);
         sleep.Sleep(sleepTime);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
+
     public void turnLeft(int sleepTime, double motorPower) {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setPower(motorPower/100);
-        rightMotor.setPower(-motorPower/100);
+        leftMotor.setPower(motorPower / 100);
+        rightMotor.setPower(-motorPower / 100);
         sleep.Sleep(sleepTime);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
+
     public void moveForward(int sleepTime, double motorPower) {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -76,7 +79,8 @@ public class MoveMotors {
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
-    public void moveBackward(int sleepTime, double motorPower){
+
+    public void moveBackward(int sleepTime, double motorPower) {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setPower(-motorPower / 100);
@@ -85,15 +89,16 @@ public class MoveMotors {
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
+
     //move motors section
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //FollowLine
-    public void traceALineClose(){
+    public void traceALineClose() {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         t.addData("", "Trace a line start");
         t.addData("", ultrasonic.getRangeInches());
-        while(opticSensor.getDistance() < 0.029){
+        while (opticSensor.getDistance() < 0.029) {
             t.addData("", lastDirection);
 
             if (!(colorSensor.getColor() == "gray")) {
@@ -112,9 +117,10 @@ public class MoveMotors {
         rightMotor.setPower(0);
         leftMotor.setPower(0);
     }
-//GyroObject
+
+    //GyroObject
     public void gyroLeft(int degrees) {//GyroTurnLeft
-        t.addData("","");
+        t.addData("", "");
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         navx_device.zeroYaw();
@@ -129,9 +135,9 @@ public class MoveMotors {
             t.addData("Gyro Heading", navx_device.getYaw());
             t.addData("Goal Heading", degrees);
             if (degrees < navx_device.getYaw()) {
-                t.addData("Turn In Progress","");
+                t.addData("Turn In Progress", "");
             } else {
-                t.addData("Turn (Should Be) Over","");
+                t.addData("Turn (Should Be) Over", "");
             }
         }
         leftMotor.setPower(0);
@@ -139,13 +145,13 @@ public class MoveMotors {
     }
 
     public void gyroRight(int degrees) {//GyroTurnRight
-        t.addData("","");
+        t.addData("", "");
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         navx_device.zeroYaw();
         while (navx_device.isCalibrating()) {
             sleep.Sleep(50);
-            t.addData("Gyro Is Calibrating","");
+            t.addData("Gyro Is Calibrating", "");
         }
         //turnDegrees = (navx_device.getYaw() + degrees);
         while (degrees > navx_device.getYaw()) {
@@ -154,9 +160,9 @@ public class MoveMotors {
             t.addData("Gyro Heading", navx_device.getYaw());
             t.addData("Goal Heading", degrees);
             if (degrees > navx_device.getYaw()) {
-                t.addData("Right Turn In Progress","");
+                t.addData("Right Turn In Progress", "");
             } else {
-                t.addData("Right Turn (Should Be) Over","");
+                t.addData("Right Turn (Should Be) Over", "");
             }
         }
         leftMotor.setPower(0);
@@ -173,5 +179,16 @@ public class MoveMotors {
 
     public void resetPosition() {
         navx_device.zeroYaw();
+    }
+
+    public String AccurateRed() {
+        Integer accurateRed = 0;
+        Integer timesTried = 0;
+        while (timesTried <= 10) {
+            accurateRed = accurateRed + colorSensor.red();
+            timesTried++;
+        }
+        accurateRed = accurateRed/10;
+        return ;
     }
 }
