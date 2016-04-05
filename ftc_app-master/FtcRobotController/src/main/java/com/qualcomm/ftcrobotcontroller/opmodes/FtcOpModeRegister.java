@@ -57,6 +57,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("Blue Far 0 Delay", BlueFarToParkingZone0Delay.class);
     manager.register("Blue Close 0 Delay", BlueToParkingZone0Delay.class);
     manager.register("navX Gyroscope Test", navXGyroscopeTest.class);
+    manager.register("Color Sensor Test", ColorSensorTest.class);
     //manager.register("Color Sensor Test", NewBlueToParkingZone.class);
     //manager.register("Red Far Test", TestRedFarToParkingZone.class);
  

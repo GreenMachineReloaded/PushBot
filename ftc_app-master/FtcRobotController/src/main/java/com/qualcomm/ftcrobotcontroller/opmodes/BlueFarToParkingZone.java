@@ -49,8 +49,14 @@ public class BlueFarToParkingZone extends LinearOpMode {
     OpticalDistanceSensor opticSensorMap;
     GMROpticDistanceSensor opticSensor;
 
+    int one;
+    int two;
+
     @Override
     public void runOpMode() throws InterruptedException {
+
+        one = 1;
+        two = 2;
 
         t = telemetry;
 
@@ -106,7 +112,18 @@ public class BlueFarToParkingZone extends LinearOpMode {
 //        telemetry.addData("", "Stage 3");
 //        sleep.Sleep(1000);
 //        climberDepositerServo.moveServo(1);
-        move.gyroRight(90);
-        move.gyroLeft(90);
+        //move.gyroRight(90);
+        //move.gyroLeft(90);
+        int currentRed;
+        int currentBlue;
+        int currentGreen;
+        while (one<two) {
+            currentRed = colorSensor.red();
+            currentBlue = colorSensor.blue();
+            currentGreen = colorSensor.green();
+            telemetry.addData("Current Red", currentRed);
+            telemetry.addData("Current Blue", currentBlue);
+            telemetry.addData("Current Green", currentGreen);
+        }
     }
 }
