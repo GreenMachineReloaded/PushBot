@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -193,12 +192,12 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
             getArmMotorPosition = 0;
 
             //if statement in last else if in if statement 2
-            if (gamepad1.left_bumper) {// moves arm motor left
-                armMotor.motorHandle.setPower(-0.2 * multiplier);//sets power for direction
-            } else if (gamepad1.left_trigger > 0) {// move arm up
-                armMotor.motorHandle.setPower(0.2 * multiplier);
+            if (gamepad1.left_trigger > 0) {// moves arm motor left
+                armMotor.motorHandle.setPower(-1 * multiplier);//sets power for direction
+            } else if (gamepad1.left_bumper) {// move arm up
+                armMotor.motorHandle.setPower(1 * multiplier);
             } else  if (gamepad1.dpad_left) {
-                armMotor.motorHandle.setPower(0.8);
+                armMotor.motorHandle.setPower(0.6);
             } else {
                 armMotor.motorHandle.setPower(0);
             }
@@ -211,9 +210,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         //if statement
         if (gamepad1.right_bumper) {// if gamepad 1 right bumper is pressed then sets sweeper in reverse
-            sweeperMotor.setPower(-0.8);
+            sweeperMotor.setPower(-0.6);
         } else if (gamepad1.right_trigger > 0) {// if gamepad 1 right trigger is pressed then sets sweeper FWD
-            sweeperMotor.setPower(0.8);
+            sweeperMotor.setPower(0.6);
         } else {
             sweeperMotor.setPower(0);// if no button is pressed then keep sweeper PWR at 0
         }
@@ -252,9 +251,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
             sweeperHoldPosition = 0;
         }
 
-        if (gamepad2.dpad_down) {// if gamepad 1 dpad down is pressed, then moves winch out
+        if (gamepad2.a) {// if gamepad 1 dpad down is pressed, then moves winch out
             winchMotor.setPower(-1);
-        }else if (gamepad2.dpad_up) {// if gamepad 1 dpad up is pressed, then move winch in
+        }else if (gamepad2.y) {// if gamepad 1 dpad up is pressed, then move winch in
             winchMotor.setPower(1);
         }else if (gamepad1.x)  {
             winchMotor.setPower(-1);
@@ -291,9 +290,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         }
 
         //if statement
-        if (gamepad2.y) {// if gamepad 2 y is pressed then, move climber depositor up
+        if (gamepad2.dpad_up) {// if gamepad 2 y is pressed then, move climber depositor up
             climberDepositerPosition += 0.05;
-        }else if (gamepad2.a) {// if gamepad 2 a is pressed, then move climber depositor down
+        }else {// if gamepad 2 a is pressed, then move climber depositor down
             climberDepositerPosition -= 0.05;
         }
 

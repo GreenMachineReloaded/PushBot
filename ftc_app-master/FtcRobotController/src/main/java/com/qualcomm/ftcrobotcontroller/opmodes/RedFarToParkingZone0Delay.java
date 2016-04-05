@@ -86,7 +86,7 @@ public class RedFarToParkingZone0Delay extends LinearOpMode {
 
         opticSensor = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("optic"));
 
-        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor);
+        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor, hardwareMap);
 
         leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
         rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
@@ -110,40 +110,62 @@ public class RedFarToParkingZone0Delay extends LinearOpMode {
         sweeperHold.moveServo(0);
         telemetry.addData("", "Stage 1");
         sleep.Sleep(50);
-        telemetry.addData("", "Stage 2");
-        sleep.Sleep(50);
+
         while (colorSensor.getColor() == "gray" && opModeIsActive()) {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
             rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
             leftDriveMotor.setPower(-0.2);
             rightDriveMotor.setPower(-0.2);
         }
+
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);
+
         telemetry.addData("", "Stage 3");
+
         sleep.Sleep(1000);
-        //move.turnLeft(700, 42);
-        move.gyroLeft(32);
+
+        move.gyroLeft(45);
+
         sleep.Sleep(1000);
+
         while (opticSensor.getDistance() < 0.06 && opModeIsActive()) {
             leftDriveMotor.setPower(-0.40);
             rightDriveMotor.setPower(-0.5);
         }
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);
+
         sleep.Sleep(50);
         if (opModeIsActive()) {
             climberDepositerServo.moveServo(1);
         }
+
         sleep.Sleep(1000);
         climberDepositerServo.moveServo(0);
+
         leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
         rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+
         leftDriveMotor.setPower(0.25);
         rightDriveMotor.setPower(0.25);
         sleep.Sleep(750);
-        move.turnRight(1400, 50);
-        while (colorSensor.getColor() != "red" && opModeIsActive()) {
+
+        move.gyroRight(135);
+
+        while (colorSensor.getColor() != "blue" && opModeIsActive()) {
+            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+            leftDriveMotor.setPower(-0.25);
+            rightDriveMotor.setPower(-0.25);
+        }
+        while (colorSensor.getColor() != "gray" && opModeIsActive()) {
+            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+            leftDriveMotor.setPower(-0.25);
+            rightDriveMotor.setPower(-0.25);
+        }
+        while (colorSensor.getColor() != "blue" && opModeIsActive()) {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
             rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
             leftDriveMotor.setPower(-0.25);

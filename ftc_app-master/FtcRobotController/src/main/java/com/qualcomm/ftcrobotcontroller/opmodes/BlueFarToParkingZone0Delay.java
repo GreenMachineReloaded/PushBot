@@ -82,7 +82,7 @@ public class BlueFarToParkingZone0Delay extends LinearOpMode {
         sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
 
         //GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
-        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor);
+        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor, hardwareMap);
 
         waitForStart();
         rightFlapperServo.moveServo(1);

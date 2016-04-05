@@ -82,29 +82,31 @@ public class BlueFarToParkingZone extends LinearOpMode {
         sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
 
         //GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
-        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor);
+        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor, hardwareMap);
 
         waitForStart();
-        rightFlapperServo.moveServo(1);
-        leftFlapperServo.moveServo(0);
-        climberDepositerServo.moveServo(0);
-        winchServo.moveServo(1);
-        hopperDoorRed.moveServo(0.64);
-        hopperDoorBlue.moveServo(0.03);
-        hopperEntranceDoor.moveServo(0.7);
-        sweeperLift.moveServo(1);
-        sweeperHold.moveServo(0);
-        sleep.Sleep(10000);
-        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
-            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftDriveMotor.setPower(-0.2);
-            rightDriveMotor.setPower(-0.2);
-        }
-        leftDriveMotor.setPower(0);
-        rightDriveMotor.setPower(0);
-        telemetry.addData("", "Stage 3");
-        sleep.Sleep(1000);
-        climberDepositerServo.moveServo(1);
+//        rightFlapperServo.moveServo(1);
+//        leftFlapperServo.moveServo(0);
+//        climberDepositerServo.moveServo(0);
+//        winchServo.moveServo(1);
+//        hopperDoorRed.moveServo(0.64);
+//        hopperDoorBlue.moveServo(0.03);
+//        hopperEntranceDoor.moveServo(0.7);
+//        sweeperLift.moveServo(1);
+//        sweeperHold.moveServo(0);
+//        sleep.Sleep(10000);
+//        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
+//            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+//            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+//            leftDriveMotor.setPower(-0.2);
+//            rightDriveMotor.setPower(-0.2);
+//        }
+//        leftDriveMotor.setPower(0);
+//        rightDriveMotor.setPower(0);
+//        telemetry.addData("", "Stage 3");
+//        sleep.Sleep(1000);
+//        climberDepositerServo.moveServo(1);
+        move.gyroRight(90);
+        move.gyroLeft(90);
     }
 }
