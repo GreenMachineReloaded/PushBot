@@ -3,9 +3,11 @@ import android.graphics.Color;
 
 import com.kauailabs.navx.ftc.AHRS;
 import com.kauailabs.navx.ftc.navXPIDController;
+import com.qualcomm.ftcrobotcontroller.opmodes.drivers.GMRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robocol.Telemetry;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -27,6 +29,28 @@ public class MoveMotors {
     ElapsedTime runtime = new ElapsedTime();
     float turnDegrees;
 
+    GMRServo leftFlapperServo;
+    GMRServo rightFlapperServo;
+    GMRServo climberDepositerServo;
+    GMRServo winchServo;
+    GMRServo hopperDoorBlue;
+    GMRServo hopperDoorRed;
+    GMRServo hopperEntranceDoor;
+    GMRServo sweeperLift;
+    GMRServo sweeperHold;
+    GMRServo colorServo;
+
+    Servo servo1;
+    Servo servo2;
+    Servo servo3;
+    Servo servo4;
+    Servo servo5;
+    Servo servo6;
+    Servo servo7;
+    Servo servo8;
+    Servo servo9;
+    Servo servo10;
+
     //objects
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //constructor
@@ -47,6 +71,16 @@ public class MoveMotors {
         navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("DIM1"),
                 NAVX_DIM_I2C_PORT,
                 AHRS.DeviceDataType.kProcessedData);
+        leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
+        rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
+        climberDepositerServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerServo"));
+        winchServo = new GMRServo(servo4 = hardwareMap.servo.get("winchServo"));
+        hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));
+        hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
+        hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
+        sweeperLift = new GMRServo(servo8 = hardwareMap.servo.get("sweeperLift"));
+        sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
+        colorServo = new GMRServo(servo10 = hardwareMap.servo.get("colorServo"));
     }
     //constructor
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,25 +156,29 @@ public class MoveMotors {
 
     //GyroObject
     public void gyroLeft(int degrees) {//GyroTurnLeft
-        t.addData("", "");
+        t.addData("Turn Start", "");
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        sleep.Sleep(50);
         navx_device.zeroYaw();
+        sleep.Sleep(50);
         while (navx_device.isCalibrating()) {
             sleep.Sleep(50);
             t.addData("Gyro Is Calibrating", "");
         }
-        //turnDegrees = (navx_device.getYaw() + degrees);
+        sleep.Sleep(50);
+        degrees = degrees - (degrees*2);
         while (degrees < navx_device.getYaw()) {
             leftMotor.setPower(0.3);
             rightMotor.setPower(-0.5);
+            sleep.Sleep(10);
             t.addData("Gyro Heading", navx_device.getYaw());
             t.addData("Goal Heading", degrees);
-            if (degrees < navx_device.getYaw()) {
-                t.addData("Turn In Progress", "");
-            } else {
-                t.addData("Turn (Should Be) Over", "");
-            }
+//            if (-degrees < navx_device.getYaw()) {
+//                t.addData("Turn In Progress", "");
+//            } else {
+//                t.addData("Turn (Should Be) Over", "");
+//            }
         }
         leftMotor.setPower(0);
         rightMotor.setPower(0);
@@ -171,7 +209,7 @@ public class MoveMotors {
         rightMotor.setPower(0);
     }
 
-    public float getPosition() {
+    public float getRotation() {
         return navx_device.getYaw();
     }
 
@@ -183,7 +221,7 @@ public class MoveMotors {
         navx_device.zeroYaw();
     }
 
-    public String AccurateColor() {
+    public String accurateColor() {
         Integer accurateRed = 0;
         Integer accurateBlue = 0;
         Integer accurateGreen = 0;
@@ -204,28 +242,77 @@ public class MoveMotors {
         t.addData("Start Robot","");
         Color.RGBToHSV(accurateRed * 8, accurateGreen * 8, accurateBlue * 8, hsvValues);
 
-        if ((accurateGreen>=0) && (accurateBlue>=2) && (accurateRed<=0)) {
+        if ((accurateGreen>=1) && (accurateBlue>=8) && (accurateRed<=0)) {
             t.addData("CadwynBlue", accurateBlue);
             t.addData("CadwynBlue!","");
             returnColor = "blue";
 
         }
-        else if ((accurateGreen<=0) && (accurateBlue<=0) && (accurateRed>=2)){
+        else if ((accurateGreen<=0) && (accurateBlue<=0) && (accurateRed>=10)){
             t.addData("CadwynRed", accurateRed);
             t.addData("CadwynRed!","");
             returnColor = "red";
         }
-        else if ((accurateGreen>=2) && (accurateBlue>=0) && (accurateRed<=0)){
+        else if ((accurateGreen>=8) && (accurateBlue>=1) && (accurateRed<=0)){
             t.addData("CadwynGreen", accurateGreen);
             returnColor = "green";
         }
-        else if (accurateGreen>=2 && accurateBlue>=2 && accurateRed>=2){
+        else if (accurateGreen>=45 && accurateBlue>=45 && accurateRed>=50){
             returnColor = "white";
         }
-        else if ((accurateGreen<=1 && accurateBlue<=1 && accurateRed<=1)){
+        else if ((accurateGreen<=4 && accurateBlue<=4 && accurateRed<=4)){
             returnColor = "gray";
 
         }
         return returnColor;
+    }
+
+    public void setServosAuto() {
+        rightFlapperServo.moveServo(1);
+        leftFlapperServo.moveServo(0);
+        climberDepositerServo.moveServo(0);
+        winchServo.moveServo(1);
+        hopperDoorRed.moveServo(0.64);
+        hopperDoorBlue.moveServo(0.03);
+        hopperEntranceDoor.moveServo(0.7);
+        sweeperLift.moveServo(1);
+        sweeperHold.moveServo(0);
+        colorServo.moveServo(0.92);
+    }
+    public void setServosTele() {
+        rightFlapperServo.moveServo(1);
+        leftFlapperServo.moveServo(0);
+        climberDepositerServo.moveServo(0);
+        winchServo.moveServo(1);
+        hopperDoorRed.moveServo(0.64);
+        hopperDoorBlue.moveServo(0.03);
+        hopperEntranceDoor.moveServo(0.7);
+        sweeperLift.moveServo(1);
+        sweeperHold.moveServo(0);
+        colorServo.moveServo(0.62);
+    }
+
+    public void moveServo (String servoName, double servoPosition) {
+        if (servoName == "rightFlapperServo") {
+            rightFlapperServo.moveServo(servoPosition);
+        } else if (servoName == "leftFlapperServo") {
+            leftFlapperServo.moveServo(servoPosition);
+        } else if (servoName == "climberDepositerServo") {
+            climberDepositerServo.moveServo(servoPosition);
+        } else if (servoName == "winchServo") {
+            winchServo.moveServo(servoPosition);
+        } else if (servoName == "hopperDoorRed") {
+            hopperDoorRed.moveServo(servoPosition);
+        } else if (servoName == "hopperDoorBlue") {
+            hopperDoorBlue.moveServo(servoPosition);
+        } else if (servoName == "hopperEntranceDoor") {
+            hopperEntranceDoor.moveServo(servoPosition);
+        } else if (servoName == "sweeperLift") {
+            sweeperLift.moveServo(servoPosition);
+        } else if (servoName == "sweeperHold") {
+            sweeperHold.moveServo(servoPosition);
+        } else if (servoName == "colorServo") {
+            colorServo.moveServo(servoPosition);
+        }
     }
 }

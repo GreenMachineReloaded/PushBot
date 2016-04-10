@@ -41,26 +41,26 @@ public class ColorSensorObject{
         telemetry.addData("Start Robot","");
         Color.RGBToHSV(this.red() * 8, this.green() * 8, this.blue() * 8, hsvValues);
 
-        if ((this.green()>=0) && (this.blue()>=2) && (this.red()<=0)) {//   returnColor = BLUE;
+        if ((this.green()>=0) && (this.blue()>=15) && (this.red()<=0)) {//   returnColor = BLUE;
             telemetry.addData("CadwynBlue", this.blue());// return values of the color blue
             telemetry.addData("CadwynBlue!","");
             returnColor = "blue";
 
         }
-        else if ((green()<=0) && (blue()<=0) && (red()>=2)){//   returnColor = RED;
+        else if ((green()>=0) && (blue()>=0) && (red()>=20)){//   returnColor = RED;
             telemetry.addData("CadwynRed", this.red());// return the values of the color red
             telemetry.addData("CadwynRed!","");
             returnColor = "red";
         }
-        else if ((green()>=2) && (blue()>=0) && (red()<=0)){// returnColor = GREEN;
+        else if ((green()>=8) && (blue()>=0) && (red()<=0)){// returnColor = GREEN;
             telemetry.addData("CadwynGreen", this.green());// return the value of the color green
             telemetry.addData("CadwynGreen!","");
             returnColor = "green";
         }
-        else if ((green()>=2)&&(blue()>=2)&&(red()>=2)){
+        else if ((green()>=45)&&(blue()>=45)&&(red()>=40)){
         returnColor = "white";//tells return color to say WHITE iff it matches the requirements above
         }
-        else if ((green()<=1&&blue()<=1&&red()<=1)){
+        else if ((green()<=5&&blue()<=5&&red()<=5)){
         returnColor = "gray";// tells return color to say GRAY iff it matches the requirements above
 
         }

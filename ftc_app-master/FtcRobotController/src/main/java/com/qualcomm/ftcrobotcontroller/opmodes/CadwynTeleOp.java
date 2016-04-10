@@ -1,15 +1,16 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.ftcrobotcontroller.opmodes.drivers.GMRMotor;
 import com.qualcomm.ftcrobotcontroller.opmodes.drivers.GMRServo;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 //Created by Payton on 11/22/2015.
 
@@ -61,6 +62,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     GMRServo hopperEntranceDoor;
     GMRServo sweeperLift;
     GMRServo sweeperHold;
+    GMRServo colorServo;
 
     Servo servo1;//left flapper servo
     Servo servo2;//right flapper servo
@@ -71,6 +73,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     Servo servo7;// hopper entrance door
     Servo servo8;//sweeper lift
     Servo servo9;//sweeper hold
+    Servo servo10;
 
     //different servo positions
     double flapperRightRedPosition;
@@ -100,13 +103,13 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
     boolean onTheRamp;
 
-    int currentMinute;
-    int baseTime;
-    int betterTime;
-    String currentTime;
-    String currentMinuteString;
-    String currentSecondString;
-    boolean timeCanChange;
+    int NAVX_DIM_I2C_PORT;
+    AHRS navx_device;
+
+    ElapsedTime runtime;
+
+    ColorSensorObject colorSensor;
+    ColorSensor argColorSensor;
 
     @Override//?
     public void init() {// begin instructions once button "init" is pressed
@@ -134,6 +137,7 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
         sweeperLift = new GMRServo(servo8 = hardwareMap.servo.get("sweeperLift"));
         sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
+        colorServo = new GMRServo(servo10 = hardwareMap.servo.get("colorServo"));
 
         //starting positions of servos
         flapperRightRedPosition =  1;// right flapper
@@ -160,10 +164,16 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         armMotor.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);//resets encoder for arm
 
-        getArmMotorPosition = 0;//arm position
+        getArmMotorPosition = 0;//arm position;
 
-        currentMinute = 0;
-        timeCanChange = false;
+        NAVX_DIM_I2C_PORT = 3;
+        navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("DIM1"),
+                NAVX_DIM_I2C_PORT,
+                AHRS.DeviceDataType.kProcessedData);
+        runtime = new ElapsedTime();
+
+        argColorSensor = hardwareMap.colorSensor.get("color");
+        colorSensor = new ColorSensorObject(argColorSensor, telemetry);
 
     }
 
@@ -309,11 +319,11 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         }
 
         //UpRamp
-        if (gamepad1.dpad_up) {
+        if (gamepad1.dpad_up || navx_device.getPitch() > 17) {
             hopperEntranceDoorPosition = 0;
             flapperLeftBluePosition = 0.5;
             flapperRightRedPosition = 0.5;
-        }else if (gamepad1.dpad_down) {
+        }else if (gamepad1.dpad_down || navx_device.getPitch() < 17) {
             hopperEntranceDoorPosition = 0.5;
             flapperLeftBluePosition = 0;
             flapperRightRedPosition = 1;
@@ -347,33 +357,9 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         sweeperHoldPosition =  Range.clip(sweeperHoldPosition, 0, 1);// blue hopper door (right)
         sweeperHold.moveServo(sweeperHoldPosition);
 
-        //String servoPositions = String.valueOf(armMotorPosition2);
+        colorServo.moveServo(0.62);
 
-        //String servoPositions = String.format("%.2f", rightRedFlapperServo);
-
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("ss");
-
-        baseTime = Integer.valueOf(sdf.format(cal.getTime()));
-
-        if (baseTime == betterTime) {
-            baseTime++;
-            betterTime = baseTime;
-        }
-
-        if (betterTime == 60) {
-            currentMinute++;
-            timeCanChange = false;
-        }
-        if (betterTime == 1) {
-            timeCanChange = true;
-        }
-
-        currentMinuteString = String.valueOf(currentMinute);
-        currentSecondString = String.valueOf(betterTime);
-        currentTime = currentMinuteString + ":" + betterTime;
-
-        telemetry.addData("Time Left In Match", currentTime);
+        telemetry.addData("Current Gyroscope Pitch", navx_device.getPitch());
 
 //        String servoPositions = String.valueOf(sweeperHoldPosition);
 //        telemetry.addData("Sweeper Hold Position: ", servoPositions);

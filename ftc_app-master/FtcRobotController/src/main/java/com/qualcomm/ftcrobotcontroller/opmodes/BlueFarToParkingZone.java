@@ -23,6 +23,7 @@ public class BlueFarToParkingZone extends LinearOpMode {
     GMRServo hopperEntranceDoor;
     GMRServo sweeperLift;
     GMRServo sweeperHold;
+    GMRServo colorServo;
 
     Servo servo1;
     Servo servo2;
@@ -33,6 +34,7 @@ public class BlueFarToParkingZone extends LinearOpMode {
     Servo servo7;
     Servo servo8;
     Servo servo9;
+    Servo servo10;
 
     Sleeper sleep;
 
@@ -48,15 +50,12 @@ public class BlueFarToParkingZone extends LinearOpMode {
 
     OpticalDistanceSensor opticSensorMap;
     GMROpticDistanceSensor opticSensor;
-
-    int one;
-    int two;
+    Boolean True = true;
+    Boolean False = false;
+    double colorServoPosition;
 
     @Override
     public void runOpMode() throws InterruptedException {
-
-        one = 1;
-        two = 2;
 
         t = telemetry;
 
@@ -86,20 +85,14 @@ public class BlueFarToParkingZone extends LinearOpMode {
         hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
         sweeperLift = new GMRServo(servo8 = hardwareMap.servo.get("sweeperLift"));
         sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
+        colorServo = new GMRServo(servo10 = hardwareMap.servo.get("colorServo"));
+        colorServoPosition = 0;
 
         //GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor, gyro, telemetry);
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor, hardwareMap);
 
         waitForStart();
-//        rightFlapperServo.moveServo(1);
-//        leftFlapperServo.moveServo(0);
-//        climberDepositerServo.moveServo(0);
-//        winchServo.moveServo(1);
-//        hopperDoorRed.moveServo(0.64);
-//        hopperDoorBlue.moveServo(0.03);
-//        hopperEntranceDoor.moveServo(0.7);
-//        sweeperLift.moveServo(1);
-//        sweeperHold.moveServo(0);
+        move.setServosAuto();
 //        sleep.Sleep(10000);
 //        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
 //            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -112,18 +105,12 @@ public class BlueFarToParkingZone extends LinearOpMode {
 //        telemetry.addData("", "Stage 3");
 //        sleep.Sleep(1000);
 //        climberDepositerServo.moveServo(1);
-        //move.gyroRight(90);
-        //move.gyroLeft(90);
-        int currentRed;
-        int currentBlue;
-        int currentGreen;
-        while (one<two) {
-            currentRed = colorSensor.red();
-            currentBlue = colorSensor.blue();
-            currentGreen = colorSensor.green();
-            telemetry.addData("Current Red", currentRed);
-            telemetry.addData("Current Blue", currentBlue);
-            telemetry.addData("Current Green", currentGreen);
+//        move.gyroRight(90);
+//        move.gyroLeft(90);
+        while (True != False) {
+            t.addData("Color Sensor Red", colorSensor.red());
+            t.addData("Color Sensor Green", colorSensor.green());
+            t.addData("Color Sensor Blue", colorSensor.blue());
         }
     }
 }
