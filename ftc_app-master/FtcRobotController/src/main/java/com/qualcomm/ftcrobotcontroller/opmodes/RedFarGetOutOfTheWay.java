@@ -118,11 +118,11 @@ public class RedFarGetOutOfTheWay extends LinearOpMode {
 
         sleep.Sleep(50);
         if (opModeIsActive()) {
-            move.moveServo("climberDepositerServo", 1);
+            move.moveServo("climberDepositerBlueServo", 1);
         }
 
         sleep.Sleep(1000);
-        move.moveServo("climberDepositerServo", 0);
+        move.moveServo("climberDepositerBlueServo", 0);
 
         leftDriveMotor.setPower(0.25);
         rightDriveMotor.setPower(0.25);

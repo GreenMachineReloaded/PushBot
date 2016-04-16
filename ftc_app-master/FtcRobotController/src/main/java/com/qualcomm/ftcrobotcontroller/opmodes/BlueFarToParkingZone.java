@@ -78,7 +78,7 @@ public class BlueFarToParkingZone extends LinearOpMode {
 
         leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
         rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
-        climberDepositerServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerServo"));
+        climberDepositerServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerBlueServo"));
         winchServo = new GMRServo(servo4 = hardwareMap.servo.get("winchServo"));
         hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));
         hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
@@ -104,7 +104,7 @@ public class BlueFarToParkingZone extends LinearOpMode {
 //        rightDriveMotor.setPower(0);
 //        telemetry.addData("", "Stage 3");
 //        sleep.Sleep(1000);
-//        climberDepositerServo.moveServo(1);
+//        climberDepositerBlueServo.moveServo(1);
 //        move.gyroRight(90);
 //        move.gyroLeft(90);
         while (True != False && opModeIsActive()) {

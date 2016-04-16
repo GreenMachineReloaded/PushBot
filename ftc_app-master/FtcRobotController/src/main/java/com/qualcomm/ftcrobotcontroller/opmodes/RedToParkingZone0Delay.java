@@ -14,13 +14,12 @@ public class RedToParkingZone0Delay extends LinearOpMode {
 
     GMRServo leftFlapperServo;
     GMRServo rightFlapperServo;
-    GMRServo climberDepositerServo;
+    GMRServo climberDepositerBlueServo;
+    GMRServo climberDepositerRedServo;
     GMRServo winchServo;
     GMRServo hopperDoorBlue;
     GMRServo hopperDoorRed;
     GMRServo hopperEntranceDoor;
-    GMRServo sweeperLift;
-    GMRServo sweeperHold;
 
     Servo servo1;
     Servo servo2;
@@ -30,7 +29,6 @@ public class RedToParkingZone0Delay extends LinearOpMode {
     Servo servo6;
     Servo servo7;
     Servo servo8;
-    Servo servo9;
 
     Sleeper sleep;
 
@@ -57,120 +55,49 @@ public class RedToParkingZone0Delay extends LinearOpMode {
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         gyro = hardwareMap.gyroSensor.get("gyro");
         sleep = new Sleeper();
-        opticSensorRed = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("optic"));
+        opticSensorRed = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("RedOptic"));
 
         leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
         rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
-        climberDepositerServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerServo"));
+        climberDepositerBlueServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerBlueServo"));
+        climberDepositerRedServo = new GMRServo(servo8 = hardwareMap.servo.get("climberDepositorRedServo"));
         winchServo = new GMRServo(servo4 = hardwareMap.servo.get("winchServo"));
         hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));
         hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
         hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
-        sweeperLift = new GMRServo(servo8 = hardwareMap.servo.get("sweeperLift"));
-        sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
 
         GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensorRed, hardwareMap);
 
         waitForStart();
-
-
-
-        //sleep.Sleep(10000);
         rightFlapperServo.moveServo(1);
         leftFlapperServo.moveServo(0);
-        climberDepositerServo.moveServo(0);
+        climberDepositerBlueServo.moveServo(0);
+        climberDepositerRedServo.moveServo(1);
         winchServo.moveServo(1);
-        hopperDoorRed.moveServo(0.64);
-        hopperDoorBlue.moveServo(0.03);
+        hopperDoorRed.moveServo(0.05);
+        hopperDoorBlue.moveServo(0.75);
         hopperEntranceDoor.moveServo(0.7);
-        sweeperLift.moveServo(1);
-        sweeperHold.moveServo(0);
 
         while (opticSensorRed.getDistance() < 0.03 && opModeIsActive()) {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
             rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
             leftDriveMotor.setPower(-0.2);
-            rightDriveMotor.setPower(-0.2);
+            rightDriveMotor.setPower(-0.35);
         }
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);
         telemetry.addData("", "Stage 3");
         sleep.Sleep(1000);
-        climberDepositerServo.moveServo(1);
+        climberDepositerRedServo.moveServo(0);
         sleep.Sleep(1000);
-        climberDepositerServo.moveServo(0);
-//        leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-//        rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-//        leftDriveMotor.setPower(0.25);
-//        rightDriveMotor.setPower(0.25);
-//        sleep.Sleep(750);
-//        move.turnLeft(1400, 50);
-//        while (colorSensor.getColor() != "red" && opModeIsActive()) {
-//            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-//            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-//            leftDriveMotor.setPower(-0.25);
-//            rightDriveMotor.setPower(-0.25);
-//        }
+        climberDepositerRedServo.moveServo(1);
+        sleep.Sleep(500);
+        move.moveBackward(3000, 65);
+        move.gyroLeft(90);
+        while (move.getPitch() < 17) {
+            leftDriveMotor.setPower(-0.2);
+            rightDriveMotor.setPower(-0.35);
+        }
     }
 }
-
-//
-//        waitForStart();
-//
-//        rightFlapperServo.moveServo(1);
-//        leftFlapperServo.moveServo(0);
-//        climberDepositerServo.moveServo(0);
-//        winchServo.moveServo(1);
-//        hopperDoorRed.moveServo(0.64);
-//        hopperDoorBlue.moveServo(0.03);
-//        hopperEntranceDoor.moveServo(0.7);
-//        sweeperLift.moveServo(1);
-//        sweeperHold.moveServo(0);
-//
-//        telemetry.addData("", "Program Start");
-//
-//        move.moveForward(800, 50);
-//
-//        s.Sleep(50);
-//
-//        telemetry.addData("", "Forward 1 Complete");
-//
-//        gyroTurn.leftTurn(45);
-//
-//        s.Sleep(50);
-//
-//        telemetry.addData("", "Left turn 1 complete");
-//
-//        move.moveForward(3000, 50);
-//
-//        s.Sleep(50);
-//
-//        telemetry.addData("", "Foreward 1 Complete");
-//
-//        gyroTurn.leftTurn(45);
-//
-//        s.Sleep(50);
-//
-//        telemetry.addData("", "Left turn 2 complete");
-//
-//        move.moveForward(300, 40);
-//        sleep.Sleep(1000);
-//        climberDepositerServo.moveServo(0);
-//        leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-//        rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-//        leftDriveMotor.setPower(0.25);
-//        rightDriveMotor.setPower(0.25);
-//        sleep.Sleep(750);
-//        move.turnRight(1400, 50);
-//        while (colorSensor.getColor() != "red" && opModeIsActive()) {
-//            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-//            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-//            leftDriveMotor.setPower(-0.25);
-//            rightDriveMotor.setPower(-0.25);
-//        }
-//
-//        telemetry.addData("", "Last forward complete, program end.");
-//
-//    }
-//}

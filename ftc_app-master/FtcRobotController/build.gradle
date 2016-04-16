@@ -42,14 +42,11 @@ allprojects {
             dirs 'out'
         }
     }
-<<<<<<< HEAD
     repositories {
         flatDir {
             dirs 'libs', 'C:\\Users\\Patrick\\code\\PushBot\\ftc_app-master\\FtcRobotController\\navx-micro\\android\\libs'
         }
     }
-=======
->>>>>>> 6fe8fcfb44062bb4d65008c1456fe43aa9cb525e
 }
 
 dependencies {

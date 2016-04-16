@@ -65,7 +65,7 @@ public class MoveMotors {
                 AHRS.DeviceDataType.kProcessedData);
         leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
         rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
-        climberDepositerServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerServo"));
+        climberDepositerServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerBlueServo"));
         winchServo = new GMRServo(servo4 = hardwareMap.servo.get("winchServo"));
         hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));
         hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
@@ -271,7 +271,7 @@ public class MoveMotors {
             rightFlapperServo.moveServo(servoPosition);
         } else if (servoName == "leftFlapperServo") {
             leftFlapperServo.moveServo(servoPosition);
-        } else if (servoName == "climberDepositerServo") {
+        } else if (servoName == "climberDepositerBlueServo") {
             climberDepositerServo.moveServo(servoPosition);
         } else if (servoName == "winchServo") {
             winchServo.moveServo(servoPosition);

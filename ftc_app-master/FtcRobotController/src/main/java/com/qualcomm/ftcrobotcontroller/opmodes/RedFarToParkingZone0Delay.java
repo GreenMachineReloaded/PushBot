@@ -91,7 +91,7 @@ public class RedFarToParkingZone0Delay extends LinearOpMode {
 
         sleep.Sleep(1000);
 
-        while (opticSensor.getDistance() < 0.06 && opModeIsActive()) {
+        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
             leftDriveMotor.setPower(-0.40);
             rightDriveMotor.setPower(-0.5);
         }
@@ -100,10 +100,10 @@ public class RedFarToParkingZone0Delay extends LinearOpMode {
 
         sleep.Sleep(50);
         if (opModeIsActive()) {
-            move.moveServo("climberDepositerServo", 1);
+            move.moveServo("climberDepositerBlueServo", 1);
         }
 
         sleep.Sleep(1000);
-        move.moveServo("climberDepositerServo", 0);
+        move.moveServo("climberDepositerBlueServo", 0);
     }
 }
