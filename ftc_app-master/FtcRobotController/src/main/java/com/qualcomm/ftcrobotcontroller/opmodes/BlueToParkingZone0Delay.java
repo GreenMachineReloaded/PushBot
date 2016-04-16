@@ -37,7 +37,7 @@ public class BlueToParkingZone0Delay extends LinearOpMode {
     GyroSensor gyro;
 
     OpticalDistanceSensor opticSensorMap;
-    GMROpticDistanceSensor opticSensor;
+    GMROpticDistanceSensor opticSensorBlue;
 
     Telemetry t;
 
@@ -57,7 +57,7 @@ public class BlueToParkingZone0Delay extends LinearOpMode {
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         gyro = hardwareMap.gyroSensor.get("gyro");
         sleep = new Sleeper();
-        opticSensor = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("optic"));
+        opticSensorBlue = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("optic"));
 
         leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
         rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
@@ -70,7 +70,7 @@ public class BlueToParkingZone0Delay extends LinearOpMode {
         sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
 
         GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
-        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor, hardwareMap);
+        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensorBlue, hardwareMap);
 
         waitForStart();
 
@@ -87,7 +87,7 @@ public class BlueToParkingZone0Delay extends LinearOpMode {
         sweeperLift.moveServo(1);
         sweeperHold.moveServo(0);
 
-        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
+        while (opticSensorBlue.getDistance() < 0.03 && opModeIsActive()) {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
             rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
             leftDriveMotor.setPower(-0.2);
