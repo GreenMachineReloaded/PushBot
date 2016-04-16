@@ -33,7 +33,7 @@ public class BlueToParkingZone0Delay extends LinearOpMode {
     GyroSensor gyro;
 
     OpticalDistanceSensor opticSensorMap;
-    GMROpticDistanceSensor opticSensor;
+    GMROpticDistanceSensor opticSensorBlue;
 
     Telemetry t;
 
@@ -53,7 +53,7 @@ public class BlueToParkingZone0Delay extends LinearOpMode {
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         gyro = hardwareMap.gyroSensor.get("gyro");
         sleep = new Sleeper();
-        opticSensor = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("optic"));
+        opticSensorBlue = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("optic"));
 
         leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
         rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
@@ -64,7 +64,7 @@ public class BlueToParkingZone0Delay extends LinearOpMode {
         hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
 
         GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
-        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor, hardwareMap);
+        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensorBlue, hardwareMap);
 
         waitForStart();
         rightFlapperServo.moveServo(1);
@@ -74,7 +74,7 @@ public class BlueToParkingZone0Delay extends LinearOpMode {
         hopperDoorRed.moveServo(0.64);
         hopperDoorBlue.moveServo(0.03);
         hopperEntranceDoor.moveServo(0.7);
-        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
+        while (opticSensorBlue.getDistance() < 0.03 && opModeIsActive()) {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
             rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
             leftDriveMotor.setPower(-0.2);
