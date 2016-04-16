@@ -27,7 +27,6 @@ public class MoveMotors {
     AHRS navx_device;
     navXPIDController yawPIDController;
     ElapsedTime runtime = new ElapsedTime();
-    float turnDegrees;
 
     GMRServo leftFlapperServo;
     GMRServo rightFlapperServo;
@@ -66,7 +65,6 @@ public class MoveMotors {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         gyro.calibrate();
-        turnDegrees = 0;
         opticSensor = os;
         navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("DIM1"),
                 NAVX_DIM_I2C_PORT,
@@ -155,67 +153,61 @@ public class MoveMotors {
     }
 
     //GyroObject
-    public void gyroLeft(int degrees) {//GyroTurnLeft
+    public void gyroLeft(double degrees) {//GyroTurnLeft
+        double goalDegrees = (navx_device.getYaw() - degrees);
         t.addData("Turn Start", "");
-        leftMotor.setDirection(DcMotor.Direction.FORWARD);
-        rightMotor.setDirection(DcMotor.Direction.REVERSE);
         sleep.Sleep(50);
-        navx_device.zeroYaw();
-        sleep.Sleep(50);
-        while (navx_device.isCalibrating()) {
-            sleep.Sleep(50);
-            t.addData("Gyro Is Calibrating", "");
-        }
-        sleep.Sleep(50);
-        degrees = degrees - (degrees*2);
-        while (degrees < navx_device.getYaw()) {
-            leftMotor.setPower(0.3);
-            rightMotor.setPower(-0.5);
+        t.addData("Degrees Calculated", "");
+        while (goalDegrees < navx_device.getYaw()) {
+            leftMotor.setPower(-0.5);
+            rightMotor.setPower(0.3);
             sleep.Sleep(10);
             t.addData("Gyro Heading", navx_device.getYaw());
-            t.addData("Goal Heading", degrees);
+            t.addData("Goal Heading", goalDegrees);
 //            if (-degrees < navx_device.getYaw()) {
 //                t.addData("Turn In Progress", "");
 //            } else {
 //                t.addData("Turn (Should Be) Over", "");
 //            }
         }
+        t.addData("Turn Over", "");
         leftMotor.setPower(0);
         rightMotor.setPower(0);
+        t.addData("Motor Power Zeroed", "");
     }
 
-    public void gyroRight(int degrees) {//GyroTurnRight
-        t.addData("", "");
-        leftMotor.setDirection(DcMotor.Direction.FORWARD);
-        rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        navx_device.zeroYaw();
-        while (navx_device.isCalibrating()) {
-            sleep.Sleep(50);
-            t.addData("Gyro Is Calibrating", "");
-        }
-        //turnDegrees = (navx_device.getYaw() + degrees);
-        while (degrees > navx_device.getYaw()) {
+    public void gyroRight(double degrees) {//GyroTurnRight
+        double goalDegrees = (navx_device.getYaw() + degrees);
+        t.addData("Turn Start", "");
+        sleep.Sleep(50);
+        t.addData("Degrees Calculated", "");
+        while (goalDegrees > navx_device.getYaw()) {
+            t.addData("Goal Heading", degrees);
             leftMotor.setPower(-0.5);
             rightMotor.setPower(0.3);
+            sleep.Sleep(10);
             t.addData("Gyro Heading", navx_device.getYaw());
-            t.addData("Goal Heading", degrees);
-            if (degrees > navx_device.getYaw()) {
-                t.addData("Right Turn In Progress", "");
-            } else {
-                t.addData("Right Turn (Should Be) Over", "");
-            }
+//            if (-degrees < navx_device.getYaw()) {
+//                t.addData("Turn In Progress", "");
+//            } else {
+//                t.addData("Turn (Should Be) Over", "");
+//            }
         }
+        t.addData("Turn Over", "");
         leftMotor.setPower(0);
         rightMotor.setPower(0);
+        t.addData("Motor Power Zeroed", "");
     }
 
-    public float getRotation() {
-        return navx_device.getYaw();
-    }
+    public double getYaw() {return navx_device.getYaw();}
 
-    public double getTime() {
-        return runtime.time();
-    }
+    public double getRoll() {return navx_device.getRoll();}
+
+    public double getPitch() {return navx_device.getPitch();}
+
+    public double getTime() {return runtime.time();}
+
+    public double getDistance() {return opticSensor.getDistance();}
 
     public void resetPosition() {
         navx_device.zeroYaw();

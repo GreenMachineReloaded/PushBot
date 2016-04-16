@@ -111,6 +111,8 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
     ColorSensorObject colorSensor;
     ColorSensor argColorSensor;
 
+    Boolean onMountain;
+
     @Override//?
     public void init() {// begin instructions once button "init" is pressed
 
@@ -174,6 +176,8 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
 
         argColorSensor = hardwareMap.colorSensor.get("color");
         colorSensor = new ColorSensorObject(argColorSensor, telemetry);
+
+        onMountain = false;
 
     }
 
@@ -319,14 +323,16 @@ public class CadwynTeleOp extends OpMode {//initialisations for all motors and s
         }
 
         //UpRamp
-        if (gamepad1.dpad_up || navx_device.getPitch() > 17) {
+        if (gamepad1.dpad_up || (navx_device.getPitch() > 17 && !onMountain)) {
             hopperEntranceDoorPosition = 0;
             flapperLeftBluePosition = 0.5;
             flapperRightRedPosition = 0.5;
-        }else if (gamepad1.dpad_down || navx_device.getPitch() < 17) {
+            onMountain = true;
+        }else if (gamepad1.dpad_up || (navx_device.getPitch() < 17 && onMountain)) {
             hopperEntranceDoorPosition = 0.5;
             flapperLeftBluePosition = 0;
             flapperRightRedPosition = 1;
+            onMountain = false;
         }
 
         // make sure servo values doesn't go below the lowest values or above the highest value

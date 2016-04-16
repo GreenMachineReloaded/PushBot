@@ -92,7 +92,7 @@ public class BlueFarToParkingZone extends LinearOpMode {
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor, hardwareMap);
 
         waitForStart();
-        move.setServosAuto();
+        //move.setServosAuto();
 //        sleep.Sleep(10000);
 //        while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
 //            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -107,10 +107,8 @@ public class BlueFarToParkingZone extends LinearOpMode {
 //        climberDepositerServo.moveServo(1);
 //        move.gyroRight(90);
 //        move.gyroLeft(90);
-        while (True != False) {
-            t.addData("Color Sensor Red", colorSensor.red());
-            t.addData("Color Sensor Green", colorSensor.green());
-            t.addData("Color Sensor Blue", colorSensor.blue());
+        while (True != False && opModeIsActive()) {
+            telemetry.addData("Current Time", move.getTime());
         }
     }
 }

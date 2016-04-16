@@ -8,7 +8,8 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.robocol.Telemetry;
 import com.qualcomm.robotcore.util.ElapsedTime;
-public class RedFarToParkingZone0Delay extends LinearOpMode {
+
+public class RedFarGetOutOfTheWay extends LinearOpMode {
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
 
@@ -59,6 +60,8 @@ public class RedFarToParkingZone0Delay extends LinearOpMode {
 
         runtime = new ElapsedTime();
 
+        int count = 0;
+
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor, hardwareMap);
 
         waitForStart();
@@ -84,7 +87,22 @@ public class RedFarToParkingZone0Delay extends LinearOpMode {
 
         sleep.Sleep(2000);
 
-        move.gyroLeft(45);
+        //move.gyroLeft(45);
+        double goalDegrees = (move.getYaw() - 45);
+        t.addData("Turn Start", "");
+        sleep.Sleep(50);
+        t.addData("Degrees Calculated", "");
+        while (goalDegrees < move.getYaw()) {
+            leftDriveMotor.setPower(-0.5);
+            rightDriveMotor.setPower(0.3);
+            sleep.Sleep(10);
+            t.addData("Gyro Heading", move.getYaw());
+            t.addData("Goal Heading", goalDegrees);
+        }
+        t.addData("Turn Over", "");
+        leftDriveMotor.setPower(0);
+        rightDriveMotor.setPower(0);
+        t.addData("Motor Power Zeroed", "");
 
         sleep.Sleep(1000);
         telemetry.addData("Turn Complete", "");
@@ -105,5 +123,64 @@ public class RedFarToParkingZone0Delay extends LinearOpMode {
 
         sleep.Sleep(1000);
         move.moveServo("climberDepositerServo", 0);
+
+        leftDriveMotor.setPower(0.25);
+        rightDriveMotor.setPower(0.25);
+        sleep.Sleep(1500);
+
+        //move.gyroRight(45);
+        goalDegrees = (move.getYaw() + 45);
+        t.addData("Turn Start", "");
+        sleep.Sleep(50);
+        t.addData("Degrees Calculated", "");
+        while (goalDegrees > move.getYaw()) {
+            t.addData("Goal Heading", goalDegrees);
+            leftDriveMotor.setPower(-0.5);
+            rightDriveMotor.setPower(0.3);
+            sleep.Sleep(10);
+            t.addData("Gyro Heading", move.getYaw());
+        }
+        t.addData("Turn Over", "");
+        leftDriveMotor.setPower(0);
+        rightDriveMotor.setPower(0);
+        t.addData("Motor Power Zeroed", "");
+
+        move.moveBackward(3000, 70);
+
+        //move.gyroLeft(90);
+        goalDegrees = (move.getYaw() - 90);
+        t.addData("Turn Start", "");
+        sleep.Sleep(50);
+        t.addData("Degrees Calculated", "");
+        while (goalDegrees < move.getYaw()) {
+            leftDriveMotor.setPower(-0.5);
+            rightDriveMotor.setPower(0.3);
+            sleep.Sleep(10);
+            t.addData("Gyro Heading", move.getYaw());
+            t.addData("Goal Heading", goalDegrees);
+        }
+
+        move.moveForward(15000, 70);
+
+//        move.gyroRight(135);
+//
+//        while (colorSensor.getColor() != "blue" && opModeIsActive()) {
+//            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+//            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+//            leftDriveMotor.setPower(-0.25);
+//            rightDriveMotor.setPower(-0.25);
+//        }
+//        while (colorSensor.getColor() != "gray" && opModeIsActive()) {
+//            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+//            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+//            leftDriveMotor.setPower(-0.25);
+//            rightDriveMotor.setPower(-0.25);
+//        }
+//        while (colorSensor.getColor() != "blue" && opModeIsActive()) {
+//            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+//            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+//            leftDriveMotor.setPower(-0.25);
+//            rightDriveMotor.setPower(-0.25);
+//        }
     }
 }

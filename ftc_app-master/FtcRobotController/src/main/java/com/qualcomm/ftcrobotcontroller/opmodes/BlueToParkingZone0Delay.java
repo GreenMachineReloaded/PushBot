@@ -76,7 +76,7 @@ public class BlueToParkingZone0Delay extends LinearOpMode {
 
 
 
-        sleep.Sleep(10000);
+        //sleep.Sleep(10000);
         rightFlapperServo.moveServo(1);
         leftFlapperServo.moveServo(0);
         climberDepositerServo.moveServo(0);
@@ -86,6 +86,7 @@ public class BlueToParkingZone0Delay extends LinearOpMode {
         hopperEntranceDoor.moveServo(0.7);
         sweeperLift.moveServo(1);
         sweeperHold.moveServo(0);
+
         while (opticSensor.getDistance() < 0.03 && opModeIsActive()) {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
             rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -99,17 +100,17 @@ public class BlueToParkingZone0Delay extends LinearOpMode {
         climberDepositerServo.moveServo(1);
         sleep.Sleep(1000);
         climberDepositerServo.moveServo(0);
-        leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-        rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftDriveMotor.setPower(0.25);
-        rightDriveMotor.setPower(0.25);
-        sleep.Sleep(750);
-        move.turnLeft(1400, 50);
-        while (colorSensor.getColor() != "red" && opModeIsActive()) {
-            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftDriveMotor.setPower(-0.25);
-            rightDriveMotor.setPower(-0.25);
-        }
+//        leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+//        rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+//        leftDriveMotor.setPower(0.25);
+//        rightDriveMotor.setPower(0.25);
+//        sleep.Sleep(750);
+//        move.turnLeft(1400, 50);
+//        while (colorSensor.getColor() != "red" && opModeIsActive()) {
+//            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+//            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+//            leftDriveMotor.setPower(-0.25);
+//            rightDriveMotor.setPower(-0.25);
+//        }
     }
 }
