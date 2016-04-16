@@ -2,7 +2,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import android.graphics.Color;
 
 import com.kauailabs.navx.ftc.AHRS;
-import com.kauailabs.navx.ftc.navXPIDController;
 import com.qualcomm.ftcrobotcontroller.opmodes.drivers.GMRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
@@ -25,7 +24,6 @@ public class MoveMotors {
     GMROpticDistanceSensor opticSensor;
     int NAVX_DIM_I2C_PORT = 3;
     AHRS navx_device;
-    navXPIDController yawPIDController;
     ElapsedTime runtime = new ElapsedTime();
 
     GMRServo leftFlapperServo;
@@ -35,8 +33,6 @@ public class MoveMotors {
     GMRServo hopperDoorBlue;
     GMRServo hopperDoorRed;
     GMRServo hopperEntranceDoor;
-    GMRServo sweeperLift;
-    GMRServo sweeperHold;
     GMRServo colorServo;
 
     Servo servo1;
@@ -46,8 +42,6 @@ public class MoveMotors {
     Servo servo5;
     Servo servo6;
     Servo servo7;
-    Servo servo8;
-    Servo servo9;
     Servo servo10;
 
     //objects
@@ -76,8 +70,6 @@ public class MoveMotors {
         hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));
         hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
         hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
-        sweeperLift = new GMRServo(servo8 = hardwareMap.servo.get("sweeperLift"));
-        sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
         colorServo = new GMRServo(servo10 = hardwareMap.servo.get("colorServo"));
     }
     //constructor
@@ -134,7 +126,6 @@ public class MoveMotors {
         t.addData("", ultrasonic.getRangeInches());
         while (opticSensor.getDistance() < 0.029) {
             t.addData("", lastDirection);
-
             if (!(colorSensor.getColor() == "gray")) {
                 rightMotor.setPower(0.4);
                 leftMotor.setPower(-0.2);
@@ -142,11 +133,6 @@ public class MoveMotors {
                 rightMotor.setPower(-0.2);
                 leftMotor.setPower(0.4);
             }
-
-            //t.addData("Ultrasonic Range Inches ",ultrasonic.getRangeInches());
-            //t.addData("Ultrasonic Range Centimeters",ultrasonic.getRangeCentimeters());
-            //t.addData("Ultrasonic Range Value",ultrasonic.getRangeValue());
-
         }
         rightMotor.setPower(0);
         leftMotor.setPower(0);
@@ -267,8 +253,6 @@ public class MoveMotors {
         hopperDoorRed.moveServo(0.64);
         hopperDoorBlue.moveServo(0.03);
         hopperEntranceDoor.moveServo(0.7);
-        sweeperLift.moveServo(1);
-        sweeperHold.moveServo(0);
         colorServo.moveServo(0.92);
     }
     public void setServosTele() {
@@ -279,8 +263,6 @@ public class MoveMotors {
         hopperDoorRed.moveServo(0.64);
         hopperDoorBlue.moveServo(0.03);
         hopperEntranceDoor.moveServo(0.7);
-        sweeperLift.moveServo(1);
-        sweeperHold.moveServo(0);
         colorServo.moveServo(0.62);
     }
 
@@ -299,10 +281,6 @@ public class MoveMotors {
             hopperDoorBlue.moveServo(servoPosition);
         } else if (servoName == "hopperEntranceDoor") {
             hopperEntranceDoor.moveServo(servoPosition);
-        } else if (servoName == "sweeperLift") {
-            sweeperLift.moveServo(servoPosition);
-        } else if (servoName == "sweeperHold") {
-            sweeperHold.moveServo(servoPosition);
         } else if (servoName == "colorServo") {
             colorServo.moveServo(servoPosition);
         }
