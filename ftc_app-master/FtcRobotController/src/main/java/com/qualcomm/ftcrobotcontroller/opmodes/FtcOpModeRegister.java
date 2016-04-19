@@ -47,19 +47,22 @@ public class FtcOpModeRegister implements OpModeRegister {
    */
   public void register(OpModeManager manager) {
 
-    manager.register("Main TeleOp for Cadwyn", CadwynTeleOp.class);
-    manager.register("Red Far", RedFarToParkingZone.class);
-    manager.register("Red Close", RedToParkingZone.class);
-    manager.register("Blue Far", BlueFarToParkingZone.class);
-    manager.register("Blue Close", BlueToParkingZone.class);
-    manager.register("Red Far 0 Delay", RedFarToParkingZone0Delay.class);
-    manager.register("Red Close 0 Delay", RedToParkingZone0Delay.class);
-    manager.register("Blue Far 0 Delay", BlueFarToParkingZone0Delay.class);
-    manager.register("Blue Close 0 Delay", BlueToParkingZone0Delay.class);
-    manager.register("navX Gyroscope Test", navXGyroscopeTest.class);
-    manager.register("Color Sensor Test", ColorSensorTest.class);
+//    manager.register("Main TeleOp for Cadwyn", CadwynTeleOp.class);
+//    manager.register("Red Far", RedFarToParkingZone.class);
+//    manager.register("Red Close", RedToParkingZone.class);
+//    manager.register("Blue Far", BlueFarToParkingZone.class);
+//    manager.register("Blue Close", BlueToParkingZone.class);
+//    manager.register("Red Far 0 Delay", RedFarToParkingZone0Delay.class);
+//    manager.register("Red Close 0 Delay", RedToParkingZone0Delay.class);
+//    manager.register("Blue Far 0 Delay", BlueFarToParkingZone0Delay.class);
+//    manager.register("Blue Close 0 Delay", BlueToParkingZone0Delay.class);
+//    manager.register("navX Gyroscope Test", navXGyroscopeTest.class);
+//    manager.register("Color Sensor Test", ColorSensorTest.class);
+
     //manager.register("Color Sensor Test", NewBlueToParkingZone.class);
     //manager.register("Red Far Test", TestRedFarToParkingZone.class);
+    manager.register("UpRampBlue", UpRampBlue.class);
+    manager.register("UpRampRed", UpRampRed.class);
  
    }
 }

@@ -38,7 +38,7 @@ allprojects {
     }
     repositories {
         flatDir {
-            dirs 'libs', 'C:\\Users\\Payton\\Documents\\GitHub\\PushBot\\ftc_app-master\\FtcRobotController\\navx-micro\\android\\libs'
+            dirs 'libs', 'C:\\Users\\Amber\\Documents\\GitHub\\PushBot\\ftc_app-master\\FtcRobotController\\navx-micro\\android\\libs'
         }
     }
 }
