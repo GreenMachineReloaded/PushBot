@@ -94,8 +94,12 @@ public class RedToParkingZone0Delay extends LinearOpMode {
         climberDepositerRedServo.moveServo(1);
         sleep.Sleep(500);
         move.moveBackward(3000, 65);
+        leftDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+        rightDriveMotor.setDirection(DcMotor.Direction.FORWARD);
         move.gyroLeft(90);
-        while (move.getPitch() < 17) {
+        while (move.getPitch() < 17 && opModeIsActive()) {
+            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
             leftDriveMotor.setPower(-0.2);
             rightDriveMotor.setPower(-0.35);
         }

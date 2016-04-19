@@ -15,6 +15,7 @@ public class MoveMotors {
     //objects
     DcMotor leftMotor;
     DcMotor rightMotor;
+    DcMotor sweeperMotor;
     Sleeper sleep;
     ColorSensorObject colorSensor;
     UltrasonicObject ultrasonic;
@@ -33,7 +34,6 @@ public class MoveMotors {
     GMRServo hopperDoorBlue;
     GMRServo hopperDoorRed;
     GMRServo hopperEntranceDoor;
-    GMRServo colorServo;
 
     Servo servo1;
     Servo servo2;
@@ -42,7 +42,6 @@ public class MoveMotors {
     Servo servo5;
     Servo servo6;
     Servo servo7;
-    Servo servo10;
 
     //objects
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,6 +62,7 @@ public class MoveMotors {
         navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("DIM1"),
                 NAVX_DIM_I2C_PORT,
                 AHRS.DeviceDataType.kProcessedData);
+        sweeperMotor = hardwareMap.dcMotor.get("sweeperMotor");
         leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
         rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
         climberDepositerServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerBlueServo"));
@@ -70,7 +70,6 @@ public class MoveMotors {
         hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));
         hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
         hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
-        colorServo = new GMRServo(servo10 = hardwareMap.servo.get("colorServo"));
     }
     //constructor
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,6 +110,7 @@ public class MoveMotors {
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setPower(-motorPower / 100);
         rightMotor.setPower(-motorPower / 100);
+        sweeperMotor.setPower(-0.6);
         sleep.Sleep(sleepTime);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
@@ -150,11 +150,6 @@ public class MoveMotors {
             sleep.Sleep(10);
             t.addData("Gyro Heading", navx_device.getYaw());
             t.addData("Goal Heading", goalDegrees);
-//            if (-degrees < navx_device.getYaw()) {
-//                t.addData("Turn In Progress", "");
-//            } else {
-//                t.addData("Turn (Should Be) Over", "");
-//            }
         }
         t.addData("Turn Over", "");
         leftMotor.setPower(0);
@@ -253,7 +248,6 @@ public class MoveMotors {
         hopperDoorRed.moveServo(0.64);
         hopperDoorBlue.moveServo(0.03);
         hopperEntranceDoor.moveServo(0.7);
-        colorServo.moveServo(0.92);
     }
     public void setServosTele() {
         rightFlapperServo.moveServo(1);
@@ -263,7 +257,6 @@ public class MoveMotors {
         hopperDoorRed.moveServo(0.64);
         hopperDoorBlue.moveServo(0.03);
         hopperEntranceDoor.moveServo(0.7);
-        colorServo.moveServo(0.62);
     }
 
     public void moveServo (String servoName, double servoPosition) {
@@ -281,8 +274,6 @@ public class MoveMotors {
             hopperDoorBlue.moveServo(servoPosition);
         } else if (servoName == "hopperEntranceDoor") {
             hopperEntranceDoor.moveServo(servoPosition);
-        } else if (servoName == "colorServo") {
-            colorServo.moveServo(servoPosition);
         }
     }
 }
