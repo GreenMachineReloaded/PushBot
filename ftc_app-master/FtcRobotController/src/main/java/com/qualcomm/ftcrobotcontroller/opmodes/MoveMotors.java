@@ -34,6 +34,8 @@ public class MoveMotors {
     GMRServo hopperDoorBlue;
     GMRServo hopperDoorRed;
     GMRServo hopperEntranceDoor;
+    GMRServo redAllClear;
+    GMRServo blueAllClear;
 
     Servo servo1;
     Servo servo2;
@@ -42,6 +44,8 @@ public class MoveMotors {
     Servo servo5;
     Servo servo6;
     Servo servo7;
+    Servo servo11;
+    Servo servo12;
 
     //objects
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +74,8 @@ public class MoveMotors {
         hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));
         hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
         hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
+        redAllClear = new GMRServo(servo11 = hardwareMap.servo.get("redallClear"));
+        blueAllClear = new GMRServo(servo12 = hardwareMap.servo.get("blueallclear"));
     }
     //constructor
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -114,6 +120,7 @@ public class MoveMotors {
         sleep.Sleep(sleepTime);
         leftMotor.setPower(0);
         rightMotor.setPower(0);
+        sweeperMotor.setPower(0);
     }
 
     //move motors section
@@ -140,16 +147,18 @@ public class MoveMotors {
 
     //GyroObject
     public void gyroLeft(double degrees) {//GyroTurnLeft
-        double goalDegrees = (navx_device.getYaw() - degrees);
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        double goalDegrees = (navx_device.getYaw() + degrees);
         t.addData("Turn Start", "");
         sleep.Sleep(50);
         t.addData("Degrees Calculated", "");
-        while (goalDegrees < navx_device.getYaw()) {
-            leftMotor.setPower(-0.5);
+        while (goalDegrees > -navx_device.getYaw()) {
+            t.addData("Goal Heading", degrees);
+            leftMotor.setPower(-0.6);
             rightMotor.setPower(0.3);
             sleep.Sleep(10);
-            t.addData("Gyro Heading", navx_device.getYaw());
-            t.addData("Goal Heading", goalDegrees);
+            t.addData("Gyro Heading", -navx_device.getYaw());
         }
         t.addData("Turn Over", "");
         leftMotor.setPower(0);
@@ -158,21 +167,17 @@ public class MoveMotors {
     }
 
     public void gyroRight(double degrees) {//GyroTurnRight
-        double goalDegrees = (navx_device.getYaw() + degrees);
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
         t.addData("Turn Start", "");
         sleep.Sleep(50);
         t.addData("Degrees Calculated", "");
-        while (goalDegrees > navx_device.getYaw()) {
+        while (degrees > -navx_device.getYaw()) {
             t.addData("Goal Heading", degrees);
-            leftMotor.setPower(-0.5);
-            rightMotor.setPower(0.3);
+            leftMotor.setPower(0.3);
+            rightMotor.setPower(-0.6);
             sleep.Sleep(10);
-            t.addData("Gyro Heading", navx_device.getYaw());
-//            if (-degrees < navx_device.getYaw()) {
-//                t.addData("Turn In Progress", "");
-//            } else {
-//                t.addData("Turn (Should Be) Over", "");
-//            }
+            t.addData("Gyro Heading", -navx_device.getYaw());
         }
         t.addData("Turn Over", "");
         leftMotor.setPower(0);
@@ -193,6 +198,8 @@ public class MoveMotors {
     public void resetPosition() {
         navx_device.zeroYaw();
     }
+
+    public void resetGyro() { navx_device.zeroYaw(); }
 
     public String accurateColor() {
         Integer accurateRed = 0;
@@ -245,18 +252,22 @@ public class MoveMotors {
         leftFlapperServo.moveServo(0);
         climberDepositerServo.moveServo(0);
         winchServo.moveServo(1);
-        hopperDoorRed.moveServo(0.64);
-        hopperDoorBlue.moveServo(0.03);
+        hopperDoorRed.moveServo(0.7755);
+        hopperDoorBlue.moveServo(0.0245);
         hopperEntranceDoor.moveServo(0.7);
+        redAllClear.moveServo(1);
+        blueAllClear.moveServo(0);
     }
     public void setServosTele() {
         rightFlapperServo.moveServo(1);
         leftFlapperServo.moveServo(0);
         climberDepositerServo.moveServo(0);
         winchServo.moveServo(1);
-        hopperDoorRed.moveServo(0.64);
-        hopperDoorBlue.moveServo(0.03);
+        hopperDoorRed.moveServo(0.7755);
+        hopperDoorBlue.moveServo(0.0245);
         hopperEntranceDoor.moveServo(0.7);
+        redAllClear.moveServo(1);
+        blueAllClear.moveServo(0);
     }
 
     public void moveServo (String servoName, double servoPosition) {
