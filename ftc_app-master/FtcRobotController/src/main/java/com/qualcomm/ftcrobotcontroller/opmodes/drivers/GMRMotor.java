@@ -1,7 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.drivers;
 
 import com.qualcomm.ftcrobotcontroller.opmodes.Sleeper;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.robocol.Telemetry;
@@ -31,7 +30,11 @@ public class GMRMotor {
     }
 
     public double holdMotor(int position) {
-        this.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        this.motorHandle.setMode(DcMotorController.RunMode.RESET_ENCODERS);// reset encoder for arm
+
+        sleep.Sleep(50);//sleep time
+
+        this.motorHandle.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);//resets encoder for arm
         sleep.Sleep(10);
         if (this.motorHandle.getCurrentPosition() != position) {// current position
             if (this.motorHandle.getCurrentPosition() > position) {
