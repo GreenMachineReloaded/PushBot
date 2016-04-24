@@ -8,19 +8,20 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robocol.Telemetry;
 
-public class BlueFarToParkingZone0Delay extends LinearOpMode {
+public class RedUpMountain extends LinearOpMode {
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
 
     GMRServo leftFlapperServo;
     GMRServo rightFlapperServo;
-    GMRServo climberDepositerServo;
+    GMRServo climberDepositerBlueServo;
+    GMRServo climberDepositerRedServo;
     GMRServo winchServo;
     GMRServo hopperDoorBlue;
     GMRServo hopperDoorRed;
     GMRServo hopperEntranceDoor;
-    GMRServo sweeperLift;
-    GMRServo sweeperHold;
+    GMRServo redAllClear;
+    GMRServo blueAllClear;
 
     Servo servo1;
     Servo servo2;
@@ -30,14 +31,15 @@ public class BlueFarToParkingZone0Delay extends LinearOpMode {
     Servo servo6;
     Servo servo7;
     Servo servo8;
-    Servo servo9;
+    Servo servo11;
+    Servo servo12;
 
     Sleeper sleep;
 
     GyroSensor gyro;
 
     OpticalDistanceSensor opticSensorMap;
-    GMROpticDistanceSensor opticSensor;
+    GMROpticDistanceSensor opticSensorRed;
 
     Telemetry t;
 
@@ -46,8 +48,6 @@ public class BlueFarToParkingZone0Delay extends LinearOpMode {
     ColorSensorObject colorSensor;
 
     UltrasonicObject ultrasonic;
-
-    double goalDegrees;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -59,78 +59,66 @@ public class BlueFarToParkingZone0Delay extends LinearOpMode {
         rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
         gyro = hardwareMap.gyroSensor.get("gyro");
         sleep = new Sleeper();
-        opticSensor = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("optic"));
+        opticSensorRed = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("RedOptic"));
 
         leftFlapperServo = new GMRServo(servo1 = hardwareMap.servo.get("leftFlapperServo"));
         rightFlapperServo = new GMRServo(servo2 = hardwareMap.servo.get("rightFlapperServo"));
-        climberDepositerServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerBlueServo"));
+        climberDepositerBlueServo = new GMRServo(servo3 = hardwareMap.servo.get("climberDepositerBlueServo"));
+        climberDepositerRedServo = new GMRServo(servo8 = hardwareMap.servo.get("climberDepositorRedServo"));
         winchServo = new GMRServo(servo4 = hardwareMap.servo.get("winchServo"));
         hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));
         hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
         hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
-        sweeperLift = new GMRServo(servo8 = hardwareMap.servo.get("sweeperLift"));
-        sweeperHold = new GMRServo(servo9 = hardwareMap.servo.get("sweeperHold"));
-
-        goalDegrees = 0;
+        redAllClear = new GMRServo(servo11 = hardwareMap.servo.get("redallClear"));
+        blueAllClear = new GMRServo(servo12 = hardwareMap.servo.get("blueallclear"));
 
         GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
-        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensor, hardwareMap);
+        MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensorRed, hardwareMap);
 
         waitForStart();
-
-
-
-        //sleep.Sleep(10000);
+        move.resetGyro();
         rightFlapperServo.moveServo(1);
         leftFlapperServo.moveServo(0);
-        climberDepositerServo.moveServo(0);
+        climberDepositerBlueServo.moveServo(0);
+        climberDepositerRedServo.moveServo(1);
         winchServo.moveServo(1);
-        hopperDoorRed.moveServo(0.64);
-        hopperDoorBlue.moveServo(0.03);
+        hopperDoorRed.moveServo(0.7755);
+        hopperDoorBlue.moveServo(0.0245);
         hopperEntranceDoor.moveServo(0.7);
-        sweeperLift.moveServo(1);
-        sweeperHold.moveServo(0);
+        redAllClear.moveServo(1);
+        blueAllClear.moveServo(0);
 
-        while (opticSensor.getDistance() < 0.024 && opModeIsActive() && move.getTime() < 8) {
+        while (opticSensorRed.getDistance() < 0.03 && opModeIsActive()) {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
             rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftDriveMotor.setPower(-0.25);
-            rightDriveMotor.setPower(-0.25);
-            telemetry.addData("Current Time", move.getTime());
+            leftDriveMotor.setPower(-0.2);
+            rightDriveMotor.setPower(-0.35);
         }
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);
         telemetry.addData("", "Stage 3");
-        if (move.getTime() < 8) {
-            sleep.Sleep(500);
-            climberDepositerServo.moveServo(1);
-            sleep.Sleep(1000);
-            climberDepositerServo.moveServo(0);
-        }
-        leftDriveMotor.setPower(0.25);
-        rightDriveMotor.setPower(0.25);
-        sleep.Sleep(750);
-        //move.gyroRight(90);
-        goalDegrees = (move.getYaw() + 45);
-        t.addData("Turn Start", "");
+        sleep.Sleep(1000);
+        climberDepositerRedServo.moveServo(0);
+        sleep.Sleep(1000);
+        climberDepositerRedServo.moveServo(1);
+        sleep.Sleep(500);
+        move.moveBackward(1500, 65);
         sleep.Sleep(50);
-        t.addData("Degrees Calculated", "");
-        while (goalDegrees > move.getYaw()) {
-            t.addData("Goal Heading", goalDegrees);
-            leftDriveMotor.setPower(-0.5);
-            rightDriveMotor.setPower(0.3);
-            sleep.Sleep(10);
-            t.addData("Gyro Heading", move.getYaw());
-        }
+        leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+        sleep.Sleep(50);
+        move.gyroRight(88);
         t.addData("Turn Over", "");
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);
-        t.addData("Motor Power Zeroed", "");
         while (move.getPitch() < 17 && opModeIsActive()) {
-            leftDriveMotor.setPower(-0.25);
-            rightDriveMotor.setPower(-0.25);
+            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+            leftDriveMotor.setPower(-0.6);
+            rightDriveMotor.setPower(-0.6);
         }
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);
+
     }
 }

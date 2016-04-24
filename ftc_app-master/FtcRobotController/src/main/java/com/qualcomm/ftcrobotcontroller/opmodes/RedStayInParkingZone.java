@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robocol.Telemetry;
 
-public class RedToParkingZone0Delay extends LinearOpMode {
+public class RedStayInParkingZone extends LinearOpMode {
     DcMotor leftDriveMotor;
     DcMotor rightDriveMotor;
 
@@ -20,6 +20,8 @@ public class RedToParkingZone0Delay extends LinearOpMode {
     GMRServo hopperDoorBlue;
     GMRServo hopperDoorRed;
     GMRServo hopperEntranceDoor;
+    GMRServo redAllClear;
+    GMRServo blueAllClear;
 
     Servo servo1;
     Servo servo2;
@@ -29,6 +31,8 @@ public class RedToParkingZone0Delay extends LinearOpMode {
     Servo servo6;
     Servo servo7;
     Servo servo8;
+    Servo servo11;
+    Servo servo12;
 
     Sleeper sleep;
 
@@ -65,6 +69,8 @@ public class RedToParkingZone0Delay extends LinearOpMode {
         hopperDoorRed = new GMRServo(servo5 = hardwareMap.servo.get("hopperDoorRed"));
         hopperDoorBlue = new GMRServo(servo6 = hardwareMap.servo.get("hopperDoorBlue"));
         hopperEntranceDoor = new GMRServo(servo7 = hardwareMap.servo.get("hopperEntranceDoor"));
+        redAllClear = new GMRServo(servo11 = hardwareMap.servo.get("redallClear"));
+        blueAllClear = new GMRServo(servo12 = hardwareMap.servo.get("blueallclear"));
 
         GyroObject gyroTurn = new GyroObject(leftDriveMotor, rightDriveMotor,gyro,telemetry);
         MoveMotors move = new MoveMotors(colorSensor, leftDriveMotor, rightDriveMotor, ultrasonic, telemetry, gyro, opticSensorRed, hardwareMap);
@@ -75,9 +81,11 @@ public class RedToParkingZone0Delay extends LinearOpMode {
         climberDepositerBlueServo.moveServo(0);
         climberDepositerRedServo.moveServo(1);
         winchServo.moveServo(1);
-        hopperDoorRed.moveServo(0.05);
-        hopperDoorBlue.moveServo(0.75);
+        hopperDoorRed.moveServo(0.7755);
+        hopperDoorBlue.moveServo(0.0245);
         hopperEntranceDoor.moveServo(0.7);
+        redAllClear.moveServo(1);
+        blueAllClear.moveServo(0);
 
         while (opticSensorRed.getDistance() < 0.03 && opModeIsActive()) {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -92,16 +100,5 @@ public class RedToParkingZone0Delay extends LinearOpMode {
         climberDepositerRedServo.moveServo(0);
         sleep.Sleep(1000);
         climberDepositerRedServo.moveServo(1);
-        sleep.Sleep(500);
-        move.moveBackward(3000, 65);
-        leftDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-        rightDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-        move.gyroLeft(90);
-        while (move.getPitch() < 17 && opModeIsActive()) {
-            leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
-            rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftDriveMotor.setPower(-0.2);
-            rightDriveMotor.setPower(-0.35);
-        }
     }
 }
