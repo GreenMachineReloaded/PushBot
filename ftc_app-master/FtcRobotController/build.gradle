@@ -2,13 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 19
     }
     compileSdkVersion 19
-    buildToolsVersion '19.1.0'
-    productFlavors {
-    }
+    buildToolsVersion '21.1.2'
 }
 
 buildscript {
@@ -40,11 +38,6 @@ allprojects {
         jcenter()
         flatDir {
             dirs 'out'
-        }
-    }
-    repositories {
-        flatDir {
-            dirs 'libs', 'C:\\Users\\Patrick\\code\\PushBot\\ftc_app-master\\FtcRobotController\\navx-micro\\android\\libs'
         }
     }
 }

@@ -128,8 +128,8 @@ public class CadwynTeleOpFastSweeper extends OpMode {//initialisations for all m
         gyro = hardwareMap.gyroSensor.get("gyro");// for readings on gyro sensor---not necessary
 
         //Initializing drive motors
-        leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");// left motors
-        rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");// right motors
+        leftDriveMotor = hardwareMap.dcMotor.get("leftDrive");// left motors
+        rightDriveMotor = hardwareMap.dcMotor.get("rightDrive");// right motors
         leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);// FWD
         rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);// reverse
         winchMotor = hardwareMap.dcMotor.get("winchMotor");// initialisation winch motor
@@ -152,7 +152,7 @@ public class CadwynTeleOpFastSweeper extends OpMode {//initialisations for all m
         flapperRightRedPosition =  1;// right flapper
         flapperLeftBluePosition =  0;// left flapper
         climberDepositerBluePosition =  0;//climber depositor
-        winchServoPosition =  1;// winch servo
+        winchServoPosition =  0.45;// winch servo
         hopperDoorLeftPosition = 0.7755;// red hopper door (left)
         hopperDoorRightPosition = 0.0445;// blue hopper door (right)
         hopperEntranceDoorPosition = 0.45;
@@ -310,12 +310,12 @@ public class CadwynTeleOpFastSweeper extends OpMode {//initialisations for all m
         }
 
         //UpRamp
-        if ((navx_device.getPitch() > 17 && onMountain == "no")) {
+        if ((navx_device.getPitch() > 14 && onMountain == "no")) {
             hopperEntranceDoorPosition = 0;
             flapperLeftBluePosition = 0.5;
             flapperRightRedPosition = 0.5;
             onMountain = "yes";
-        } else if ((navx_device.getPitch() < 17 && onMountain == "yes")) {
+        } else if ((navx_device.getPitch() < 14 && onMountain == "yes")) {
             hopperEntranceDoorPosition = 0.45;
             flapperLeftBluePosition = 0;
             flapperRightRedPosition = 1;
@@ -348,7 +348,7 @@ public class CadwynTeleOpFastSweeper extends OpMode {//initialisations for all m
         climberDepositerBluePosition =  Range.clip(climberDepositerBluePosition, 0, 1);// climber depositor
         climberDepositerBlueServo.moveServo(climberDepositerBluePosition);
 
-        winchServoPosition =  Range.clip(winchServoPosition, 0.2, 0.45);// winch
+        winchServoPosition =  Range.clip(winchServoPosition, 0.36, 0.56);// winch
         winchServo.moveServo(winchServoPosition);
 
         hopperDoorLeftPosition =  Range.clip(hopperDoorLeftPosition, 0.129, 0.7755);// red hopper door (left)
@@ -369,7 +369,7 @@ public class CadwynTeleOpFastSweeper extends OpMode {//initialisations for all m
         blueAllClearPosition = Range.clip(blueAllClearPosition, 0, 1);
         blueAllClear.moveServo(blueAllClearPosition);
 
-        telemetry.addData("Arm Encoder Position", armMotor.motorHandle.getCurrentPosition());
+        telemetry.addData("Current Pitch", navx_device.getPitch());
 
     }
 }

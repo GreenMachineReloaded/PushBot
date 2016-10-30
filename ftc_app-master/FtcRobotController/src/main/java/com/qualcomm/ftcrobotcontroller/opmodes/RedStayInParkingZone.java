@@ -91,7 +91,7 @@ public class RedStayInParkingZone extends LinearOpMode {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
             rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
             leftDriveMotor.setPower(-0.2);
-            rightDriveMotor.setPower(-0.35);
+            rightDriveMotor.setPower(-0.25);
         }
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);

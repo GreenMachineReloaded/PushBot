@@ -113,7 +113,7 @@ public class BlueGetOutOfTheWay extends LinearOpMode {
         blueAllClear.moveServo(0);
 
         while (move.getTime() < 9 && opModeIsActive()) {
-            if (opticSensorRed.getDistance() < 0.03 && opModeIsActive()) {
+            if ((opticSensorRed.getDistance() < 0.03) && opModeIsActive()) {
                 leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
                 rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
                 leftDriveMotor.setPower(-0.2);
@@ -128,10 +128,12 @@ public class BlueGetOutOfTheWay extends LinearOpMode {
         rightDriveMotor.setPower(0);
         telemetry.addData("", "Stage 3");
         while (canDeposit && opModeIsActive()) {
+            telemetry.addData("Current Distance", (opticSensorRed.getDistance()));
             sleep.Sleep(1000);
             climberDepositerBlueServo.moveServo(1);
             sleep.Sleep(1000);
             climberDepositerBlueServo.moveServo(0);
+            telemetry.addData("Current Distance", (opticSensorRed.getDistance()));
             canDeposit = false;
         }
         sleep.Sleep(20);

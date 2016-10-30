@@ -55,8 +55,8 @@ public class BlueStayInParkingZone extends LinearOpMode {
 
         s = new Sleeper();
 
-        leftDriveMotor = hardwareMap.dcMotor.get("leftDriveMotor");
-        rightDriveMotor = hardwareMap.dcMotor.get("rightDriveMotor");
+        leftDriveMotor = hardwareMap.dcMotor.get("leftDrive");
+        rightDriveMotor = hardwareMap.dcMotor.get("rightDrive");
         gyro = hardwareMap.gyroSensor.get("gyro");
         sleep = new Sleeper();
         opticSensorBlue = new GMROpticDistanceSensor(opticSensorMap = hardwareMap.opticalDistanceSensor.get("blueOptic"));
@@ -91,7 +91,7 @@ public class BlueStayInParkingZone extends LinearOpMode {
             leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
             rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
             leftDriveMotor.setPower(-0.2);
-            rightDriveMotor.setPower(-0.35);
+            rightDriveMotor.setPower(-0.2);
         }
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);

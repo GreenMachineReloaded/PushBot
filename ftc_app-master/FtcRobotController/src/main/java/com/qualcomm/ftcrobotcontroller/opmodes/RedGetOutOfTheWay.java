@@ -111,12 +111,14 @@ public class RedGetOutOfTheWay extends LinearOpMode {
         redAllClear.moveServo(1);
         blueAllClear.moveServo(0);
 
-        while (move.getTime() < 12 && opModeIsActive()) {
-            if (opticSensorRed.getDistance() < 0.03 && opModeIsActive()) {
+        while (move.getTime() < 9 && opModeIsActive() && !canDeposit) {
+            telemetry.addData("Current Time", move.getTime());
+            telemetry.addData("Current Distance", (opticSensorRed.getDistance()));
+            if ((opticSensorRed.getDistance() < 0.03) && opModeIsActive()) {
                 leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
                 rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
                 leftDriveMotor.setPower(-0.2);
-                rightDriveMotor.setPower(-0.35);
+                rightDriveMotor.setPower(-0.25);
             }else {
                 leftDriveMotor.setPower(0);
                 rightDriveMotor.setPower(0);
@@ -126,18 +128,22 @@ public class RedGetOutOfTheWay extends LinearOpMode {
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);
         telemetry.addData("", "Stage 3");
+        telemetry.addData("Current Time", move.getTime());
         while (canDeposit && opModeIsActive()) {
+            telemetry.addData("Current Distance", (opticSensorRed.getDistance()));
+            telemetry.addData("Current Time", move.getTime());
             sleep.Sleep(1000);
             climberDepositerRedServo.moveServo(0);
             sleep.Sleep(1000);
             climberDepositerRedServo.moveServo(1);
+            telemetry.addData("Current Distance", (opticSensorRed.getDistance()));
             canDeposit = false;
         }
         sleep.Sleep(500);
-        move.moveBackward(500, 75);
-        while (move.getTime() < 20) {
+        move.moveBackward(1000, 75);
+        while (move.getTime() < 15) {
             if (45 > move.getYaw()) {
-                t.addData("Goal Heading", 45);
+                telemetry.addData("Current Time", move.getTime());
                 leftDriveMotor.setPower(0.4);
                 rightDriveMotor.setPower(-0.7);
                 sleep.Sleep(10);
@@ -149,8 +155,12 @@ public class RedGetOutOfTheWay extends LinearOpMode {
         }
         leftDriveMotor.setPower(0);
         rightDriveMotor.setPower(0);
-        if (move.getTime() < 27) {
-            move.moveForward(2000, 50);
+        t.addData("Current Time", move.getTime());
+        while (opModeIsActive()) {
+            t.addData("Current Time", move.getTime());
+            leftDriveMotor.setPower(-0.2);
+            rightDriveMotor.setPower(-0.35);
         }
+        t.addData("Current Time", move.getTime());
     }
 }
