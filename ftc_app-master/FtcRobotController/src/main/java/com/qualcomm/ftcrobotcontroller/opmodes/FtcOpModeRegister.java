@@ -47,6 +47,7 @@ public class FtcOpModeRegister implements OpModeRegister {
    */
   public void register(OpModeManager manager) {
 
+<<<<<<< HEAD
     /*
      * register your op modes here.
      * The first parameter is the name of the op mode
@@ -101,4 +102,15 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("Blue Auto", BlueStayInParkingZone.class);
 
   }
+=======
+    manager.register("TeleOp With Fast Sweeper", CadwynTeleOpFastSweeper.class);
+    manager.register("Test Sensors", TestSensors.class);
+    manager.register("Blue Stay", BlueStayInParkingZone.class);
+    manager.register("Red Stay", RedStayInParkingZone.class);
+    manager.register("Red Up Mountain", RedUpMountain.class);
+    manager.register("Red Get Out Of The Way", RedGetOutOfTheWay.class);
+    manager.register("Blue Get Out Of The Way", BlueGetOutOfTheWay.class);
+
+   }
+>>>>>>> origin/DumpClimbers
 }

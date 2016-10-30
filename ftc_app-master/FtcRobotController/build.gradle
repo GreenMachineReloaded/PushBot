@@ -40,6 +40,14 @@ allprojects {
             dirs 'out'
         }
     }
+<<<<<<< HEAD
+=======
+    repositories {
+        flatDir {
+         dirs 'libs', 'C:\\Users\\Amber\\Documents\\GitHub\\PushBot\\ftc_app-master\\FtcRobotController\\navx-micro\\android\\libs'
+        }
+    }
+>>>>>>> origin/DumpClimbers
 }
 
 dependencies {
